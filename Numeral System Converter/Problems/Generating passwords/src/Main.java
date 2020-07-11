@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -20,12 +21,19 @@ public class Main {
     }
 
     public static void fillCharsFromScope(StringBuilder str, int from, int to, int count) {
-        int lastChar = str.length() > 0 ? str.charAt(str.length() - 1) : -1;
-        int i = lastChar >= from && lastChar <= to ? lastChar - from + 1 : 0;
+        char lastChar = str.length() > 0 ? str.charAt(str.length() - 1) : '\0';
+        char randomChar = lastChar;
         for (int loop = 0; loop < count; loop++) {
-            str.append((char) (from + i));
-            i = i > to - from - 1 ? 0 : ++i;
+            while (randomChar == lastChar) {
+                randomChar = randChar(from, to);
+            }
+            lastChar = randomChar;
+            str.append(randomChar);
         }
+    }
+
+    public static char randChar(int from, int to) {
+        return (char) (new Random().nextInt(to - from + 1) + from);
     }
 
 }
