@@ -26,3 +26,11 @@ hs_err_pid*'
 **/task-remote-info.yaml
 **/lesson-info.yaml
 **/build/
+**/.gradle/
+**/.idea/
+**/build.gradle
+**/*.yaml
+**/gradle-wrapper.properties
+**/gradlew
+**/gradlew.bat
+**/settings.gradle
