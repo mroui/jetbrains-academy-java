@@ -52,4 +52,42 @@ public class Matrix {
                     newArray[i][j] += array[i][k] * m.array[k][j];
         return new Matrix(rows, m.columns, newArray);
     }
+
+    public Matrix transpose(String method) {
+        switch (method) {
+            case "1": {
+                double[][] newArray = new double[columns][rows];
+                for (int i = 0; i < rows; i++)
+                    for (int j = 0; j < columns; j++) {
+                        newArray[j][i] = array[i][j];
+                    }
+                return new Matrix(columns, rows, newArray);
+            }
+            case "2": {
+                double[][] newArray = new double[columns][rows];
+                for (int i = 0; i < rows; i++)
+                    for (int j = 0; j < columns; j++) {
+                        newArray[j][i] = array[rows - i - 1][columns - j - 1];
+                    }
+                return new Matrix(columns, rows, newArray);
+            }
+            case "3": {
+                double[][] newArray = new double[rows][columns];
+                for (int i = 0; i < rows; i++)
+                    for (int j = 0; j < columns; j++) {
+                        newArray[i][j] = array[i][columns - j - 1];
+                    }
+                return new Matrix(rows, columns, newArray);
+            }
+            case "4": {
+                double[][] newArray = new double[rows][columns];
+                for (int i = 0; i < rows; i++)
+                    for (int j = 0; j < columns; j++) {
+                        newArray[i][j] = array[rows - i - 1][j];
+                    }
+                return new Matrix(rows, columns, newArray);
+            }
+        }
+        return null;
+    }
 }

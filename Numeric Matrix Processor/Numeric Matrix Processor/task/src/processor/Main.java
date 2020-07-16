@@ -1,5 +1,6 @@
 package processor;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -16,6 +17,7 @@ public class Main {
                 "\n1. Add matrices\n" +
                         "2. Multiply matrix to a constant\n" +
                         "3. Multiply matrices\n" +
+                        "4. Transpose matrix\n" +
                         "0. Exit\n" +
                         "Your choice: ");
         switch (scanner.next()) {
@@ -28,6 +30,9 @@ public class Main {
             case "3":
                 matricesOperation("MULTIPLICATION");
                 break;
+            case "4":
+                transposeMatrix();
+                break;
             case "0":
                 return;
             default:
@@ -36,12 +41,30 @@ public class Main {
         start();
     }
 
+    private static void transposeMatrix() {
+        System.out.print(
+                "\n1. Main diagonal\n" +
+                        "2. Side diagonal\n" +
+                        "3. Vertical line\n" +
+                        "4. Horizontal line\n" +
+                        "Your choice: ");
+        String choice = scanner.next();
+        if (Arrays.asList("1", "2", "3", "4").contains(choice)) {
+            Matrix A = loadMatrix("");
+            System.out.println("The result is:");
+            A.transpose(choice).print();
+        } else {
+            System.out.println("Bad option!");
+            transposeMatrix();
+        }
+    }
+
     private static void matricesOperation(String operation) {
         Matrix A = loadMatrix("first");
         Matrix B = loadMatrix("second");
         Matrix C = operation.equals("ADDITION") ? A.addMatrix(B) : A.multiplyMatrix(B);
         if (C != null) {
-            System.out.println("The multiplication result is: ");
+            System.out.println("The multiplication result is:");
             C.print();
         }
     }
@@ -51,7 +74,7 @@ public class Main {
         System.out.print("Enter the constant: ");
         try {
             double constant = scanner.nextDouble();
-            System.out.println("The multiplication result is: ");
+            System.out.println("The multiplication result is:");
             A.multiplyConstant(constant).print();
         } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
