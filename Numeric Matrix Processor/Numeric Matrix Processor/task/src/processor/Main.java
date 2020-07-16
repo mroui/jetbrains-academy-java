@@ -20,6 +20,7 @@ public class Main {
                         "3. Multiply matrices\n" +
                         "4. Transpose matrix\n" +
                         "5. Calculate a determinant\n" +
+                        "6. Inverse matrix\n" +
                         "0. Exit\n" +
                         "Your choice: ");
         switch (scanner.next()) {
@@ -38,12 +39,24 @@ public class Main {
             case "5":
                 calculateDeterminant();
                 break;
+            case "6":
+                inverseMatrix();
+                break;
             case "0":
                 return;
             default:
                 System.out.println("ERROR: Bad option!");
         }
         start();
+    }
+
+    private static void inverseMatrix() {
+        Matrix A = loadMatrix("");
+        Matrix B = A.inverse();
+        if (B != null) {
+            System.out.println("The result is:");
+            B.print();
+        }
     }
 
     private static void calculateDeterminant() {

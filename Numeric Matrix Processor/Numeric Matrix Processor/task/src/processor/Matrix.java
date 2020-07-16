@@ -88,24 +88,46 @@ public class Matrix {
             result = array[0][0] * array[1][1] - array[1][0] * array[0][1];
         else
             for (int i = 0; i < n; i++)
-                result += Math.pow(-1, i) * array[i][0] * determinant(coFactor(array, n, i), n - 1);
+                result += Math.pow(-1, i) * array[0][i] * determinant(coFactor(array, n, 0, i), n - 1);
         return result;
     }
 
-    private double[][] coFactor(double[][] array, int n, int actualIndex) {
+    private double[][] coFactor(double[][] array, int n, int actualRow, int actualColumn) {
         double[][] coFactor = new double[n - 1][n - 1];
         int row = 0, col = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++)
-                if (i != actualIndex && j != 0) { //j!=0 -> because row 0 is chosen to calculate determinant
+                if (i != actualRow && j != actualColumn) {
                     coFactor[row][col] = array[i][j];
                     col++;
                 }
-            if (col > n - 2) {
-                row++;
+            if (col == n - 2) {
                 col = 0;
+                row++;
             }
         }
         return coFactor;
+    }
+
+    public Matrix inverse() {
+        if (rows != columns) {
+            System.out.println("ERROR: Wrong dimensions!");
+            return null;
+        } else if (determinant() == 0){
+            System.out.println("ERROR: Determinant equals 0!");
+            return null;
+        } else {
+            double[][] invertedArray = new double[rows][columns];
+            double x = 1.0 / determinant();
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
+                    Matrix transposedCoFactor = new Matrix(rows - 1, columns - 1, coFactor(array, rows, j, i)).transpose("1");
+                    invertedArray[i][j] = x * transposedCoFactor.determinant();
+                    if ((i + j) % 2 == 1)
+                        invertedArray[i][j] *= -1;
+                }
+            }
+            return new Matrix(rows, columns, invertedArray);
+        }
     }
 }
