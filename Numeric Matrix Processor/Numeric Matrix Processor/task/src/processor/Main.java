@@ -2,11 +2,12 @@ package processor;
 
 import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
 
-    final static Scanner scanner = new Scanner(System.in);
+    final static Scanner scanner = new Scanner(System.in).useLocale(Locale.ENGLISH);;
 
     public static void main(String[] args) {
         start();
