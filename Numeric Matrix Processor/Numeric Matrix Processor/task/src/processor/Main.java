@@ -34,12 +34,21 @@ public class Main {
             case "4":
                 transposeMatrix();
                 break;
+            case "5":
+                calculateDeterminant();
+                break;
             case "0":
                 return;
             default:
                 System.out.println("ERROR: Bad option!");
         }
         start();
+    }
+
+    private static void calculateDeterminant() {
+        Matrix A = loadMatrix("");
+        double determinant = A.determinant();
+        System.out.println("The result is:\n" + determinant);
     }
 
     private static void transposeMatrix() {
