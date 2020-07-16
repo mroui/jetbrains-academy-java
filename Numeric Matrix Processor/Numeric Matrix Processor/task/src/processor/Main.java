@@ -1,6 +1,7 @@
 package processor;
 
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -36,7 +37,7 @@ public class Main {
             case "0":
                 return;
             default:
-                System.out.println("Bad option!");
+                System.out.println("ERROR: Bad option!");
         }
         start();
     }
@@ -54,7 +55,8 @@ public class Main {
             System.out.println("The result is:");
             A.transpose(choice).print();
         } else {
-            System.out.println("Bad option!");
+            System.out.println("ERROR: Bad option!");
+            scanner.next();
             transposeMatrix();
         }
     }
@@ -76,8 +78,9 @@ public class Main {
             double constant = scanner.nextDouble();
             System.out.println("The multiplication result is:");
             A.multiplyConstant(constant).print();
-        } catch (NumberFormatException e) {
-            System.out.println(e.getMessage());
+        } catch (InputMismatchException e) {
+            System.out.println("ERROR: Bad input format!");
+            scanner.next();
             multiplyMatrixToConstant();
         }
     }
@@ -93,8 +96,9 @@ public class Main {
                 for (int j = 0; j < columns; j++)
                     array[i][j] = scanner.nextDouble();
             return new Matrix(rows, columns, array);
-        } catch (NumberFormatException e) {
-            System.out.println(e.getMessage());
+        } catch (InputMismatchException e) {
+            System.out.println("ERROR: Bad input format!");
+            scanner.next();
             return loadMatrix(which);
         }
     }
