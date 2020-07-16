@@ -52,4 +52,12 @@ public class Matrix {
                 newArray[i][j] = array[i][j] + m.array[i][j];
         return new Matrix(rows, columns, newArray);
     }
+
+    public Matrix multiplyConstant(int constant) {
+        int[][] newArray = new int[rows][columns];
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < columns; j++)
+                newArray[i][j] = constant * array[i][j];
+        return new Matrix(rows, columns, newArray);
+    }
 }
