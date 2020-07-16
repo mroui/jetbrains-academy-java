@@ -54,40 +54,20 @@ public class Matrix {
     }
 
     public Matrix transpose(String method) {
-        switch (method) {
-            case "1": {
-                double[][] newArray = new double[columns][rows];
-                for (int i = 0; i < rows; i++)
-                    for (int j = 0; j < columns; j++) {
-                        newArray[j][i] = array[i][j];
-                    }
-                return new Matrix(columns, rows, newArray);
-            }
-            case "2": {
-                double[][] newArray = new double[columns][rows];
-                for (int i = 0; i < rows; i++)
-                    for (int j = 0; j < columns; j++) {
-                        newArray[j][i] = array[rows - i - 1][columns - j - 1];
-                    }
-                return new Matrix(columns, rows, newArray);
-            }
-            case "3": {
-                double[][] newArray = new double[rows][columns];
-                for (int i = 0; i < rows; i++)
-                    for (int j = 0; j < columns; j++) {
-                        newArray[i][j] = array[i][columns - j - 1];
-                    }
-                return new Matrix(rows, columns, newArray);
-            }
-            case "4": {
-                double[][] newArray = new double[rows][columns];
-                for (int i = 0; i < rows; i++)
-                    for (int j = 0; j < columns; j++) {
-                        newArray[i][j] = array[rows - i - 1][j];
-                    }
-                return new Matrix(rows, columns, newArray);
-            }
+        if (method.equals("1") || method.equals("2")) {
+            double[][] newArray = new double[columns][rows];
+            for (int i = 0; i < rows; i++)
+                for (int j = 0; j < columns; j++) {
+                    newArray[j][i] = method.equals("1") ? array[i][j] : array[rows - i - 1][columns - j - 1];
+                }
+            return new Matrix(columns, rows, newArray);
+        } else {
+            double[][] newArray = new double[rows][columns];
+            for (int i = 0; i < rows; i++)
+                for (int j = 0; j < columns; j++) {
+                    newArray[i][j] = method.equals("3") ? array[i][columns - j - 1] : array[rows - i - 1][j];
+                }
+            return new Matrix(rows, columns, newArray);
         }
-        return null;
     }
 }
