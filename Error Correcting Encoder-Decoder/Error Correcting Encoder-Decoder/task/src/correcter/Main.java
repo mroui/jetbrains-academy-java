@@ -6,7 +6,28 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(emulateError(new Scanner(System.in).nextLine()));
+        String message = new Scanner(System.in).nextLine();
+        String encrypted = triple(message);
+        String withErrors = emulateError(encrypted);
+        String decrypted = decrypt(withErrors);
+        System.out.println(message + '\n' + encrypted + '\n' + withErrors + '\n' + decrypted);
+    }
+
+    private static String decrypt(String message) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < message.length(); i += 3)
+            if (message.charAt(i) == message.charAt(i + 1) || message.charAt(i) == message.charAt(i + 2))
+                result.append(message.charAt(i));
+            else if (message.charAt(i + 1) == message.charAt(i + 2))
+                result.append(message.charAt(i + 1));
+        return result.toString();
+    }
+
+    private static String triple(String message) {
+        StringBuilder result = new StringBuilder();
+        for (char ch : message.toCharArray())
+            result.append(ch).append(ch).append(ch);
+        return result.toString();
     }
 
     private static String emulateError(String text) {
