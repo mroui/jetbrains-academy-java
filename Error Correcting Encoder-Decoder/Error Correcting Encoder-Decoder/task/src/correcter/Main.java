@@ -33,8 +33,13 @@ public class Main {
     private static String emulateError(String text) {
         List<Character> alphabet = getAlphabet();
         StringBuilder result = new StringBuilder(text);
-        for (int i = 0; i < text.length(); i += 3)
-            result.setCharAt(i + random(0, 2), alphabet.get(random(0, alphabet.size())));
+        for (int i = 0; i < text.length(); i += 3) {
+            int randomIndex = i + random(0, 2);
+            char randomChar = text.charAt(randomIndex);
+            while (text.charAt(randomIndex) == randomChar)
+                randomChar = alphabet.get(random(0, alphabet.size()));
+            result.setCharAt(randomIndex, randomChar);
+        }
         return result.toString();
     }
 
