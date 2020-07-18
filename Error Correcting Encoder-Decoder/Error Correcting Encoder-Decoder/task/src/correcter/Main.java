@@ -1,16 +1,28 @@
 package correcter;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        String message = new Scanner(System.in).nextLine();
-        String encrypted = triple(message);
-        String withErrors = emulateError(encrypted);
-        String decrypted = decrypt(withErrors);
-        System.out.println(message + '\n' + encrypted + '\n' + withErrors + '\n' + decrypted);
+        try (BufferedReader input = new BufferedReader(new FileReader("send.txt"));
+             BufferedWriter output = new BufferedWriter(new FileWriter("received.txt"))) {
+            output.write(emulateErrorOnBit(input.readLine()));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static String emulateErrorOnBit(String text) {
+        StringBuilder result = new StringBuilder();
+        for (char ch : text.toCharArray()) {
+            StringBuilder binary = new StringBuilder(Integer.toBinaryString(ch));
+            int index = random(0, 7);
+            binary.setCharAt(index, binary.charAt(index) == '1' ? '0' : '1');
+            result.append((char) Integer.parseInt(binary.toString(), 2));
+        }
+        return result.toString();
     }
 
     private static String decrypt(String message) {
