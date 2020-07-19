@@ -18,13 +18,11 @@ public abstract class ErrorEmulator {
         return result.toString();
     }
 
-    public static String emulateErrorOnBit(String text) {
-        StringBuilder result = new StringBuilder();
-        for (char ch : text.toCharArray()) {
-            StringBuilder binary = new StringBuilder(Integer.toBinaryString(ch));
-            int index = random(0, 7);
-            binary.setCharAt(index, binary.charAt(index) == '1' ? '0' : '1');
-            result.append((char) Integer.parseInt(binary.toString(), 2));
+    public static String emulateErrorOnBit(String binary) {
+        StringBuilder result = new StringBuilder(binary);
+        for (int i = 0; i < binary.length(); i += 8) {
+            int index = random(i, i + 7);
+            result.setCharAt(index, result.charAt(index) == '1' ? '0' : '1');
         }
         return result.toString();
     }
