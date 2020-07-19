@@ -9,7 +9,7 @@ public class Main {
         System.out.print("Write a mode: ");
         switch (new java.util.Scanner(System.in).next()) {
             case "encode":
-                Operator.encode("send.txt");
+                Operator.encode("send.txt", "encoded.txt");
                 break;
             case "send":
                 break;

@@ -2,7 +2,7 @@ package correcter;
 
 public abstract class Converter {
 
-    public static String convertToBin(String text, int bitsAmount) {
+    public static String toBin(String text, int bitsAmount) {
         StringBuilder result = new StringBuilder();
         for (char ch : text.toCharArray()) {
             String binary = Integer.toBinaryString(ch);
@@ -17,7 +17,7 @@ public abstract class Converter {
     }
 
     //-1 for normal text, radix > 1 for number systems
-    public static String convertToHex(String text, int radix, int bitsAmount) {
+    public static String toHex(String text, int radix, int bitsAmount) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < text.length(); i += bitsAmount) {
             if (radix != -1) {
