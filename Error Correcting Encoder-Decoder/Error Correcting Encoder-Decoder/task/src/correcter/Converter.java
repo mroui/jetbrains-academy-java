@@ -32,6 +32,18 @@ public abstract class Converter {
         return result.toString();
     }
 
+    public static String toBin(byte[] bytes) {
+        StringBuilder result = new StringBuilder();
+        for (byte b : bytes) {
+            StringBuilder sb = new StringBuilder("00000000");
+            for (int bit = 0; bit < 8; bit++)
+                if (((b >> bit) & 1) > 0)
+                    sb.setCharAt(7 - bit, '1');
+            result.append(sb);
+        }
+        return result.toString();
+    }
+
     public static String getWithSpaces(String text, int shift) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < text.length(); i++) {
