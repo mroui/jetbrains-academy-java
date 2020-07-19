@@ -12,6 +12,7 @@ public class Main {
                 Operator.encode("send.txt", "encoded.txt");
                 break;
             case "send":
+                Operator.send("encoded.txt", "received.txt");
                 break;
             case "decode":
                 break;

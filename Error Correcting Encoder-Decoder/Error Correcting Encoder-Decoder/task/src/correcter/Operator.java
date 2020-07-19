@@ -38,6 +38,29 @@ public abstract class Operator {
         }
     }
 
+    public static void send(String filenameInput, String filenameOutput) {
+        try (OutputStream writer = new FileOutputStream(filenameOutput)) {
+            byte[] bytes = Files.readAllBytes(Paths.get(filenameInput));
+            String bin = toBin(bytes);
+            String hex = getWithSpaces(toHex(bin, 2, 8).toUpperCase(), 2);
+
+            String emulated = ErrorEmulator.emulateErrorOnBit(bin);
+
+            for (String str : getWithSpaces(emulated, 8).split(" "))
+                writer.write((byte) Integer.parseInt(str, 2));
+
+            System.out.println('\n' + filenameInput + ":\n"
+                    + "hex view: " + getWithSpaces(hex, 2) + '\n'
+                    + "bin view: " + getWithSpaces(bin, 8) + "\n\n"
+                    + filenameOutput + '\n'
+                    + "bin view: " + getWithSpaces(emulated, 8) + '\n'
+                    + "hex view: " + getWithSpaces(toHex(emulated, 2, 8).toUpperCase(), 2));
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static String encodeWithParity(String text) {
         StringBuilder encryption = new StringBuilder();
         int parity = 0;
