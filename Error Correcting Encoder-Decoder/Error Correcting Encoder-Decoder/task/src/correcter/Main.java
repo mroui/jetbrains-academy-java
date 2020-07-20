@@ -15,6 +15,7 @@ public class Main {
                 Operator.send("encoded.txt", "received.txt");
                 break;
             case "decode":
+                Operator.decode("received.txt", "decoded.txt");
                 break;
             default:
                 System.out.println("Bad operation!");

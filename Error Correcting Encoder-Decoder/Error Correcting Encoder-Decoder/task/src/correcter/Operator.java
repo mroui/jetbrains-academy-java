@@ -54,11 +54,53 @@ public abstract class Operator {
                     + "bin view: " + getWithSpaces(bin, 8) + "\n\n"
                     + filenameOutput + '\n'
                     + "bin view: " + getWithSpaces(emulated, 8) + '\n'
-                    + "hex view: " + getWithSpaces(toHex(emulated, 2, 8).toUpperCase(), 2));
+                    + "hex view: " + getWithSpaces(toHex(emulated, 2, 8), 2));
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public static void decode(String filenameInput, String filenameOutput) {
+        try (OutputStream writer = new FileOutputStream(filenameOutput)) {
+            byte[] bytes = Files.readAllBytes(Paths.get(filenameInput));
+            String bin = toBin(bytes);
+            String hex = toHex(bin, 2, 8);
+            String decodedError = ErrorEmulator.decryptErrorOnBitParity(bin);
+            String decodedParity = decodeParity(decodedError);
+            String decodedRepetitions = removeRepetition(decodedParity, 2);
+
+            int l = decodedRepetitions.length() % 8;
+            String removedAdditional = decodedRepetitions;
+            while (l != 0) removedAdditional = decodedRepetitions.substring(0, --l);
+
+            StringBuilder decodedMessage = new StringBuilder();
+            for (String str : getWithSpaces(removedAdditional, 8).split(" ")) {
+                char ch = (char) Integer.parseInt(str, 2);
+                decodedMessage.append(ch);
+                writer.write((byte) ch);
+            }
+
+            System.out.println('\n' + filenameInput + ":\n"
+                    + "hex view: " + getWithSpaces(hex, 2) + '\n'
+                    + "bin view: " + getWithSpaces(bin, 8) + "\n\n"
+                    + filenameOutput + ":\n"
+                    + "correct: " + getWithSpaces(decodedError, 8) + '\n'
+                    + "decode: " + getWithSpaces(decodedRepetitions, 8) + '\n'
+                    + "remove: " + getWithSpaces(removedAdditional, 8) + '\n'
+            + "hex view: " + getWithSpaces(toHex(removedAdditional, 2, 8), 2) + '\n'
+            + "text view: " + decodedMessage);
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static String decodeParity(String text) {
+        StringBuilder decryption = new StringBuilder();
+        for (int i = 0; i < text.length(); i += 8)
+            decryption.append(text, i, i + 6);
+        return decryption.toString();
     }
 
     public static String encodeWithParity(String text) {
