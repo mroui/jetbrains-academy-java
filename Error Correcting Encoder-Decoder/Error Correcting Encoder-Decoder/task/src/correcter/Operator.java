@@ -105,7 +105,11 @@ public abstract class Operator {
     }
 
     public static String encodeWithParity(String text) {
+        StringBuilder textBuilder = new StringBuilder(text);
+        while (textBuilder.length() % 6 != 0)
+            textBuilder.append('0');
         StringBuilder encryption = new StringBuilder();
+        text = textBuilder.toString();
         int parity = 0;
         for (int i = 0; i < text.length(); i += 2) {
             parity = parity ^ Integer.parseInt(text.substring(i, i + 1));
