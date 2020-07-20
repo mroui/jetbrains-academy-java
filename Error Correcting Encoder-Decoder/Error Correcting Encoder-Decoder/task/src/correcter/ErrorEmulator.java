@@ -27,6 +27,22 @@ public abstract class ErrorEmulator {
         return result.toString();
     }
 
+    public static String decryptErrorOnBitParity(String binary) {
+        StringBuilder result = new StringBuilder(binary);
+        for (int i = 0; i < binary.length(); i += 8) {
+            int indexError = 0;
+            int parity = 0;
+            for (int j = 0; j < 6; j += 2) {
+                if (result.charAt(i + j) != result.charAt(i + j + 1))
+                    indexError = i + j;
+                else
+                    parity ^= result.charAt(i + j);
+            }
+            result.replace(indexError, indexError + 2, parity == result.charAt(i + 6) ? "00" : "11");
+        }
+        return result.toString();
+    }
+
     public static String decryptTriple(String message) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < message.length(); i += 3)
