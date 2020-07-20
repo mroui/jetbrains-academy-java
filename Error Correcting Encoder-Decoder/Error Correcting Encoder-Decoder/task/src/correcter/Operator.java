@@ -15,11 +15,8 @@ public abstract class Operator {
             String text = new String(Files.readAllBytes(Paths.get(filenameInput)));
             String hex = toHex(text, -1, 1);
             String bin = Converter.toBin(text, 8);
-            StringBuilder twiceBin = new StringBuilder(Converter.repeatCharacters(bin, 2));
-            while (twiceBin.length() % 8 != 0)
-                twiceBin.append('0');
 
-            String encryption = encodeWithParity(twiceBin.toString());
+            String encryption = encodeHammingCode(bin);
 
             for (String str : getWithSpaces(encryption, 8).split(" "))
                 writer.write((byte) Integer.parseInt(str, 2));
@@ -29,7 +26,7 @@ public abstract class Operator {
                     + "hex view: " + getWithSpaces(hex, 2) + '\n'
                     + "bin view: " + getWithSpaces(bin, 8) + "\n\n"
                     + filenameOutput + ":\n"
-                    + "expand: " + getWithSpaces(getExpandFromParity(encryption), 8) + '\n'
+                    + "expand: " + getWithSpaces(getExpandHammingFromParity(encryption), 8) + '\n'
                     + "parity: " + getWithSpaces(encryption, 8) + '\n'
                     + "hex view: " + getWithSpaces(toHex(encryption, 2, 8), 2));
 
@@ -89,12 +86,28 @@ public abstract class Operator {
                     + "correct: " + getWithSpaces(decodedError, 8) + '\n'
                     + "decode: " + getWithSpaces(decodedRepetitions, 8) + '\n'
                     + "remove: " + getWithSpaces(removedAdditional, 8) + '\n'
-            + "hex view: " + getWithSpaces(toHex(removedAdditional, 2, 8), 2) + '\n'
-            + "text view: " + decodedMessage);
+                    + "hex view: " + getWithSpaces(toHex(removedAdditional, 2, 8), 2) + '\n'
+                    + "text view: " + decodedMessage);
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    private static char binXOR(char x, char y, char z) {
+        return Integer.toString((x ^ y) ^ Character.getNumericValue(z)).charAt(0);
+    }
+
+    private static String encodeHammingCode(String text) {
+        StringBuilder encryption = new StringBuilder();
+        for (int i = 0; i < text.length(); i += 4) {
+            encryption.append(binXOR(text.charAt(i), text.charAt(i + 1), text.charAt(i + 3)));
+            encryption.append(binXOR(text.charAt(i), text.charAt(i + 2), text.charAt(i + 3)));
+            encryption.append(text.charAt(i));
+            encryption.append(binXOR(text.charAt(i + 1), text.charAt(i + 2), text.charAt(i + 3)));
+            encryption.append(text, i + 1, i + 4).append('0');
+        }
+        return encryption.toString();
     }
 
     public static String decodeParity(String text) {
@@ -121,6 +134,17 @@ public abstract class Operator {
             }
         }
         return encryption.toString();
+    }
+
+    private static String getExpandHammingFromParity(String binary) {
+        StringBuilder result = new StringBuilder(binary);
+        for (int i = 0; i < result.length(); i += 8) {
+            result.setCharAt(i, '.');
+            result.setCharAt(i + 1, '.');
+            result.setCharAt(i + 3, '.');
+            result.setCharAt(i + 7, '.');
+        }
+        return result.toString();
     }
 
     private static String getExpandFromParity(String binary) {
