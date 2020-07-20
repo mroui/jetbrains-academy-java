@@ -70,9 +70,10 @@ public abstract class Operator {
             String decodedParity = decodeParity(decodedError);
             String decodedRepetitions = removeRepetition(decodedParity, 2);
 
-            int l = decodedRepetitions.length() % 8;
+            int l = decodedRepetitions.length();
             String removedAdditional = decodedRepetitions;
-            while (l != 0) removedAdditional = decodedRepetitions.substring(0, --l);
+            while (l % 8 != 0)
+                removedAdditional = decodedRepetitions.substring(0, --l);
 
             StringBuilder decodedMessage = new StringBuilder();
             for (String str : getWithSpaces(removedAdditional, 8).split(" ")) {
