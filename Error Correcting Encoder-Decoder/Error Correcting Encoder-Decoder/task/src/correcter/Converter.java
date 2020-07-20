@@ -29,7 +29,7 @@ public abstract class Converter {
             } else
                 result.append(Integer.toHexString(text.charAt(i)));
         }
-        return result.toString();
+        return result.toString().toUpperCase();
     }
 
     public static String toBin(byte[] bytes) {
@@ -58,6 +58,13 @@ public abstract class Converter {
         StringBuilder result = new StringBuilder();
         for (char ch : message.toCharArray())
             result.append(String.valueOf(ch).repeat(Math.max(0, howMany)));
+        return result.toString();
+    }
+
+    public static String removeRepetition(String message, int howMany) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < message.length(); i += howMany)
+            result.append(message.charAt(i));
         return result.toString();
     }
 
