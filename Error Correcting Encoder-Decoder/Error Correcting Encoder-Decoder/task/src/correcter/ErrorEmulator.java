@@ -38,7 +38,9 @@ public abstract class ErrorEmulator {
                 else
                     parity ^= result.charAt(i + j);
             }
-            result.replace(indexError, indexError + 2, parity == result.charAt(i + 6) ? "00" : "11");
+            int parityBit = Integer.parseInt(String.valueOf(result.charAt(i + 6)));
+            String errorBits = parity == parityBit ? "00" : "11";
+            result.replace(indexError, indexError + 2, errorBits);
         }
         return result.toString();
     }
