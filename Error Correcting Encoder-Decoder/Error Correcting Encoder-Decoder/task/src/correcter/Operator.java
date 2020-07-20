@@ -28,10 +28,10 @@ public abstract class Operator {
                     + "text view: " + text + '\n'
                     + "hex view: " + getWithSpaces(hex, 2) + '\n'
                     + "bin view: " + getWithSpaces(bin, 8) + "\n\n"
-                    + filenameOutput + '\n'
+                    + filenameOutput + ":\n"
                     + "expand: " + getWithSpaces(getExpandFromParity(encryption), 8) + '\n'
                     + "parity: " + getWithSpaces(encryption, 8) + '\n'
-                    + "hex view: " + getWithSpaces(toHex(encryption, 2, 8).toUpperCase(), 2));
+                    + "hex view: " + getWithSpaces(toHex(encryption, 2, 8), 2));
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -42,7 +42,7 @@ public abstract class Operator {
         try (OutputStream writer = new FileOutputStream(filenameOutput)) {
             byte[] bytes = Files.readAllBytes(Paths.get(filenameInput));
             String bin = toBin(bytes);
-            String hex = getWithSpaces(toHex(bin, 2, 8).toUpperCase(), 2);
+            String hex = toHex(bin, 2, 8);
 
             String emulated = ErrorEmulator.emulateErrorOnBit(bin);
 
@@ -52,7 +52,7 @@ public abstract class Operator {
             System.out.println('\n' + filenameInput + ":\n"
                     + "hex view: " + getWithSpaces(hex, 2) + '\n'
                     + "bin view: " + getWithSpaces(bin, 8) + "\n\n"
-                    + filenameOutput + '\n'
+                    + filenameOutput + ":\n"
                     + "bin view: " + getWithSpaces(emulated, 8) + '\n'
                     + "hex view: " + getWithSpaces(toHex(emulated, 2, 8), 2));
 
