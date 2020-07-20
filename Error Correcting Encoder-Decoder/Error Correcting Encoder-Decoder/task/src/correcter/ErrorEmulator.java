@@ -45,6 +45,18 @@ public abstract class ErrorEmulator {
         return result.toString();
     }
 
+    public static String decryptHammingCodeErrorOnBit(String binary) {
+        StringBuilder result = new StringBuilder(binary);
+        for (int i = 0; i < binary.length(); i += 8) {
+            char e3 = Operator.binXOR(result.charAt(i + 3), result.charAt(i + 4), result.charAt(i + 5), result.charAt(i + 6));
+            char e2 = Operator.binXOR(result.charAt(i + 1), result.charAt(i + 2), result.charAt(i + 5), result.charAt(i + 6));
+            char e1 = Operator.binXOR(result.charAt(i), result.charAt(i + 2), result.charAt(i + 4), result.charAt(i + 6));
+            int indexError = i + Integer.parseInt(String.valueOf(e3) + e2 + e1, 2) - 1;
+            result.setCharAt(indexError, result.charAt(indexError) == '0' ? '1' : '0');
+        }
+        return result.toString();
+    }
+
     public static String decryptTriple(String message) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < message.length(); i += 3)

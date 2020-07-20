@@ -63,17 +63,11 @@ public abstract class Operator {
             byte[] bytes = Files.readAllBytes(Paths.get(filenameInput));
             String bin = toBin(bytes);
             String hex = toHex(bin, 2, 8);
-            String decodedError = ErrorEmulator.decryptErrorOnBitParity(bin);
-            String decodedParity = decodeParity(decodedError);
-            String decodedRepetitions = removeRepetition(decodedParity, 2);
-
-            int l = decodedRepetitions.length();
-            String removedAdditional = decodedRepetitions;
-            while (l % 8 != 0)
-                removedAdditional = decodedRepetitions.substring(0, --l);
+            String decodedError = ErrorEmulator.decryptHammingCodeErrorOnBit(bin);
+            String decodedParity = decodeHammingCode(decodedError);
 
             StringBuilder decodedMessage = new StringBuilder();
-            for (String str : getWithSpaces(removedAdditional, 8).split(" ")) {
+            for (String str : getWithSpaces(decodedParity, 8).split(" ")) {
                 char ch = (char) Integer.parseInt(str, 2);
                 decodedMessage.append(ch);
                 writer.write((byte) ch);
@@ -84,9 +78,8 @@ public abstract class Operator {
                     + "bin view: " + getWithSpaces(bin, 8) + "\n\n"
                     + filenameOutput + ":\n"
                     + "correct: " + getWithSpaces(decodedError, 8) + '\n'
-                    + "decode: " + getWithSpaces(decodedRepetitions, 8) + '\n'
-                    + "remove: " + getWithSpaces(removedAdditional, 8) + '\n'
-                    + "hex view: " + getWithSpaces(toHex(removedAdditional, 2, 8), 2) + '\n'
+                    + "decode: " + getWithSpaces(decodedParity, 8) + '\n'
+                    + "hex view: " + getWithSpaces(toHex(decodedParity, 2, 8), 2) + '\n'
                     + "text view: " + decodedMessage);
 
         } catch (IOException e) {
@@ -94,8 +87,12 @@ public abstract class Operator {
         }
     }
 
-    private static char binXOR(char x, char y, char z) {
+    public static char binXOR(char x, char y, char z) {
         return Integer.toString((x ^ y) ^ Character.getNumericValue(z)).charAt(0);
+    }
+
+    public static char binXOR(char v, char x, char y, char z) {
+        return Integer.toString(binXOR(x, y, z) ^ v).charAt(0);
     }
 
     private static String encodeHammingCode(String text) {
@@ -108,6 +105,13 @@ public abstract class Operator {
             encryption.append(text, i + 1, i + 4).append('0');
         }
         return encryption.toString();
+    }
+
+    private static String decodeHammingCode(String text) {
+        StringBuilder decryption = new StringBuilder();
+        for (int i = 0; i < text.length(); i += 8)
+            decryption.append(text.charAt(i + 2)).append(text.substring(i + 4, i + 7));
+        return decryption.toString();
     }
 
     public static String decodeParity(String text) {
