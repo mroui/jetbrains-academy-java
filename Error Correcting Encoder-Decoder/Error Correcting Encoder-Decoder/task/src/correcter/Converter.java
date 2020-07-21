@@ -23,7 +23,7 @@ public abstract class Converter {
             if (radix != -1) {
                 int decimal = i + bitsAmount >= text.length()
                         ? Integer.parseInt(String.valueOf(text.charAt(i)))
-                        : Integer.parseInt(text, i, i + bitsAmount, radix);
+                        : Integer.parseInt(text.substring(i, i + bitsAmount), radix);
                 String hex = Integer.toHexString(decimal);
                 result.append(hex.length() == 1 ? '0' + hex : hex);
             } else
@@ -57,7 +57,8 @@ public abstract class Converter {
     public static String repeatCharacters(String message, int howMany) {
         StringBuilder result = new StringBuilder();
         for (char ch : message.toCharArray())
-            result.append(String.valueOf(ch).repeat(Math.max(0, howMany)));
+            for (int i = 0; i < howMany; i++)
+                result.append(ch);
         return result.toString();
     }
 
