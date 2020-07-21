@@ -99,9 +99,10 @@ public class Matrix {
             for (int j = 0; j < n; j++)
                 if (i != actualRow && j != actualColumn) {
                     coFactor[row][col] = array[i][j];
-                    col++;
+                    if (col + 1 < n - 1)
+                        col++;
                 }
-            if (col == n - 2) {
+            if (col == n - 2 && row + 1 < n - 1) {
                 col = 0;
                 row++;
             }
