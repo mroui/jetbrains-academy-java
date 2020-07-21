@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+		System.out.println("[sourceRadix] [number] [targetRadix]");
         Scanner scanner = new Scanner(System.in);
         try {
             int sourceRadix = scanner.nextInt();
@@ -13,7 +14,7 @@ public class Main {
                 throw new NumberFormatException("Radix should be in <1, 35>");
             System.out.println(NumeralConverter.fromToAnyRadix(sourceRadix, number, targetRadix));
         } catch (Exception e) {
-            System.out.println("error: " + e.getMessage());
+            System.out.println("error: " + e);
         }
     }
 }
