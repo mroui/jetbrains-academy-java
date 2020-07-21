@@ -13,7 +13,7 @@ After finishing this project, you'll get to know a lot about planning and develo
 
 ## Setup
 * [Install JDK](https://www.oracle.com/pl/java/technologies/javase-downloads.html)
-* [Install Apache Ant] (https://ant.apache.org/)
+* [Install Apache Ant](https://ant.apache.org/)
 * Clone repository
 ```
 git clone https://github.com/mroui/jetbrains-academy-java.git
