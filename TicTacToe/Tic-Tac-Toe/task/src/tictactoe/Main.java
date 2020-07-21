@@ -25,7 +25,7 @@ public class Main {
         TicTacToe game = new TicTacToe();
         game.print();
         while (true) {
-            System.out.print("Enter the coordinates:");
+            System.out.print("Enter the coordinates: ");
             String xs = sc.next();
             String ys = sc.next();
             if (checkIntInput(xs) && checkIntInput(ys)) {
