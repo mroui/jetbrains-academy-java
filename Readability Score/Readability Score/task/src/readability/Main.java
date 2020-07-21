@@ -1,6 +1,7 @@
 package readability;
 
 import java.io.IOException;
+import java.nio.charset.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -13,10 +14,12 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            analyzeText(Files.readString(Paths.get(args[0])));
+            analyzeText(new String(Files.readAllBytes(Paths.get(args[0])), StandardCharsets.UTF_8));
         } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+            System.out.println("Error with " + e.getMessage());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Bad parameters! Pass file as parameter.");
+		}
     }
 
     public static void analyzeText(String text) {
@@ -63,8 +66,11 @@ public class Main {
                 score += smog(polysyllables, sentences);
                 score += cl(chars, words, sentences);
                 score /= 4;
-                System.out.print("This text should be understood in average by " + String.format("%.2f", score) + " year olds.");
+                System.out.println("This text should be understood in average by " + String.format("%.2f", score) + " year olds.");
                 break;
+			default:
+				System.out.println("Bad parameter!");
+				calculateReadabilityScore(chars, syllables, polysyllables, words, sentences);
         }
     }
 
