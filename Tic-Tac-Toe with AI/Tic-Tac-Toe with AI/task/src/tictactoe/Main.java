@@ -8,8 +8,10 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+		System.out.println("Welcome in Tic-Tac-Toe with AI!\n" + 
+			"[start | exit] [user | easy | medium | hard] [user | easy | medium | hard]");
         while (true) {
-            String[] command = readCommand();
+			String[] command = readCommand();
             if (command != null) {
                 TicTacToe game = new TicTacToe(PlayerType.get(command[1]), PlayerType.get(command[2]));
                 game.print();
