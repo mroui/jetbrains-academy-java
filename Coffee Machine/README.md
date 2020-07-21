@@ -24,7 +24,7 @@ git clone https://github.com/mroui/jetbrains-academy-java.git
 ```
 cd jetbrains-academy-java/Coffee\ Machine
 ```
-* Compile java class
+* Compile java file
 ```
 javac ./Coffee\ Machine/task/src/machine/CoffeeMachine.java
 ```
