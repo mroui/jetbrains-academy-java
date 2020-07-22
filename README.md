@@ -2,22 +2,22 @@
 
 > I'm learning on [JetBrains Academy](https://www.jetbrains.com/academy/) platform on track Java Developer. :coffee:
 
-### About
-This path includes issues and problems of the [Java knowledge map](https://hyperskill.org/knowledge-map/73?v=table).
+## About
+This path includes issues of the [Java knowledge map](https://hyperskill.org/knowledge-map/73?v=table).
 Some of completed tasks are also related to the problems of maps ["Essentials"](https://hyperskill.org/knowledge-map/357?v=table) and ["Algorithms"](https://hyperskill.org/knowledge-map/521?v=table).
-There are several main projects of varying difficulty level on the platform. 
+There are several main projects of varying difficulty level. 
 Each repository folder contains one of those projects and additionaly a "Problems" directory with small tasks related to project issues or other daily tasks.
-Can be said, "trivial" problems will also be found here, but it is always worth refreshing basic knowledge :+1: or it is good to keep up the daily strike n platform. :wink:
+Can be said, "trivial" problems can also be found here, but it is always worth refreshing basic knowledge :+1: or it is good to keep up the daily strike on platform. :wink:
 
-### Projects
-* :white_check_mark: :muscle: Easy :link: [Coffee Machine](Coffee%20Machine/README.md)
-* :white_check_mark: :muscle: Easy :link: [Tic-Tac-Toe](TicTacToe/README.md)
-* :white_check_mark: :muscle: Medium :link: [Tic-Tac-Toe with AI](Tic-Tac-Toe%20with%20AI/README.md)
-* :white_check_mark: :muscle: Medium :link: [Readability Score](Readability%20Score/README.md)
-* :white_check_mark: :muscle: Medium :link: [Numeral System Converter](Numeral%20System%20Converter/README.md)
-* :white_check_mark: :muscle: Medium :link: [Numeric Matrix Processor](Numeric%20Matrix%20Processor/README.md)
-* :white_check_mark: :muscle: Medium :link: [Error Correcting Encoder-Decoder](Error%20Correcting%20Encoder-Decoder/README.md)
-* :construction: :muscle: Medium :link: [Encryptiion-Decryption](Encryption-Decryption/README.md)
+## Projects
+* :white_check_mark: :muscle: Easy   [Coffee Machine](Coffee%20Machine)
+* :white_check_mark: :muscle: Easy   [Tic-Tac-Toe](TicTacToe)
+* :white_check_mark: :muscle: Medium [Tic-Tac-Toe with AI](Tic-Tac-Toe%20with%20AI)
+* :white_check_mark: :muscle: Medium [Readability Score](Readability%20Score)
+* :white_check_mark: :muscle: Medium [Numeral System Converter](Numeral%20System%20Converter)
+* :white_check_mark: :muscle: Medium [Numeric Matrix Processor](Numeric%20Matrix%20Processor)
+* :white_check_mark: :muscle: Medium [Error Correcting Encoder-Decoder](Error%20Correcting%20Encoder-Decoder)
+* :construction: :muscle: Medium [Encryption-Decryption](Encryption-Decryption)
 * :black_square_button: Game of life
 * :black_square_button: Digit Recognition
 * :black_square_button: Phone Book
