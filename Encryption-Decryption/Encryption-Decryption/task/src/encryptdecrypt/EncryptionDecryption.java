@@ -1,6 +1,6 @@
 package encryptdecrypt;
 
-public class Encryption {
+public class EncryptionDecryption {
 
     private static final String alphabet = "abcdefghijklmnopqrstuvwxyz";
 
@@ -13,17 +13,16 @@ public class Encryption {
         return encryption.toString();
     }
 
-    static String byShift(String message, int shift) {
+    static String byShift(String message, int shift, boolean encrypt) {
         StringBuilder encryption = new StringBuilder();
-        for (char ch : message.toCharArray())
-            if (alphabet.indexOf(ch) != -1) {
-                int index = alphabet.indexOf(ch) + shift;
-                while (index >= alphabet.length())
-                    index %= alphabet.length();
-                encryption.append(alphabet.charAt(index));
-            } else {
-                encryption.append(ch);
-            }
+        for (char ch : message.toCharArray()) {
+            int index = encrypt ? ch + shift : ch - shift;
+            while (index < 32)
+                index += 126 - 32 + 1;      //scope of chars on ASCII table <32, 126>
+            while (index > 126)
+                index -= 126 - 32 + 1;
+            encryption.append((char) index);
+        }
         return encryption.toString();
     }
 }
