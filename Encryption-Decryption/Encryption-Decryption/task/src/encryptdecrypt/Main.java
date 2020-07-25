@@ -1,7 +1,6 @@
 package encryptdecrypt;
 
 import java.util.Scanner;
-import static encryptdecrypt.EncryptionDecryption.*;
 
 public class Main {
 
@@ -9,10 +8,10 @@ public class Main {
         final Scanner scanner = new Scanner(System.in);
         switch (scanner.nextLine()) {
             case "enc":
-                System.out.println(byShift(scanner.nextLine(), scanner.nextInt(), true));
+                System.out.println(Shift.encrypt(scanner.nextLine(), scanner.nextInt()));
                 break;
             case "dec":
-                System.out.println(byShift(scanner.nextLine(), scanner.nextInt(), false));
+                System.out.println(Shift.decrypt(scanner.nextLine(), scanner.nextInt()));
                 break;
             case "exit":
                 scanner.close();
