@@ -1,8 +1,12 @@
 package encryptdecrypt;
 
+import java.util.Scanner;
+
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println(Encryption.byOtherSide("we found a treasure!"));
+        final Scanner scanner = new Scanner(System.in);
+        System.out.println(Encryption.byShift(scanner.nextLine(), scanner.nextInt()));
+        scanner.close();
     }
 }
