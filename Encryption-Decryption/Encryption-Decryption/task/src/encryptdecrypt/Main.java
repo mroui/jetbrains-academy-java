@@ -15,7 +15,8 @@ public class Main {
                     "[-data]\t[message] - string message to encrypt / decrypt\n\n" +
                     "[-in]\t[filename.txt] - Read data from file to encrypt / decrypt\n\n" +
                     "[-out]\t[filename.txt] - Write result data to file\n\n" +
-                    "[-key]\t[1..n] - Integer shift key\n");
+                    "[-key]\t[1..n] - Integer shift key\n\n" +
+                    "[-alg]\t[reversed | shift | unicode] - Algorithm to encrypt / decrypt data\n");
         else run(args);
     }
 
@@ -34,6 +35,7 @@ public class Main {
         int key = 0;
         String input = null;
         String output = null;
+        AlgorithmType alg = AlgorithmType.SHIFT;
         for (int i = 0; i < args.length; i += 2) {
             if (i + 1 < args.length)
                 switch (args[i]) {
@@ -52,10 +54,14 @@ public class Main {
                     case "-out":
                         output = args[i + 1];
                         break;
+                    case "-alg":
+                        alg = args[i + 1].equals("reversed") ? AlgorithmType.REVERSED :
+                                args[i + 1].equals("unicode") ? AlgorithmType.UNICODE : AlgorithmType.SHIFT;
+                        break;
                     default:
                         System.out.println("Unknown argument: " + args[i]);
                 }
         }
-        return AlgorithmFactory.create(AlgorithmType.SHIFT, data, mode, input, output, key);
+        return AlgorithmFactory.create(alg, data, mode.equals("enc"), input, output, key);
     }
 }

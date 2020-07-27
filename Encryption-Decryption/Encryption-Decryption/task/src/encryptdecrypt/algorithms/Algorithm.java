@@ -5,13 +5,13 @@ import java.io.*;
 public abstract class Algorithm {
 
     String message;
-    String mode;
+    boolean isEncryption;
     String input;
     String output;
 
-    Algorithm(String message, String mode, String input, String output) {
+    Algorithm(String message, boolean mode, String input, String output) {
         this.message = message;
-        this.mode = mode;
+        this.isEncryption = mode;
         this.input = input;
         this.output = output;
     }
@@ -37,7 +37,7 @@ public abstract class Algorithm {
     public void execute() throws IOException {
         if (input != null && message.isEmpty())
             readFile();
-        String result = mode.equals("enc") ? encrypt() : decrypt();
+        String result = isEncryption ? encrypt() : decrypt();
         if (output != null)
             writeFile(result);
         else

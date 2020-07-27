@@ -4,7 +4,7 @@ public class Reversed extends Algorithm {
 
     private static final String alphabet = "abcdefghijklmnopqrstuvwxyz";
 
-    public Reversed(String message, String mode, String input, String output) {
+    public Reversed(String message, boolean mode, String input, String output) {
         super(message, mode, input, output);
     }
 
