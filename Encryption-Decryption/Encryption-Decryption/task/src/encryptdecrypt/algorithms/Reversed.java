@@ -1,10 +1,15 @@
-package encryptdecrypt;
+package encryptdecrypt.algorithms;
 
-public class Reversed {
+public class Reversed extends Algorithm {
 
     private static final String alphabet = "abcdefghijklmnopqrstuvwxyz";
 
-    static String encrypt(String message) {
+    public Reversed(String message, String mode, String input, String output) {
+        super(message, mode, input, output);
+    }
+
+    @Override
+    public String encrypt() {
         StringBuilder encryption = new StringBuilder();
         for (char ch : message.toCharArray())
             encryption.append(alphabet.indexOf(ch) != -1
@@ -13,8 +18,8 @@ public class Reversed {
         return encryption.toString();
     }
 
-    static String decrypt(String message) {
-        return encrypt(message);
+    @Override
+    public String decrypt() {
+        return encrypt();
     }
-
 }

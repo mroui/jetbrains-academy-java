@@ -1,52 +1,39 @@
 package encryptdecrypt;
 
-import java.io.*;
+import encryptdecrypt.algorithms.Algorithm;
+import encryptdecrypt.algorithms.AlgorithmFactory;
+import encryptdecrypt.algorithms.AlgorithmType;
+
 import java.util.InputMismatchException;
 
 public class Main {
 
-    private static String mode = "enc";
-    private static String data = "";
-    private static int key = 0;
-    private static String input;
-    private static String output;
-
     public static void main(String[] args) {
+        if (args.length == 0)
+            System.out.println("\nWrong arguments!\n\n" +
+                    "[-mode]\t[enc | dec] - Encryption / decryption mode\n\n" +
+                    "[-data]\t[message] - string message to encrypt / decrypt\n\n" +
+                    "[-in]\t[filename.txt] - Read data from file to encrypt / decrypt\n\n" +
+                    "[-out]\t[filename.txt] - Write result data to file\n\n" +
+                    "[-key]\t[1..n] - Integer shift key\n");
+        else run(args);
+    }
+
+    private static void run(String[] args) {
         try {
-            parseArguments(args);
-            execute();
+            Algorithm algorithm = parseArguments(args);
+            algorithm.execute();
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getClass().getName());
         }
     }
 
-    private static void execute() throws IOException {
-        if (input != null && data.isEmpty())
-            readFile();
-
-        String result = mode.equals("enc") ? Shift.encrypt(data, key) : Shift.decrypt(data, key);
-
-        if (output != null)
-            writeFile(result);
-        else
-            System.out.println(result);
-    }
-
-    private static void writeFile(String result) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(output));
-        writer.write(result);
-        writer.close();
-    }
-
-    private static void readFile() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(input));
-        String line = "";
-        while ((line = reader.readLine()) != null)
-            data += line;
-        reader.close();
-    }
-
-    private static void parseArguments(String[] args) throws InputMismatchException {
+    private static Algorithm parseArguments(String[] args) throws InputMismatchException {
+        String mode = "enc";
+        String data = "";
+        int key = 0;
+        String input = null;
+        String output = null;
         for (int i = 0; i < args.length; i += 2) {
             if (i + 1 < args.length)
                 switch (args[i]) {
@@ -69,6 +56,6 @@ public class Main {
                         System.out.println("Unknown argument: " + args[i]);
                 }
         }
+        return AlgorithmFactory.create(AlgorithmType.SHIFT, data, mode, input, output, key);
     }
-
 }
