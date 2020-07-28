@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 
 public class EncryptDecryptTest extends StageTest<String> {
@@ -19,7 +20,7 @@ public class EncryptDecryptTest extends StageTest<String> {
 
     @Override
     public List<TestCase<String>> generate() {
-        return List.of(
+        return Arrays.asList(
             new TestCase<String>()
                 .addArguments(
                     "-alg", "unicode",
@@ -150,7 +151,7 @@ public class EncryptDecryptTest extends StageTest<String> {
 
         try {
             Path path = Paths.get(FileUtils.CURRENT_DIR + fileName);
-            output = Files.readString(path, StandardCharsets.UTF_8);
+            output = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
         } catch (NoSuchFileException e) {
             return new CheckResult(false, "File output.txt not found!");
         } catch (IOException e) {
