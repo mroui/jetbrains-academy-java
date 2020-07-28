@@ -28,9 +28,4 @@ hs_err_pid*'
 **/build/
 **/.gradle/
 **/.idea/
-**/build.gradle
 **/*.yaml
-**/gradle-wrapper.properties
-**/gradlew
-**/gradlew.bat
-**/settings.gradle
