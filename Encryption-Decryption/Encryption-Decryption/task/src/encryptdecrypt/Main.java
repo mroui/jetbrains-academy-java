@@ -1,8 +1,8 @@
 package encryptdecrypt;
 
-import encryptdecrypt.algorithms.Algorithm;
 import encryptdecrypt.algorithms.AlgorithmFactory;
 import encryptdecrypt.algorithms.AlgorithmType;
+import encryptdecrypt.algorithms.types.Algorithm;
 
 import java.util.InputMismatchException;
 

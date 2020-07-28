@@ -1,4 +1,4 @@
-package encryptdecrypt.algorithms;
+package encryptdecrypt.algorithms.types;
 
 import java.io.*;
 

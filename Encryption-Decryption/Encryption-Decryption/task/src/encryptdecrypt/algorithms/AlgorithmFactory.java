@@ -1,5 +1,10 @@
 package encryptdecrypt.algorithms;
 
+import encryptdecrypt.algorithms.types.Algorithm;
+import encryptdecrypt.algorithms.types.Reversed;
+import encryptdecrypt.algorithms.types.Shift;
+import encryptdecrypt.algorithms.types.Unicode;
+
 public class AlgorithmFactory {
 
     public static Algorithm create(AlgorithmType type, String data, boolean mode, String input, String output, int key) {
