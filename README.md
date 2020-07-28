@@ -17,8 +17,8 @@ Can be said, "trivial" problems can also be found here, but it is always worth r
 * :white_check_mark: :muscle: Medium [Numeral System Converter](Numeral%20System%20Converter)
 * :white_check_mark: :muscle: Medium [Numeric Matrix Processor](Numeric%20Matrix%20Processor)
 * :white_check_mark: :muscle: Medium [Error Correcting Encoder-Decoder](Error%20Correcting%20Encoder-Decoder)
-* :construction: :muscle: Medium [Encryption-Decryption](Encryption-Decryption)
-* :black_square_button: Game of life
+* :white_check_mark: :muscle: Medium [Encryption-Decryption](Encryption-Decryption)
+* :construction: Game of life
 * :black_square_button: Digit Recognition
 * :black_square_button: Phone Book
 * :black_square_button: Linear Equations Solver
