@@ -37,4 +37,8 @@ public class Universe {
             epoch--;
         }
     }
+
+    public void generate() {
+        generate(1);
+    }
 }

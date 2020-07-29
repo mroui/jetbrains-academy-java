@@ -70,4 +70,13 @@ public class Generation {
             return new Generation(Arrays.stream(matrix).map(boolean[]::clone).toArray(boolean[][]::new));
         }
     }
+
+    public int getAliveAmount() {
+        int amount = 0;
+        for (boolean[] booleans : matrix)
+            for (int j = 0; j < matrix.length; j++)
+                if (booleans[j])
+                    amount++;
+        return amount;
+    }
 }
