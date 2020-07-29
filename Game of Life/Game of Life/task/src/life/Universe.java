@@ -18,11 +18,23 @@ public class Universe {
         return currentGen;
     }
 
-    public void print() {
-        for (boolean[] row : matrix) {
-            for (int j = 0; j < matrix.length; j++)
-                System.out.print(row[j] ? 'O' : ' ');
-            System.out.println();
+    public void generate(int epoch) {
+        Generation newGen = new Generation(new boolean[nextGen.getSize()][nextGen.getSize()]);
+        while (epoch >= 0 && epoch != 0) {
+            for (int i = 0; i < newGen.getSize(); i++) {
+                for (int j = 0; j < newGen.getSize(); j++) {
+                    int neighbours = nextGen.countNeighbours(i, j);
+                    if ((neighbours < 2 || neighbours > 3) && nextGen.isCellAlive(i, j))
+                        newGen.get()[i][j] = false;
+                    else if (neighbours == 3 && !nextGen.isCellAlive(i, j))
+                        newGen.get()[i][j] = true;
+                    else
+                        newGen.get()[i][j] = nextGen.get()[i][j];
+                }
+            }
+            currentGen = nextGen.clone();
+            nextGen = newGen.clone();
+            epoch--;
         }
     }
 }
