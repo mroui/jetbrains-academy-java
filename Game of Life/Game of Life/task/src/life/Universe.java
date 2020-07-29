@@ -1,21 +1,21 @@
 package life;
 
-import java.util.Random;
-
 public class Universe {
 
-    private boolean[][] matrix;
+    private Generation currentGen;
+    private Generation nextGen;
 
     public Universe(int size, long seed) {
-        matrix = new boolean[size][size];
-        fill(seed);
+        currentGen = new Generation(size, seed);
+        nextGen = currentGen.clone();
     }
 
-    private void fill(long seed) {
-        Random random = new Random(seed);
-        for (int i = 0; i < matrix.length; i++)
-            for (int j = 0; j < matrix.length; j++)
-                matrix[i][j] = random.nextBoolean();
+    public Generation nextGen() {
+        return nextGen;
+    }
+
+    public Generation currentGen() {
+        return currentGen;
     }
 
     public void print() {
