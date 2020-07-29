@@ -5,6 +5,11 @@ public class Universe {
     private Generation currentGen;
     private Generation nextGen;
 
+    public Universe(int size) {
+        currentGen = new Generation(size);
+        nextGen = currentGen.clone();
+    }
+
     public Universe(int size, long seed) {
         currentGen = new Generation(size, seed);
         nextGen = currentGen.clone();

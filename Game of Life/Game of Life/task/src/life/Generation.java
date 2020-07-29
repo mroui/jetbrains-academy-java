@@ -13,6 +13,11 @@ public class Generation {
         this.matrix = matrix;
     }
 
+    public Generation(int size) {
+        this.size = size;
+        this.matrix = randomFill(size, -1);
+    }
+
     public Generation(int size, long seed) {
         this.size = size;
         this.matrix = randomFill(size, seed);
@@ -28,10 +33,9 @@ public class Generation {
 
     private boolean[][] randomFill(int size, long seed) {
         boolean[][] matrix = new boolean[size][size];
-        Random random = new Random(seed);
         for (int i = 0; i < size; i++)
             for (int j = 0; j < size; j++)
-                matrix[i][j] = random.nextBoolean();
+                matrix[i][j] = seed == -1 ? new Random().nextBoolean() : new Random(seed).nextBoolean();
         return matrix;
     }
 
