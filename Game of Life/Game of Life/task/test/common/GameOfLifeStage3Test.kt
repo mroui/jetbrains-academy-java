@@ -1,12 +1,12 @@
 package common
 
 
+import life.GameOfLife
 import org.hyperskill.hstest.v6.stage.BaseStageTest
 import org.hyperskill.hstest.v6.testcase.CheckResult
 import org.hyperskill.hstest.v6.testcase.TestCase
-import life.Main
 
-abstract class GameOfLifeStage3Test : BaseStageTest<ClueWithChecker>(Main::class.java) {
+abstract class GameOfLifeStage3Test : BaseStageTest<ClueWithChecker>(GameOfLife::class.java) {
 
     override fun generate(): List<TestCase<ClueWithChecker>> {
         // two times:
