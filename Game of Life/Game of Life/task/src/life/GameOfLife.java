@@ -60,12 +60,16 @@ public class GameOfLife extends JFrame {
     }
 
     private void addMenu(JPanel panel) {
+        Font font = new Font(Font.MONOSPACED,  Font.BOLD, 14);
+
         generationLabel = new JLabel("Generation #0");
         generationLabel.setName("GenerationLabel");
+        generationLabel.setFont(font);
         panel.add(generationLabel);
 
         aliveLabel = new JLabel("Alive: 0");
         aliveLabel.setName("AliveLabel");
+        aliveLabel.setFont(font);
         panel.add(aliveLabel);
     }
 }
