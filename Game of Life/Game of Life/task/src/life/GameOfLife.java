@@ -49,7 +49,8 @@ public class GameOfLife extends JFrame {
 
         JPanel menuPanel = new JPanel();
         menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
-        menuPanel.setPreferredSize(new Dimension((int) (getWidth() * 0.25), menuPanel.getHeight()));
+        menuPanel.setPreferredSize(new Dimension((int) (getWidth() * 0.25), getHeight()));
+        menuPanel.setMaximumSize(menuPanel.getPreferredSize());
         mainPanel.add(menuPanel);
         addMenu(menuPanel);
 
