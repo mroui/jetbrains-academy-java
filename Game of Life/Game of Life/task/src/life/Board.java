@@ -44,7 +44,7 @@ public class Board extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.BLACK);
         int size = universe.nextGen().getSize();
-        int cs = 20;
+        int cs = GameOfLife.CELL_SIZE;
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (universe.nextGen().get()[i][j]) {

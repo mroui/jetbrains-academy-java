@@ -1,8 +1,12 @@
 package life;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 public class GameOfLife extends JFrame {
+
+    public static final int CELL_SIZE = 5;
 
     private JLabel generationLabel;
     private JLabel aliveLabel;
@@ -16,10 +20,11 @@ public class GameOfLife extends JFrame {
     public GameOfLife() {
         setTitle("Game of Life");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300, 300);
-        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        setSize(800, 600);
+        setLayout(new BorderLayout());
         setLocationRelativeTo(null);
         setComponents();
+        setResizable(false);
         setVisible(true);
     }
 
@@ -37,16 +42,29 @@ public class GameOfLife extends JFrame {
     }
 
     private void setComponents() {
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
+        mainPanel.setBorder(new EmptyBorder(new Insets(20, 20, 20, 20)));
+        add(mainPanel);
+
+        JPanel menuPanel = new JPanel();
+        menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
+        menuPanel.setPreferredSize(new Dimension((int) (getWidth() * 0.25), menuPanel.getHeight()));
+        mainPanel.add(menuPanel);
+        addMenu(menuPanel);
+
+        board = new Board(new Universe((int) (getWidth() * 0.75 / CELL_SIZE - 12)));
+        board.setName("Board");
+        mainPanel.add(board);
+    }
+
+    private void addMenu(JPanel panel) {
         generationLabel = new JLabel("Generation #0");
         generationLabel.setName("GenerationLabel");
-        add(generationLabel);
+        panel.add(generationLabel);
 
         aliveLabel = new JLabel("Alive: 0");
         aliveLabel.setName("AliveLabel");
-        add(aliveLabel);
-
-        board = new Board(new Universe(10));
-        board.setName("Board");
-        add(board);
+        panel.add(aliveLabel);
     }
 }
