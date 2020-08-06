@@ -18,7 +18,8 @@ Can be said, "trivial" problems can also be found here, but it is always worth r
 * :white_check_mark: :muscle: Medium [Numeric Matrix Processor](Numeric%20Matrix%20Processor)
 * :white_check_mark: :muscle: Medium [Error Correcting Encoder-Decoder](Error%20Correcting%20Encoder-Decoder)
 * :white_check_mark: :muscle: Medium [Encryption-Decryption](Encryption-Decryption)
-* :construction: Game of life
+* :white_check_mark: :muscle: Medium [Game of Life](Game%20of%20Life)
+* :construction: Web Crawler
 * :black_square_button: Digit Recognition
 * :black_square_button: Phone Book
 * :black_square_button: Linear Equations Solver
@@ -34,7 +35,6 @@ Can be said, "trivial" problems can also be found here, but it is always worth r
 * :black_square_button: Contacts
 * :black_square_button: File Type Analyzer
 * :black_square_button: Text Editor
-* :black_square_button: Web Crawler
 * :black_square_button: Blockchain
 * :black_square_button: Web Quiz Engine
 * :black_square_button: JSON - XML converter
