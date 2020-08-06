@@ -1,8 +1,8 @@
 package life;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.Hashtable;
 
 public class GameOfLife extends JFrame implements Constants {
 
@@ -32,7 +32,7 @@ public class GameOfLife extends JFrame implements Constants {
     }
 
     private void play() {
-        timer = new Timer(TIMER_DELAY, evt -> {
+        timer = new Timer(DEFAULT_TIMER_DELAY, evt -> {
             repaint();
             generationLabel.setText(GEN + board.getEpoch());
             aliveLabel.setText(ALIVE + board.getAlive());
@@ -71,6 +71,37 @@ public class GameOfLife extends JFrame implements Constants {
     private void addMenu() {
         addButtons();
         addStatistics();
+        addSpeedPanel();
+    }
+
+    private void addSpeedPanel() {
+        JPanel speedPanel = new JPanel();
+        speedPanel.setLayout(new BoxLayout(speedPanel, BoxLayout.Y_AXIS));
+
+        JLabel speedLabel = new JLabel(SPEED_MODE_LABEL);
+        speedLabel.setAlignmentX(CENTER_ALIGNMENT);
+        speedLabel.setFont(SMALL_FONT);
+
+        JSlider speedSlider = new JSlider(JSlider.HORIZONTAL, MIN_TIMER_DELAY, MAX_TIMER_DELAY, DEFAULT_TIMER_DELAY);
+        speedSlider.setLayout(new FlowLayout(FlowLayout.CENTER, MENU_GAP_H, MENU_GAP_W));
+        speedSlider.setMajorTickSpacing(100);
+        speedSlider.setPaintTicks(true);
+        speedSlider.setPaintLabels(true);
+
+        Hashtable<Integer, JLabel> labelTable = new Hashtable<>();
+        labelTable.put(0, new JLabel(String.valueOf(MIN_TIMER_DELAY)));
+        labelTable.put(DEFAULT_TIMER_DELAY, new JLabel(String.valueOf(DEFAULT_TIMER_DELAY)));
+        labelTable.put(MAX_TIMER_DELAY, new JLabel(String.valueOf(MAX_TIMER_DELAY)));
+        speedSlider.setLabelTable(labelTable);
+
+        speedSlider.addChangeListener((e) -> {
+            speedSlider.setValue((int) Math.round(speedSlider.getValue() / 100.0) * 100);
+            timer.setDelay(speedSlider.getValue());
+        });
+
+        speedPanel.add(speedLabel);
+        speedPanel.add(speedSlider);
+        menuPanel.add(speedPanel);
     }
 
     private void addButtons() {
@@ -106,6 +137,8 @@ public class GameOfLife extends JFrame implements Constants {
         JPanel statisticsPanel = new JPanel();
 
         statisticsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, MENU_GAP_H, MENU_GAP_W));
+        statisticsPanel.setPreferredSize(STATISTICS_PANEL_DIM);
+        statisticsPanel.setMaximumSize(STATISTICS_PANEL_DIM);
         generationLabel = new JLabel(GEN + '0');
         generationLabel.setName(GEN_LABEL_NAME);
         generationLabel.setFont(FONT);
