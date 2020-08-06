@@ -15,7 +15,7 @@ public interface Constants {
     int DEFAULT_TIMER_DELAY = 500;
     int MIN_TIMER_DELAY = 0;
     int MAX_TIMER_DELAY = 1000;
-    int BOARD_SIZE = (int) (WINDOW_W * 0.75 / CELL_SIZE - 12);
+    int BOARD_SIZE = (int) (WINDOW_W * 0.75 / CELL_SIZE - 16);
 
     ImageIcon REPLAY_ICON = new ImageIcon("resources\\replay.PNG");
     ImageIcon RESUME_ICON = new ImageIcon("resources\\resume.PNG");

@@ -54,7 +54,7 @@ public class GameOfLife extends JFrame implements Constants {
         menuPanel.setMaximumSize(MENU_DIM);
         mainPanel.add(menuPanel);
         addMenu();
-
+        mainPanel.add(Box.createRigidArea(new Dimension(BORDER, 0)));
         createBoard();
     }
 
