@@ -1,7 +1,6 @@
 package crawler.app;
 
 import javax.swing.*;
-import java.awt.*;
 
 import static crawler.utils.Constants.*;
 
@@ -13,6 +12,14 @@ public class URLArea extends JPanel {
     public URLArea() {
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         setComponents();
+    }
+
+    public JButton getRunButton() {
+        return runButton;
+    }
+
+    public JTextField getUrlTextField() {
+        return urlTextField;
     }
 
     private void setComponents() {

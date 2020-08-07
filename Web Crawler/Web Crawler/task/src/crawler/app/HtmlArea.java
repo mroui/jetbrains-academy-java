@@ -25,4 +25,8 @@ public class HtmlArea extends JPanel {
         textArea.setEnabled(false);
         add(textArea);
     }
+
+    public void setText(String text) {
+        textArea.setText(text);
+    }
 }

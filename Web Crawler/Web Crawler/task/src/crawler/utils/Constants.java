@@ -30,4 +30,6 @@ public interface Constants {
     Font BUTTON_FONT = new Font(Font.MONOSPACED, Font.BOLD, 14);
     Font HTML_FONT = new Font(Font.MONOSPACED, Font.ITALIC, 12);
 
+    String ERROR = "ERROR: ";
+
 }
