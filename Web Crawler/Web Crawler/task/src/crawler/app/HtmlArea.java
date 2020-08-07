@@ -19,6 +19,8 @@ public class HtmlArea extends JPanel {
         textArea.setName(TEXT_AREA);
         textArea.setBorder(SMALL_BORDER);
         textArea.setBackground(Color.WHITE);
+        textArea.setFont(HTML_FONT);
+        textArea.setDisabledTextColor(Color.GRAY);
         textArea.setEditable(false);
         textArea.setEnabled(false);
         add(textArea);

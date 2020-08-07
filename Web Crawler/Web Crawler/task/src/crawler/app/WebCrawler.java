@@ -11,7 +11,7 @@ public class WebCrawler extends JFrame {
 
     public WebCrawler() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(WINDOW_SIZE, WINDOW_SIZE);
+        setSize(WINDOW_W, WINDOW_H);
         setBackground(Color.LIGHT_GRAY);
         setTitle(APP_TITLE);
         setLocationRelativeTo(null);

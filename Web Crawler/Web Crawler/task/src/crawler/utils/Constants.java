@@ -6,7 +6,8 @@ import java.awt.*;
 
 public interface Constants {
 
-    int WINDOW_SIZE = 300;
+    int WINDOW_H = 800;
+    int WINDOW_W = 600;
     int GAP_SIZE = 10;
 
     String APP_TITLE = "Simple Window";
@@ -24,5 +25,9 @@ public interface Constants {
 
     Dimension VERTICAL_SPACE = new Dimension(10, 0);
     Dimension HORIZONTAL_SPACE = new Dimension(0, 10);
+
+    Font TEXT_FONT = new Font(Font.MONOSPACED, Font.PLAIN, 12);
+    Font BUTTON_FONT = new Font(Font.MONOSPACED, Font.BOLD, 14);
+    Font HTML_FONT = new Font(Font.MONOSPACED, Font.ITALIC, 12);
 
 }

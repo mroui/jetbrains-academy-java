@@ -24,12 +24,14 @@ public class URLArea extends JPanel {
     private void setRunButton() {
         runButton = new JButton(RUN_BUTTON_TXT);
         runButton.setName(RUN_BUTTON);
+        runButton.setFont(BUTTON_FONT);
         add(runButton);
     }
 
     private void setUrlTextField() {
         urlTextField = new JTextField();
         urlTextField.setName(URL_TEXT_FIELD);
+        urlTextField.setFont(TEXT_FONT);
         add(urlTextField);
     }
 }
