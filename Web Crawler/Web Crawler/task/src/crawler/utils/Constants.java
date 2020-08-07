@@ -1,4 +1,4 @@
-package crawler;
+package crawler.utils;
 
 import javax.swing.*;
 import javax.swing.border.Border;

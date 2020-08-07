@@ -1,9 +1,9 @@
-package crawler;
+package crawler.app;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static crawler.Constants.*;
+import static crawler.utils.Constants.*;
 
 public class WebCrawler extends JFrame {
 
