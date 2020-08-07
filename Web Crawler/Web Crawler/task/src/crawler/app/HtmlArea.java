@@ -11,9 +11,7 @@ public class HtmlArea extends JPanel {
 
     public HtmlArea() {
         setLayout(new BorderLayout());
-        setBorder(NORMAL_BORDER);
         setTextArea();
-        add(textArea);
     }
 
     private void setTextArea() {
@@ -23,5 +21,6 @@ public class HtmlArea extends JPanel {
         textArea.setBackground(Color.WHITE);
         textArea.setEditable(false);
         textArea.setEnabled(false);
+        add(textArea);
     }
 }
