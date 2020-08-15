@@ -10,7 +10,7 @@ public interface Constants {
     int WINDOW_W = 600;
     int GAP_SIZE = 10;
 
-    String APP_TITLE = "Simple Window";
+    String APP_TITLE = "Web Crawler";
 
     String HTML_AREA_TXT = "HTML code";
     String TEXT_AREA = "HtmlTextArea";
@@ -31,6 +31,7 @@ public interface Constants {
     Border NORMAL_BORDER = BorderFactory.createEmptyBorder(20, 20, 20, 20);
 
     Dimension VERTICAL_SPACE = new Dimension(10, 0);
+    Dimension TRIPLED_VERTICAL_SPACE = new Dimension(30, 0);
     Dimension HORIZONTAL_SPACE = new Dimension(0, 10);
 
     Font TEXT_FONT = new Font(Font.MONOSPACED, Font.PLAIN, 12);

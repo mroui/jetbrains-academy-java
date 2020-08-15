@@ -25,7 +25,7 @@ public class URLArea extends JPanel {
 
     private void setComponents() {
         setUrlLabel();
-        add(Box.createRigidArea(VERTICAL_SPACE));
+        add(Box.createRigidArea(TRIPLED_VERTICAL_SPACE));
         setUrlTextField();
         add(Box.createRigidArea(VERTICAL_SPACE));
         setRunButton();
