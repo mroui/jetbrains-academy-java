@@ -8,6 +8,7 @@ public class URLArea extends JPanel {
 
     private JTextField urlTextField;
     private JButton runButton;
+    private JLabel urlLabel;
 
     public URLArea() {
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -23,9 +24,17 @@ public class URLArea extends JPanel {
     }
 
     private void setComponents() {
+        setUrlLabel();
+        add(Box.createRigidArea(VERTICAL_SPACE));
         setUrlTextField();
         add(Box.createRigidArea(VERTICAL_SPACE));
         setRunButton();
+    }
+
+    private void setUrlLabel() {
+        urlLabel = new JLabel(URL_LABEL);
+        urlLabel.setFont(LABEL_FONT);
+        add(urlLabel);
     }
 
     private void setRunButton() {
@@ -36,7 +45,7 @@ public class URLArea extends JPanel {
     }
 
     private void setUrlTextField() {
-        urlTextField = new JTextField();
+        urlTextField = new JTextField(DEFAULT_URL);
         urlTextField.setName(URL_TEXT_FIELD);
         urlTextField.setFont(TEXT_FONT);
         add(urlTextField);
