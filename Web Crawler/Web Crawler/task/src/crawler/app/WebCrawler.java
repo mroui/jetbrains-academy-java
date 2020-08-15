@@ -15,8 +15,8 @@ import static crawler.utils.Constants.*;
 public class WebCrawler extends JFrame {
 
     private JPanel mainPanel;
-    private URLArea urlArea;
     private HtmlArea htmlArea;
+    private TopPanel topPanel;
 
     public WebCrawler() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,8 +35,8 @@ public class WebCrawler extends JFrame {
     }
 
     private void setAreas() {
-        urlArea = new URLArea();
-        mainPanel.add(urlArea, BorderLayout.NORTH);
+        topPanel = new TopPanel();
+        mainPanel.add(topPanel, BorderLayout.NORTH);
         htmlArea = new HtmlArea();
         mainPanel.add(htmlArea, BorderLayout.CENTER);
     }
@@ -48,8 +48,8 @@ public class WebCrawler extends JFrame {
     }
 
     private void setAction() {
-        urlArea.getRunButton().addActionListener(e -> {
-            final String url = urlArea.getUrlTextField().getText();
+        topPanel.urlArea().getRunButton().addActionListener(e -> {
+            final String url = topPanel.urlArea().getUrlTextField().getText();
             try (InputStream inputStream = new BufferedInputStream(new URL(url).openStream())) {
                 htmlArea.setText(new String(inputStream.readAllBytes(), StandardCharsets.UTF_8));
             } catch (IOException exception) {
