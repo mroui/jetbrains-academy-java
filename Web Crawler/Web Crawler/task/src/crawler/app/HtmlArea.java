@@ -14,6 +14,10 @@ public class HtmlArea extends JPanel {
         setTextArea();
     }
 
+    public JTextArea getTextArea() {
+        return textArea;
+    }
+
     private void setTextArea() {
         textArea = new JTextArea(HTML_AREA_TXT);
         textArea.setName(TEXT_AREA);
