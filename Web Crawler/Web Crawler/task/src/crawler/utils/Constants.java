@@ -16,9 +16,14 @@ public interface Constants {
     String TEXT_AREA = "HtmlTextArea";
 
     String URL_TEXT_FIELD = "UrlTextField";
+    String DEFAULT_URL = "http://example.com/";
+    String URL_LABEL = "URL:";
 
     String RUN_BUTTON_TXT = "Get text!";
     String RUN_BUTTON = "RunButton";
+
+    String TITLE_LABEL = "TitleLabel";
+    String TITLE_LABEL_TXT = "Title: ";
 
     Border SMALL_BORDER = BorderFactory.createEmptyBorder(10, 10, 10, 10);
     Border NORMAL_BORDER = BorderFactory.createEmptyBorder(20, 20, 20, 20);
@@ -28,6 +33,7 @@ public interface Constants {
 
     Font TEXT_FONT = new Font(Font.MONOSPACED, Font.PLAIN, 12);
     Font BUTTON_FONT = new Font(Font.MONOSPACED, Font.BOLD, 14);
+    Font LABEL_FONT = new Font(Font.MONOSPACED, Font.BOLD, 12);
     Font HTML_FONT = new Font(Font.MONOSPACED, Font.ITALIC, 12);
 
     String ERROR = "ERROR: ";
