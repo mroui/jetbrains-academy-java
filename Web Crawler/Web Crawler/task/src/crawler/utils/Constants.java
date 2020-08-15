@@ -24,6 +24,8 @@ public interface Constants {
 
     String TITLE_LABEL = "TitleLabel";
     String TITLE_LABEL_TXT = "Title: ";
+    String DEFAULT_TITLE = "None";
+    String TITLE_NOT_FOUND = "NOT FOUND";
 
     Border SMALL_BORDER = BorderFactory.createEmptyBorder(10, 10, 10, 10);
     Border NORMAL_BORDER = BorderFactory.createEmptyBorder(20, 20, 20, 20);
