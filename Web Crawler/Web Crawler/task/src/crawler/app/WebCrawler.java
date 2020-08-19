@@ -1,6 +1,6 @@
 package crawler.app;
 
-import crawler.app.center.HtmlArea;
+import crawler.app.center.UrlsTableArea;
 import crawler.app.top.TopPanel;
 import crawler.utils.Constants;
 
@@ -11,15 +11,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import static crawler.app.models.Url.*;
 import static crawler.utils.Constants.*;
 
 public class WebCrawler extends JFrame {
 
     private JPanel mainPanel;
-    private HtmlArea htmlArea;
+    private UrlsTableArea urlsTableArea;
     private TopPanel topPanel;
 
     public WebCrawler() {
@@ -35,14 +34,14 @@ public class WebCrawler extends JFrame {
     private void setComponents() {
         setPanel();
         setAreas();
-        setAction();
+        handleParsingUrlsToTable();
     }
 
     private void setAreas() {
         topPanel = new TopPanel();
         mainPanel.add(topPanel, BorderLayout.NORTH);
-        htmlArea = new HtmlArea();
-        mainPanel.add(htmlArea, BorderLayout.CENTER);
+        urlsTableArea = new UrlsTableArea();
+        mainPanel.add(urlsTableArea, BorderLayout.CENTER);
     }
 
     private void setPanel() {
@@ -51,21 +50,27 @@ public class WebCrawler extends JFrame {
         add(mainPanel);
     }
 
-    private String extractWebTitle() {
-        String html = htmlArea.getTextArea().getText();
-        Pattern titlePattern = Pattern.compile("<title>(.*?)</title>");
-        Matcher titleMatcher = titlePattern.matcher(html);
-        return titleMatcher.find() ? titleMatcher.group(1) : TITLE_NOT_FOUND;
+    public void handleParsingUrlsToTable() {
+        topPanel.urlArea().getRunButton().addActionListener(e -> {
+            final String mainUrl = topPanel.urlArea().getUrlTextField().getText().trim();
+            try {
+                new URL(mainUrl).openStream();
+                urlsTableArea.updateTableData(getUrlsDataFromMain(mainUrl));
+                topPanel.detailsArea().setTitle(extractWebTitle(extractHtmlFromUrl(mainUrl)));
+            } catch (IOException exception) {
+                topPanel.detailsArea().setTitle(Constants.ERROR + exception.getClass());
+            }
+        });
     }
 
-    private void setAction() {
+    private void handleParsingUrlToHtml() {
         topPanel.urlArea().getRunButton().addActionListener(e -> {
             final String url = topPanel.urlArea().getUrlTextField().getText();
             try (InputStream inputStream = new BufferedInputStream(new URL(url).openStream())) {
-                htmlArea.setText(new String(inputStream.readAllBytes(), StandardCharsets.UTF_8));
-                topPanel.detailsArea().setTitle(extractWebTitle());
+                urlsTableArea.setText(new String(inputStream.readAllBytes(), StandardCharsets.UTF_8));
+                topPanel.detailsArea().setTitle(extractWebTitle(urlsTableArea.getTextArea().getText()));
             } catch (IOException exception) {
-                htmlArea.setText(Constants.ERROR + exception.getLocalizedMessage());
+                urlsTableArea.setText(Constants.ERROR + exception.getLocalizedMessage());
             }
         });
     }
