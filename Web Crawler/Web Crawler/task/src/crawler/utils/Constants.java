@@ -39,6 +39,9 @@ public interface Constants {
     Font LABEL_FONT = new Font(Font.MONOSPACED, Font.BOLD, 12);
     Font HTML_FONT = new Font(Font.MONOSPACED, Font.ITALIC, 12);
 
+    String[] URL_TABLE_COLUMN_NAMES = {"URL", "Title"};
+    String TITLES_TABLE = "TitlesTable";
+
     String ERROR = "ERROR: ";
 
 }
