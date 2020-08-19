@@ -1,4 +1,4 @@
-package crawler.app;
+package crawler.app.top;
 
 import javax.swing.*;
 

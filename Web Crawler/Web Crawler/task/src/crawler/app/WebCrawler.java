@@ -1,5 +1,7 @@
 package crawler.app;
 
+import crawler.app.center.HtmlArea;
+import crawler.app.top.TopPanel;
 import crawler.utils.Constants;
 
 import javax.swing.*;
