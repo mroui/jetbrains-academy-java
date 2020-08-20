@@ -80,17 +80,11 @@ public class Url {
         ArrayList<String> urls = getAbsoluteUrls(mainUrl, extractHtmlHrefLinks(mainHtml));
         ArrayList<Url> data = new ArrayList<>();
         data.add(new Url(mainUrl, extractWebTitle(mainHtml)));
-        int counter = 0;
         for (String url : urls) {
-            if (counter < 15) {
-                String html = extractHtmlFromUrl(url);
-                if (html != null) {
-                    data.add(new Url(url, extractWebTitle(html)));
-                }
-            } else {
-                break;
+            String html = extractHtmlFromUrl(url);
+            if (html != null) {
+                data.add(new Url(url, extractWebTitle(html)));
             }
-            counter++;
         }
         return data.toArray(new Url[0]);
     }
