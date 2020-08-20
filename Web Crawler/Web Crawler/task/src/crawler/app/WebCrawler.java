@@ -1,5 +1,6 @@
 package crawler.app;
 
+import crawler.app.center.HtmlArea;
 import crawler.app.center.UrlsTableArea;
 import crawler.app.top.TopPanel;
 import crawler.utils.Constants;
@@ -18,6 +19,7 @@ import static crawler.utils.Constants.*;
 public class WebCrawler extends JFrame {
 
     private JPanel mainPanel;
+    private HtmlArea htmlArea;
     private UrlsTableArea urlsTableArea;
     private TopPanel topPanel;
 
@@ -42,6 +44,8 @@ public class WebCrawler extends JFrame {
         mainPanel.add(topPanel, BorderLayout.NORTH);
         urlsTableArea = new UrlsTableArea();
         mainPanel.add(urlsTableArea, BorderLayout.CENTER);
+        //htmlArea = new HtmlArea();
+        //mainPanel.add(htmlArea, BorderLayout.CENTER);
     }
 
     private void setPanel() {
@@ -49,6 +53,12 @@ public class WebCrawler extends JFrame {
         mainPanel.setBorder(NORMAL_BORDER);
         add(mainPanel);
     }
+
+    /**
+     * run button handler
+     * extracting subUrls from <a> tag from mainUrl
+     * setting them to urls table area & extract their titles to details area
+     */
 
     public void handleParsingUrlsToTable() {
         topPanel.urlArea().getRunButton().addActionListener(e -> {
@@ -63,14 +73,19 @@ public class WebCrawler extends JFrame {
         });
     }
 
+    /**
+     * run button handler
+     * setting url's html to html area & title to details area
+     */
+
     private void handleParsingUrlToHtml() {
         topPanel.urlArea().getRunButton().addActionListener(e -> {
             final String url = topPanel.urlArea().getUrlTextField().getText();
             try (InputStream inputStream = new BufferedInputStream(new URL(url).openStream())) {
-                urlsTableArea.setText(new String(inputStream.readAllBytes(), StandardCharsets.UTF_8));
-                topPanel.detailsArea().setTitle(extractWebTitle(urlsTableArea.getTextArea().getText()));
+                htmlArea.setText(new String(inputStream.readAllBytes(), StandardCharsets.UTF_8));
+                topPanel.detailsArea().setTitle(extractWebTitle(htmlArea.getTextArea().getText()));
             } catch (IOException exception) {
-                urlsTableArea.setText(Constants.ERROR + exception.getLocalizedMessage());
+                htmlArea.setText(Constants.ERROR + exception.getLocalizedMessage());
             }
         });
     }
