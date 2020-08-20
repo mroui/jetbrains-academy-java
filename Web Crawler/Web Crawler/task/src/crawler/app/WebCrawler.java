@@ -1,14 +1,16 @@
 package crawler.app;
 
+import crawler.app.bottom.ExportArea;
 import crawler.app.center.HtmlArea;
 import crawler.app.center.UrlsTableArea;
-import crawler.models.Url;
 import crawler.app.top.TopPanel;
+import crawler.models.Url;
 import crawler.utils.Constants;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -23,6 +25,7 @@ public class WebCrawler extends JFrame {
     private HtmlArea htmlArea;
     private UrlsTableArea urlsTableArea;
     private TopPanel topPanel;
+    private ExportArea exportArea;
 
     public WebCrawler() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,6 +41,7 @@ public class WebCrawler extends JFrame {
         setPanel();
         setAreas();
         handleParsingUrlsToTable();
+        handleSavingUrlsToFile();
     }
 
     private void setAreas() {
@@ -47,6 +51,8 @@ public class WebCrawler extends JFrame {
         mainPanel.add(urlsTableArea, BorderLayout.CENTER);
         //htmlArea = new HtmlArea();
         //mainPanel.add(htmlArea, BorderLayout.CENTER);
+        exportArea = new ExportArea();
+        mainPanel.add(exportArea, BorderLayout.SOUTH);
     }
 
     private void setPanel() {
@@ -88,6 +94,28 @@ public class WebCrawler extends JFrame {
                 topPanel.detailsArea().setTitle(extractWebTitle(htmlArea.getTextArea().getText()));
             } catch (IOException exception) {
                 htmlArea.setText(Constants.ERROR + exception.getLocalizedMessage());
+            }
+        });
+    }
+
+    /**
+     * save button handler
+     * saving to file subUrls & titles to given path in text field
+     */
+
+    private void handleSavingUrlsToFile() {
+        exportArea.getSaveButton().addActionListener(event -> {
+            String path = exportArea.getPathTextField().getText();
+            try (FileWriter fileWriter = new FileWriter(path)) {
+                for (Url u : urlsTableArea.getSubUrls()) {
+                    fileWriter
+                            .append(u.getLink())
+                            .append("\n")
+                            .append(u.getTitle())
+                            .append("\n");
+                }
+            } catch (IOException exception) {
+                exportArea.getPathTextField().setText(Constants.ERROR + exception.getLocalizedMessage());
             }
         });
     }
