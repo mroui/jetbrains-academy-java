@@ -48,13 +48,11 @@ public class Url {
     public static ArrayList<String> getAbsoluteUrls(String mainUrl, ArrayList<String> urls) {
         ArrayList<String> absoluteUrls = new ArrayList<>();
         for (String url : urls) {
-            if (!url.contains("https") && !url.contains("http")) {
-                if (!url.contains("https://") || !url.contains("http://")) {
-                    absoluteUrls.add(mainUrl.endsWith("/") ? mainUrl + url : mainUrl + '/' + url);
-                } else if (url.startsWith("//")) {
-                    absoluteUrls.add("https:" + url);
+            if (!url.startsWith("http")) {
+                if (url.startsWith("//")) {
+                    absoluteUrls.add(mainUrl.substring(0, mainUrl.indexOf(":") + 1) + url);
                 } else {
-                    absoluteUrls.add("https://" + url);
+                    absoluteUrls.add(mainUrl.substring(0, mainUrl.lastIndexOf("/") + 1) + url);
                 }
             }
         }
@@ -80,7 +78,7 @@ public class Url {
 
     public static Url[] getUrlsDataFromMain(String mainUrl) {
         String mainHtml = extractHtmlFromUrl(mainUrl);
-        ArrayList<String> urls = getAbsoluteUrls(mainHtml, extractHtmlHrefLinks(mainHtml));
+        ArrayList<String> urls = getAbsoluteUrls(mainUrl, extractHtmlHrefLinks(mainHtml));
         ArrayList<Url> data = new ArrayList<>();
         data.add(new Url(mainUrl, extractWebTitle(mainHtml)));
         int counter = 0;
