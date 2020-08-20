@@ -22,7 +22,9 @@ public class UrlsTableArea extends JPanel {
 
     public void updateTableData(Url[] newData) {
         if (newData.length > 0) {
-            DefaultTableModel tableModel = new DefaultTableModel(0, 2);
+            DefaultTableModel tableModel = new DefaultTableModel();
+            tableModel.addColumn("URL");
+            tableModel.addColumn("Title");
             for (Url url : newData) {
                 tableModel.addRow(new Object[]{url.getLink(), url.getTitle()});
             }
@@ -31,7 +33,7 @@ public class UrlsTableArea extends JPanel {
     }
 
     private void setTableArea() {
-        table = new JTable(new Object[][]{}, URL_TABLE_COLUMN_NAMES);
+        table = new JTable(new Object[][]{}, new Object[]{URL, TITLE});
         table.setFillsViewportHeight(true);
         table.setName(TITLES_TABLE);
         table.setEnabled(false);
