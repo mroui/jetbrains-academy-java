@@ -46,6 +46,12 @@ public interface Constants {
     String USER_AGENT_KEY = "User-Agent";
     String USER_AGENT_VALUE = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0";
 
+    String EXPORT_LABEL = "Export:";
+    String EXPORT_BUTTON = "ExportButton";
+    String EXPORT_BUTTON_TXT = "Save";
+    String EXPORT_PATH_TEXT_FIELD = "ExportUrlTextField";
+    String DEFAULT_PATH = "sub-urls.txt";
+
     String ERROR = "ERROR: ";
 
 }
