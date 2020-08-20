@@ -2,6 +2,7 @@ package crawler.app;
 
 import crawler.app.center.HtmlArea;
 import crawler.app.center.UrlsTableArea;
+import crawler.app.models.Url;
 import crawler.app.top.TopPanel;
 import crawler.utils.Constants;
 
@@ -69,6 +70,7 @@ public class WebCrawler extends JFrame {
                 topPanel.detailsArea().setTitle(extractWebTitle(extractHtmlFromUrl(mainUrl)));
             } catch (IOException exception) {
                 topPanel.detailsArea().setTitle(Constants.ERROR + exception.getClass());
+                urlsTableArea.updateTableData(new Url[]{});
             }
         });
     }

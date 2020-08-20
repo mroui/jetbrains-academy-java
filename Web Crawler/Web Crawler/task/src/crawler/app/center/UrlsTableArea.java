@@ -23,15 +23,17 @@ public class UrlsTableArea extends JPanel {
      */
 
     public void updateTableData(Url[] newData) {
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn(URL);
+        tableModel.addColumn(TITLE);
         if (newData.length > 0) {
-            DefaultTableModel tableModel = new DefaultTableModel();
-            tableModel.addColumn(URL);
-            tableModel.addColumn(TITLE);
             for (Url url : newData) {
                 tableModel.addRow(new Object[]{url.getLink(), url.getTitle()});
             }
-            table.setModel(tableModel);
+        } else {
+            tableModel.setNumRows(0);
         }
+        table.setModel(tableModel);
     }
 
     private void setTableArea() {
