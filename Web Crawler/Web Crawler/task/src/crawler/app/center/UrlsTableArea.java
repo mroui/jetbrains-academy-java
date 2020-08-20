@@ -1,6 +1,6 @@
 package crawler.app.center;
 
-import crawler.app.models.Url;
+import crawler.models.Url;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

@@ -2,7 +2,7 @@ package crawler.app;
 
 import crawler.app.center.HtmlArea;
 import crawler.app.center.UrlsTableArea;
-import crawler.app.models.Url;
+import crawler.models.Url;
 import crawler.app.top.TopPanel;
 import crawler.utils.Constants;
 
@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-import static crawler.app.models.Url.*;
+import static crawler.models.Url.*;
 import static crawler.utils.Constants.*;
 
 public class WebCrawler extends JFrame {

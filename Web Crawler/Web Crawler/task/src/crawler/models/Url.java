@@ -1,4 +1,4 @@
-package crawler.app.models;
+package crawler.models;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
