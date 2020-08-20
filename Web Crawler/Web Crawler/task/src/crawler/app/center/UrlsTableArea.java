@@ -12,10 +12,16 @@ public class UrlsTableArea extends JPanel {
 
     private JTextArea textArea;
     private JTable table;
+    private Url[] subUrls;
 
     public UrlsTableArea() {
         setLayout(new BorderLayout());
         setTableArea();
+        subUrls = new Url[] {};
+    }
+
+    public Url[] getSubUrls() {
+        return subUrls;
     }
 
     /**
@@ -23,11 +29,12 @@ public class UrlsTableArea extends JPanel {
      */
 
     public void updateTableData(Url[] newData) {
+        subUrls = newData.clone();
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.addColumn(URL);
         tableModel.addColumn(TITLE);
-        if (newData.length > 0) {
-            for (Url url : newData) {
+        if (subUrls.length > 0) {
+            for (Url url : subUrls) {
                 tableModel.addRow(new Object[]{url.getLink(), url.getTitle()});
             }
         } else {
