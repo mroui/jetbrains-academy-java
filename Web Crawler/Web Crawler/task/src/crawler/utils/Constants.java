@@ -42,6 +42,7 @@ public interface Constants {
     String URL = "URL";
     String TITLE = "Title";
     String TITLES_TABLE = "TitlesTable";
+    String HTML_CONTENT_TYPE = "text/html";
 
     String ERROR = "ERROR: ";
 

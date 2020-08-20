@@ -7,12 +7,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 import static crawler.utils.Constants.*;
-import static crawler.utils.Constants.HTML_FONT;
 
 public class UrlsTableArea extends JPanel {
 
     private JTextArea textArea;
-
     private JTable table;
 
     public UrlsTableArea() {
@@ -20,11 +18,15 @@ public class UrlsTableArea extends JPanel {
         setTableArea();
     }
 
+    /**
+     * table area methods
+     */
+
     public void updateTableData(Url[] newData) {
         if (newData.length > 0) {
             DefaultTableModel tableModel = new DefaultTableModel();
-            tableModel.addColumn("URL");
-            tableModel.addColumn("Title");
+            tableModel.addColumn(URL);
+            tableModel.addColumn(TITLE);
             for (Url url : newData) {
                 tableModel.addRow(new Object[]{url.getLink(), url.getTitle()});
             }
@@ -39,6 +41,10 @@ public class UrlsTableArea extends JPanel {
         table.setEnabled(false);
         add(new JScrollPane(table));
     }
+
+    /**
+     * text area methods
+     */
 
     public JTextArea getTextArea() {
         return textArea;
