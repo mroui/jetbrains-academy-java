@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static crawler.utils.Constants.HTML_CONTENT_TYPE;
-import static crawler.utils.Constants.TITLE_NOT_FOUND;
+import static crawler.utils.Constants.*;
 
 public class Url {
 
@@ -63,6 +62,7 @@ public class Url {
     public static String extractHtmlFromUrl(String url) {
         try {
             URLConnection connection = new URL(url).openConnection();
+            connection.setRequestProperty(USER_AGENT_KEY, USER_AGENT_VALUE);
             if (connection.getContentType().contains(HTML_CONTENT_TYPE)) {
                 InputStream inputStream = new BufferedInputStream(connection.getInputStream());
                 byte[] bytes = inputStream.readAllBytes();

@@ -43,6 +43,8 @@ public interface Constants {
     String TITLE = "Title";
     String TITLES_TABLE = "TitlesTable";
     String HTML_CONTENT_TYPE = "text/html";
+    String USER_AGENT_KEY = "User-Agent";
+    String USER_AGENT_VALUE = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0";
 
     String ERROR = "ERROR: ";
 
