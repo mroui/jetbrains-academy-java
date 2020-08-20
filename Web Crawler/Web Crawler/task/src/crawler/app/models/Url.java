@@ -62,8 +62,7 @@ public class Url {
     public static String extractHtmlFromUrl(String url) {
         try {
             URLConnection connection = new URL(url).openConnection();
-            if (connection.getContentType().equals("text/html") ||
-                    connection.getContentType().substring(0, connection.getContentType().indexOf(";")).equals("text/html")) {
+            if (connection.getContentType().contains("text/html")) {
                 InputStream inputStream = new BufferedInputStream(connection.getInputStream());
                 byte[] bytes = inputStream.readAllBytes();
                 inputStream.close();
