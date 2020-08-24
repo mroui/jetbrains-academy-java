@@ -13,7 +13,7 @@ Practice using Swing library for creating GUI and get confident working with Ran
 ![Game of Life demo gif](demo.gif)
 
 ## Setup
-* [Install JDK](https://www.oracle.com/pl/java/technologies/javase-downloads.html)
+* [Install JDK 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
 * Clone repository
 ```
 git clone https://github.com/mroui/jetbrains-academy-java.git
