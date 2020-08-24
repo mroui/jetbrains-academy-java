@@ -12,6 +12,8 @@ subprojects {
     apply plugin: 'java'
     apply plugin: "kotlin"
 
+	mainClassName = 'crawler.ApplicationRunner'
+
     sourceCompatibility = 11
 
     repositories {
