@@ -19,10 +19,9 @@ Can be said, "trivial" problems can also be found here, but it is always worth r
 * :white_check_mark: :muscle: Medium [Error Correcting Encoder-Decoder](Error%20Correcting%20Encoder-Decoder)
 * :white_check_mark: :muscle: Medium [Encryption-Decryption](Encryption-Decryption)
 * :white_check_mark: :muscle: Medium [Game of Life](Game%20of%20Life)
-* :construction: Web Crawler
-* :black_square_button: Digit Recognition
+* :construction: Digit Recognition
 * :black_square_button: Phone Book
-* :black_square_button: Linear Equations Solver
+* :black_square_button: Linear Equations Solver	
 * :black_square_button: Simple Banking System
 * :black_square_button: Flashcards
 * :black_square_button: Music Advisor
@@ -38,3 +37,4 @@ Can be said, "trivial" problems can also be found here, but it is always worth r
 * :black_square_button: Blockchain
 * :black_square_button: Web Quiz Engine
 * :black_square_button: JSON - XML converter
+* :white_check_mark: :muscle: Challenging [Web Crawler](Web%Crawler)
