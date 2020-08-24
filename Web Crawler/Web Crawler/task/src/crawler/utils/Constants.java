@@ -19,7 +19,7 @@ public interface Constants {
     String DEFAULT_URL = "http://example.com/";
     String URL_LABEL = "URL:";
 
-    String RUN_BUTTON_TXT = "Get text!";
+    String RUN_BUTTON_TXT = "Run!";
     String RUN_BUTTON = "RunButton";
 
     String TITLE_LABEL = "TitleLabel";
