@@ -37,4 +37,4 @@ Can be said, "trivial" problems can also be found here, but it is always worth r
 * :black_square_button: Blockchain
 * :black_square_button: Web Quiz Engine
 * :black_square_button: JSON - XML converter
-* :white_check_mark: :muscle: Challenging [Web Crawler](Web%Crawler)
+* :white_check_mark: :muscle: Challenging [Web Crawler](Web%20Crawler)
