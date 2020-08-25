@@ -21,10 +21,10 @@ public class Grid {
     public static Grid read(int rows, int columns) {
         final Scanner scanner = new Scanner(System.in);
         boolean[] array = new boolean[rows * columns];
-        for (int i = 0; i < array.length; i += rows) {
+        for (int i = 0; i < rows; i++) {
             String row = scanner.next();
             for (int j = 0; j < columns; j++) {
-                array[i + j] = row.charAt(j) == 'X';
+                array[i * columns + j] = row.charAt(j) == 'X';
             }
         }
         return new Grid(rows, columns, array.clone());
@@ -33,7 +33,7 @@ public class Grid {
     public void print() {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++)
-                System.out.print(array[rows * i + j] ? 'X' : '_');
+                System.out.print(array[i * columns + j] ? 'X' : '_');
             System.out.println();
         }
     }
