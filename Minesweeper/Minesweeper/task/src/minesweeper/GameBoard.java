@@ -2,6 +2,10 @@ package minesweeper;
 
 public class GameBoard extends Board {
 
+    public GameBoard(int rows, int columns) {
+        super(rows, columns);
+    }
+
     public GameBoard(int rows, int columns, boolean[][] array) {
         super(rows, columns, array);
     }
