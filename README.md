@@ -19,7 +19,7 @@ Can be said, "trivial" problems can also be found here, but it is always worth r
 * :white_check_mark: :muscle: Medium [Error Correcting Encoder-Decoder](Error%20Correcting%20Encoder-Decoder)
 * :white_check_mark: :muscle: Medium [Encryption-Decryption](Encryption-Decryption)
 * :white_check_mark: :muscle: Medium [Game of Life](Game%20of%20Life)
-* :white_check_mark: :muscle: Hard [Digit Recognition](Digit%Recognition)
+* :white_check_mark: :muscle: Hard [Digit Recognition](Digit%20Recognition)
 * :white_check_mark: :muscle: Challenging [Web Crawler](Web%20Crawler)
 * :construction: Minesweeper
 * :black_square_button: Phone Book
