@@ -11,17 +11,23 @@ public class GameBoard extends Board {
     }
 
     public void addMines(int amount) {
-        for (int i = 0; i < amount; i++) {
-            int x = rand(0, rows() - 1);
-            int y = rand(0, cols() - 1);
-            if (!get()[x][y])
-                get()[x][y] = true;
-            else i--;
+        if (amount < empties()) {
+            for (int i = 0; i < amount; i++) {
+                int x = rand(0, rows() - 1);
+                int y = rand(0, cols() - 1);
+                if (!get()[x][y])
+                    get()[x][y] = true;
+                else i--;
+            }
+        } else {
+            for (int i = 0; i < rows(); i++)
+                for (int j = 0; j < cols(); j++)
+                    get()[i][j] = true;
         }
     }
 
     private int rand(int min, int max) {
-        return min + (int)(Math.random() * ((max - min) + 1));
+        return min + (int) (Math.random() * ((max - min) + 1));
     }
 
 }
