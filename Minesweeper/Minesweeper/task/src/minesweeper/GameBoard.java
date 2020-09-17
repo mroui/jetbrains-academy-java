@@ -6,7 +6,7 @@ public class GameBoard extends Board {
         super(rows, columns);
     }
 
-    public GameBoard(int rows, int columns, boolean[][] array) {
+    public GameBoard(int rows, int columns, char[][] array) {
         super(rows, columns, array);
     }
 
