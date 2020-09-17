@@ -50,16 +50,31 @@ public class GameBoard extends Board {
         return exist(i, j) && get()[i][j] == x;
     }
 
-    private boolean isMineOrExist(int x, int y) {
-        return x >= 0 && x < rows() && y >= 0 && y < cols() && get()[x][y] == 'X';
+    public boolean isNumber(int x, int y) {
+        return exist(x, y) && get()[x][y] >= '0' && get()[x][y] <= '9';
     }
 
-    private boolean isEmpty(int x, int y) {
-        return get()[x][y] == '.';
+    public void toggleFlag(int x, int y) {
+        get()[x][y] = get()[x][y] == '*' ? '.' : '*';
     }
 
     private int rand(int min, int max) {
         return min + (int) (Math.random() * ((max - min) + 1));
     }
 
+    @Override
+    public void print() {
+        System.out.println("\n │123456789│\n—│—————————│");
+        for (int i = 0; i < rows(); i++) {
+            System.out.print(i + 1 + "|");
+            for (int j = 0; j < cols(); j++)
+                System.out.print(exist(i, j) && is(i, j, 'X') ? "." : get()[i][j]);
+            System.out.println("|");
+        }
+        System.out.println("—│—————————│");
+    }
+
+    public GameBoard copy() {
+        return new GameBoard(rows(), cols(), get());
+    }
 }
