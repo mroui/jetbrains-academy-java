@@ -10,40 +10,44 @@ public class GameBoard extends Board {
         super(rows, columns, array);
     }
 
-    private void setMine(int x, int y) {
-        get()[x][y] = 'X';
-    }
-
     public void addMines(int amount) {
         if (amount < empties()) {
             for (int i = 0; i < amount; i++) {
                 int x = rand(0, rows() - 1);
                 int y = rand(0, cols() - 1);
-                if (!isMineOrExist(x, y))
-                    setMine(x, y);
+                if (!is(x, y, 'X'))
+                    set(x, y, 'X');
                 else i--;
             }
         } else {
             for (int i = 0; i < rows(); i++)
                 for (int j = 0; j < cols(); j++)
-                    setMine(i, j);
+                    set(i, j, 'X');
         }
     }
 
     public void checkMines() {
         for (int i = 0; i < rows(); i++) {
             for (int j = 0; j < cols(); j++) {
-                if (!isMineOrExist(i, j)) {
+                if (!is(i, j, 'X')) {
                     int counter = 0;
                     for (int x = i - 1; x <= i + 1; x++)
                         for (int y = j - 1; y <= j + 1; y++)
-                            if ((x != i || y != j) && isMineOrExist(x, y))
+                            if ((x != i || y != j) && exist(x, y) && is(x, y, 'X'))
                                 counter++;
                     if (counter > 0)
-                        get()[i][j] = isEmpty(i, j) ? (char) (counter + '0') : (char) ((int) (get()[i][j]) + counter);
+                        get()[i][j] = is(i, j, '.') ? (char) (counter + '0') : (char) ((int) (get()[i][j]) + counter);
                 }
             }
         }
+    }
+
+    public boolean exist(int x, int y) {
+        return x >= 0 && x < rows() && y >= 0 && y < cols();
+    }
+
+    public boolean is(int i, int j, char x) {
+        return exist(i, j) && get()[i][j] == x;
     }
 
     private boolean isMineOrExist(int x, int y) {

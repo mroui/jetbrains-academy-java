@@ -32,6 +32,11 @@ public class Board {
         return array;
     }
 
+    protected void set(int row, int col, char ch) {
+        if (row >= 0 && row < rows && col >= 0 && col < columns)
+            array[row][col] = ch;
+    }
+
     protected int empties() {
         return empties;
     }
