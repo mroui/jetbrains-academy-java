@@ -98,6 +98,9 @@ public class Game {
             for (int j = 0; j < board.cols(); j++)
                 if (board.is(i, j, 'X') && !playerBoard.is(i, j, '*'))
                     return false;
+                else if (board.is(i, j, '.') && !playerBoard.is(i, j, '/') ||
+                        board.isNumber(i, j) && !playerBoard.isNumber(i, j))
+                    return false;
         return true;
     }
 
