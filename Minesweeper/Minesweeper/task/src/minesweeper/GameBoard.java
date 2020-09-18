@@ -42,6 +42,18 @@ public class GameBoard extends Board {
         }
     }
 
+    public void checkMines(int i, int j, GameBoard board) {
+        if (is(i, j, '.') || is(i, j, '/')) {
+            for (int x = i - 1; x <= i + 1; x++)
+                for (int y = j - 1; y <= j + 1; y++)
+                    if (exist(x, y) && !is(x, y, '/')) {
+                        get()[x][y] = board.get()[x][y] == '.' ? '/' : board.get()[x][y];
+                        if (!board.isNumber(x, y))
+                            checkMines(x, y, board);
+                    }
+        }
+    }
+
     public boolean exist(int x, int y) {
         return x >= 0 && x < rows() && y >= 0 && y < cols();
     }
