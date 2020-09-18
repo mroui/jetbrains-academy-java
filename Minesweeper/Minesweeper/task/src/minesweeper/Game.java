@@ -4,30 +4,40 @@ import java.util.Scanner;
 
 public class Game {
 
-    private final GameBoard board;
-    private GameBoard playerBoard;
+    private final GameBoard playerBoard;
+    private GameBoard board;
+    private int mines;
+    private boolean playing;
+    private boolean firstFree;
 
     public Game(int x, int y) {
         board = new GameBoard(x, y);
+        playerBoard = new GameBoard(x, y);
+        playing = true;
+        firstFree = true;
     }
 
     public void play() {
+        readMines();
         initMines();
-        while (true) {
+        while (playing) {
             playerBoard.print();
             interaction();
             if (isVictory()) {
                 System.out.println("Congratulations! You found all mines!");
-                break;
+                playing = false;
             }
         }
     }
 
-    private void initMines() {
+    private void readMines() {
         System.out.print("How many mines do you want on the field? ");
-        board.addMines(new Scanner(System.in).nextInt());
+        mines = new Scanner(System.in).nextInt();
+    }
+
+    private void initMines() {
+        board.addMines(mines);
         board.checkMines();
-        playerBoard = board.copy();
     }
 
     private void interaction() {
