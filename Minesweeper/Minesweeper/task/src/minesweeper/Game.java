@@ -43,23 +43,54 @@ public class Game {
     private void interaction() {
         boolean completed = false;
         while (!completed) {
-            System.out.print("Set/delete mines marks (x and y coordinates): ");
+            System.out.print("Set/unset mines marks or claim a cell as free: ");
             try {
                 String[] answer = new Scanner(System.in).nextLine().trim().split("\\s+");
                 int x = Integer.parseInt(answer[1]) - 1;
                 int y = Integer.parseInt(answer[0]) - 1;
-                if (playerBoard.isNumber(x, y)) {
-                    System.out.println("There is a number here!");
-                } else if (!playerBoard.exist(x, y)) {
-                    System.out.println("Wrong coordinates!");
-                } else {
-                    playerBoard.toggleFlag(x, y);
-                    completed = true;
-                }
+                String command = answer[2];
+                if (!command.equals("mine") && !command.equals("free") || !board.exist(x, y))
+                    throw new Exception();
+                else completed = makeMove(x, y, command);
             } catch (Exception e) {
-                System.out.println("Wrong coordinates!");
+                System.out.println("Wrong input! [cord.y] [cord.x] [free/mine]");
             }
         }
+    }
+
+    private boolean makeMove(int x, int y, String command) {
+        if (command.equals("mine")) {
+            playerBoard.toggleFlag(x, y);
+        } else {
+            if (board.is(x, y, 'X')) {
+                if (!firstFree) {
+                    System.out.println("You stepped on a mine and failed!");
+                    showMines();
+                    playing = false;
+                    return true;
+                } else {
+                    while (board.is(x, y, 'X')) {
+                        board = new GameBoard(board.rows(), board.cols());
+                        initMines();
+                    }
+                    firstFree = false;
+                }
+            }
+            if (board.isNumber(x, y))
+                playerBoard.set(x, y, board.get()[x][y]);
+            else
+                playerBoard.checkMines(x, y, board);
+        }
+        firstFree = false;
+        return true;
+    }
+
+    private void showMines() {
+        for (int i = 0; i < board.rows(); i++)
+            for (int j = 0; j < board.cols(); j++)
+                if (board.is(i, j, 'X'))
+                    playerBoard.get()[i][j] = 'x';
+        playerBoard.print();
     }
 
     private boolean isVictory() {
