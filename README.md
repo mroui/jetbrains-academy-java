@@ -19,15 +19,15 @@ Can be said, "trivial" problems can also be found here, but it is always worth r
 * :white_check_mark: :muscle: Medium [Error Correcting Encoder-Decoder](Error%20Correcting%20Encoder-Decoder)
 * :white_check_mark: :muscle: Medium [Encryption-Decryption](Encryption-Decryption)
 * :white_check_mark: :muscle: Medium [Game of Life](Game%20of%20Life)
+* :white_check_mark: :muscle: Hard [Minesweeper](Minesweeper)
 * :white_check_mark: :muscle: Hard [Digit Recognition](Digit%20Recognition)
 * :white_check_mark: :muscle: Challenging [Web Crawler](Web%20Crawler)
-* :construction: Minesweeper
+* :construction: Smart Calculator
 * :black_square_button: Phone Book
 * :black_square_button: Linear Equations Solver	
 * :black_square_button: Simple Banking System
 * :black_square_button: Flashcards
 * :black_square_button: Music Advisor
-* :black_square_button: Smart Calculator
 * :black_square_button: Simple Search Engine
 * :black_square_button: Sorting Tool
 * :black_square_button: Budget Manager
