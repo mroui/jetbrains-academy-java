@@ -12,6 +12,7 @@ public class Main {
                 String input = scanner.nextLine();
                 if (input.isEmpty()) continue;
                 if ("/exit".equals(input)) break;
+                if ("/help".equals(input)) System.out.println("The program calculates the sum of numbers");
                 int[] numbers = Arrays.stream(input.trim().split("\\s+")).mapToInt(Integer::parseInt).toArray();
                 System.out.println(Arrays.stream(numbers).sum());
             } catch (Exception e) {
