@@ -8,7 +8,7 @@ import java.util.Stack;
 public class Calculator {
 
     private static final Map<String, Integer> PRECEDENCE_ORDER = Map.of(
-            "+", 1, "-", 1, "*", 2, "/", 2, "(", 3, ")", 3);
+            "+", 1, "-", 1, "*", 2, "/", 2, "^", 3, "(", 4, ")", 4);
     private static final String ERROR = "ERROR";
     private final Scanner scanner = new Scanner(System.in);
     private final Map<String, Integer> variables;
@@ -73,10 +73,16 @@ public class Calculator {
                     out("Division by 0!");
                     return 0;
                 } else return x / y;
+            case '^':
+                return power(x, y);
             default:
                 out("Unknown operator: " + operator);
                 return 0;
         }
+    }
+
+    private int power(Integer x, Integer y) {
+        return y == 0 ? 1 : y == 1 ? x : x * power(x, y - 1);
     }
 
     private String postfix(String equation) {
@@ -126,7 +132,7 @@ public class Calculator {
     }
 
     private boolean isEquation(String equation) {
-        return equation.replaceAll("\\s+", "").matches("[(]*[a-zA-Z0-9]+([-+]+|[*/]?)[(]*[A-Za-z0-9]+.*");
+        return equation.replaceAll("\\s+", "").matches("[(]*[a-zA-Z0-9]+([-+]+|[*/^]?)[(]*[A-Za-z0-9]+.*");
     }
 
     private boolean isVariable(String equation) {
@@ -154,10 +160,10 @@ public class Calculator {
     private void handleCommand(String command) {
         switch (command) {
             case "/help":
-                out("The calculator support the addition +, subtraction -, division /, multiplications * operations." +
+                out("The calculator support the addition +, subtraction -, division /, multiplications *, power ^ operations." +
                         "\nConsider that the even number of minuses gives a plus." +
                         "\nVariables n = 2 and parentheses (...) are also supported." +
-                        "\nThe program should be able to compute something like: 3 + 8 * ((4 + 3) * 2 + 1) --- 6 / (2 + 1)");
+                        "\nThe program should be able to compute something like: 3 + 8 * ((4 + 3) * 2 + 1) --- 6 / (2 ^ 1)");
                 break;
             case "/exit":
                 running = false;
