@@ -1,5 +1,6 @@
 package calculator;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -7,11 +8,13 @@ import java.util.Stack;
 
 public class Calculator {
 
-    private static final Map<String, Integer> PRECEDENCE_ORDER = Map.of(
-            "+", 1, "-", 1, "*", 2, "/", 2, "^", 3, "(", 4, ")", 4);
+    private static final Map<String, BigInteger> PRECEDENCE_ORDER = Map.of(
+            "+", BigInteger.valueOf(1), "-", BigInteger.valueOf(1), "*", BigInteger.valueOf(2),
+            "/", BigInteger.valueOf(2), "^", BigInteger.valueOf(3), "(", BigInteger.valueOf(4),
+            ")", BigInteger.valueOf(4));
     private static final String ERROR = "ERROR";
     private final Scanner scanner = new Scanner(System.in);
-    private final Map<String, Integer> variables;
+    private final Map<String, BigInteger> variables;
     private boolean running;
 
     public Calculator() {
@@ -47,11 +50,11 @@ public class Calculator {
     private void calculate(String equation) {
         String postfix = postfix(equation);
         if (!postfix.equals(ERROR)) {
-            Stack<Integer> stack = new Stack<>();
+            Stack<BigInteger> stack = new Stack<>();
             String[] parts = postfix.split("\\s+");
             for (String part : parts) {
                 if (part.matches("-?[0-9]+"))
-                    stack.push(Integer.parseInt(part));
+                    stack.push(new BigInteger(part));
                 else if (variables.containsKey(part))
                     stack.push(variables.get(part));
                 else stack.push(calculate(part.charAt(0), stack.pop(), stack.pop()));
@@ -60,29 +63,31 @@ public class Calculator {
         } else out("Invalid expression");
     }
 
-    private int calculate(char operator, Integer y, Integer x) {
+    private BigInteger calculate(char operator, BigInteger y, BigInteger x) {
         switch (operator) {
             case '+':
-                return x + y;
+                return x.add(y);
             case '-':
-                return x - y;
+                return x.subtract(y);
             case '*':
-                return x * y;
+                return x.multiply(y);
             case '/':
-                if (y == 0) {
+                if (y.equals(BigInteger.ZERO)) {
                     out("Division by 0!");
-                    return 0;
-                } else return x / y;
+                    return BigInteger.ZERO;
+                } else return x.divide(y);
             case '^':
                 return power(x, y);
             default:
                 out("Unknown operator: " + operator);
-                return 0;
+                return BigInteger.ZERO;
         }
     }
 
-    private int power(Integer x, Integer y) {
-        return y == 0 ? 1 : y == 1 ? x : x * power(x, y - 1);
+    private BigInteger power(BigInteger x, BigInteger y) {
+        return y.equals(BigInteger.ZERO) ? BigInteger.ONE :
+                y.equals(BigInteger.ONE) ? x :
+                        x.multiply(power(x, y.subtract(BigInteger.ONE)));
     }
 
     private String postfix(String equation) {
@@ -98,11 +103,11 @@ public class Calculator {
                         result.append(stack.pop()).append(" ");
                     stack.pop();
                 } else if (stack.isEmpty() || stack.peek().equals("(") || part.equals("(") ||
-                        PRECEDENCE_ORDER.get(part) > PRECEDENCE_ORDER.get(stack.peek())) {
+                        PRECEDENCE_ORDER.get(part).compareTo(PRECEDENCE_ORDER.get(stack.peek())) > 0) {
                     stack.push(part);
-                } else if (!stack.isEmpty() && PRECEDENCE_ORDER.get(part) <= PRECEDENCE_ORDER.get(stack.peek())) {
-                    while (!stack.isEmpty() && (PRECEDENCE_ORDER.get(part) <= PRECEDENCE_ORDER.get(stack.peek())
-                            && !stack.peek().equals("(")))
+                } else if (!stack.isEmpty() && PRECEDENCE_ORDER.get(part).compareTo(PRECEDENCE_ORDER.get(stack.peek())) < 1) {
+                    while (!stack.isEmpty() && (PRECEDENCE_ORDER.get(part).compareTo(PRECEDENCE_ORDER.get(stack.peek())) < 1)
+                            && !stack.peek().equals("("))
                         result.append(stack.pop()).append(" ");
                     stack.push(part);
                 }
@@ -152,7 +157,7 @@ public class Calculator {
         else if (strings[1].matches("[A-Za-z]+") && variables.get(strings[1]) != null)
             variables.put(strings[0], variables.get(strings[1]));
         else if (strings[1].matches("[-]?\\d+"))
-            variables.put(strings[0], Integer.parseInt(strings[1]));
+            variables.put(strings[0], new BigInteger(strings[1]));
         else
             out("Invalid assignment");
     }
