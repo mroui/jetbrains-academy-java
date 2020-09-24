@@ -126,7 +126,7 @@ public class Calculator {
     }
 
     private boolean isEquation(String equation) {
-        return equation.replaceAll("\\s+", "").matches("[A-Za-z0-9]+[-+]+[A-Za-z0-9]+.*");
+        return equation.replaceAll("\\s+", "").matches("[(]*[a-zA-Z0-9]+([-+]+|[*/]?)[(]*[A-Za-z0-9]+.*");
     }
 
     private boolean isVariable(String equation) {
