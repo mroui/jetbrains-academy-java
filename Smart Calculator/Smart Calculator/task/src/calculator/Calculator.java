@@ -154,7 +154,10 @@ public class Calculator {
     private void handleCommand(String command) {
         switch (command) {
             case "/help":
-                out("The program calculates the sum/subtraction of numbers");
+                out("The calculator support the addition +, subtraction -, division /, multiplications * operations." +
+                        "\nConsider that the even number of minuses gives a plus." +
+                        "\nVariables n = 2 and parentheses (...) are also supported." +
+                        "\nThe program should be able to compute something like: 3 + 8 * ((4 + 3) * 2 + 1) --- 6 / (2 + 1)");
                 break;
             case "/exit":
                 running = false;
