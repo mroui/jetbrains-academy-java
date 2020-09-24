@@ -63,7 +63,7 @@ public class Calculator {
     }
 
     private boolean isAssignment(String equation) {
-        return equation.replaceAll("\\s+", "").matches("[A-Za-z]+[A-Za-z0-9]?+=[A-Za-z0-9]+");
+        return equation.replaceAll("\\s+", "").matches("[A-Za-z]+[A-Za-z0-9]?+=[-]?[A-Za-z0-9]+");
     }
 
     private void handleVarAssignment(String equation) {
@@ -74,7 +74,7 @@ public class Calculator {
             out("Unknown variable");
         else if (strings[1].matches("[A-Za-z]+") && variables.get(strings[1]) != null)
             variables.put(strings[0], variables.get(strings[1]));
-        else if (strings[1].matches("\\d+"))
+        else if (strings[1].matches("[-]?\\d+"))
             variables.put(strings[0], Integer.parseInt(strings[1]));
         else
             out("Invalid assignment");
