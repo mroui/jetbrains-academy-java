@@ -3,9 +3,13 @@ package calculator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class Calculator {
 
+    private static final Map<String, Integer> PRECEDENCE_ORDER = Map.of(
+            "+", 1, "-", 1, "*", 2, "/", 2, "(", 3, ")", 3);
+    private static final String ERROR = "ERROR";
     private final Scanner scanner = new Scanner(System.in);
     private final Map<String, Integer> variables;
     private boolean running;
@@ -41,17 +45,84 @@ public class Calculator {
     }
 
     private void calculate(String equation) {
-        String[] parts = equation.trim().split("\\s+");
-        int result = 0, sign = 1;
-        for (String part : parts) {
-            if (part.matches("[-+]+"))
-                sign = part.contains("+") ? 1 : part.contains("-") ? part.length() % 2 == 0 ? 1 : -1 : sign;
-            else if (part.matches("-?[0-9]+"))
-                result += sign * Integer.parseInt(part);
-            else if (variables.containsKey(part))
-                result += sign * variables.get(part);
+        String postfix = postfix(equation);
+        if (!postfix.equals(ERROR)) {
+            Stack<Integer> stack = new Stack<>();
+            String[] parts = postfix.split("\\s+");
+            for (String part : parts) {
+                if (part.matches("-?[0-9]+"))
+                    stack.push(Integer.parseInt(part));
+                else if (variables.containsKey(part))
+                    stack.push(variables.get(part));
+                else stack.push(calculate(part.charAt(0), stack.pop(), stack.pop()));
+            }
+            out(stack.peek());
+        } else out("Invalid expression");
+    }
+
+    private int calculate(char operator, Integer y, Integer x) {
+        switch (operator) {
+            case '+':
+                return x + y;
+            case '-':
+                return x - y;
+            case '*':
+                return x * y;
+            case '/':
+                if (y == 0) {
+                    out("Division by 0!");
+                    return 0;
+                } else return x / y;
+            default:
+                out("Unknown operator: " + operator);
+                return 0;
         }
-        out(result);
+    }
+
+    private String postfix(String equation) {
+        StringBuilder result = new StringBuilder();
+        String[] parts = prepareToPostfix(equation);
+        Stack<String> stack = new Stack<>();
+        for (String part : parts) {
+            if (part.matches("-?[0-9]+") || variables.containsKey(part))
+                result.append(part).append(" ");
+            else {
+                if (part.equals(")")) {
+                    while (!stack.peek().equals("("))
+                        result.append(stack.pop()).append(" ");
+                    stack.pop();
+                } else if (stack.isEmpty() || stack.peek().equals("(") || part.equals("(") ||
+                        PRECEDENCE_ORDER.get(part) > PRECEDENCE_ORDER.get(stack.peek())) {
+                    stack.push(part);
+                } else if (!stack.isEmpty() && PRECEDENCE_ORDER.get(part) <= PRECEDENCE_ORDER.get(stack.peek())) {
+                    while (!stack.isEmpty() && (PRECEDENCE_ORDER.get(part) <= PRECEDENCE_ORDER.get(stack.peek())
+                            && !stack.peek().equals("(")))
+                        result.append(stack.pop()).append(" ");
+                    stack.push(part);
+                }
+            }
+        }
+        while (!stack.isEmpty()) {
+            String item = stack.pop();
+            if (!item.matches("[()]"))
+                result.append(item).append(" ");
+            else {
+                result = new StringBuilder(ERROR);
+                break;
+            }
+        }
+        return result.toString();
+    }
+
+    private String[] prepareToPostfix(String equation) {
+        equation = equation.replaceAll("\\(", " ( ");
+        equation = equation.replaceAll("\\)", " ) ");
+        equation = equation.replaceAll("[+]+", "+");
+        String[] parts = equation.trim().split("\\s+");
+        for (int i = 0; i < parts.length; i++)
+            if (parts[i].contains("-"))
+                parts[i] = parts[i].length() % 2 == 0 ? "+" : "-";
+        return parts;
     }
 
     private boolean isEquation(String equation) {
