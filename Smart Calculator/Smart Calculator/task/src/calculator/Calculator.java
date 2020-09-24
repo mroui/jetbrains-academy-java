@@ -34,7 +34,7 @@ public class Calculator {
         if (isAssignment(statement))
             handleVarAssignment(statement);
         else if (isVariable(statement))
-            out(variables.get(statement) != null ? variables.get(statement) : "Unknown variable");
+            out(variables.get(statement.trim()) != null ? variables.get(statement.trim()) : "Unknown variable");
         else if (isEquation(statement))
             calculate(statement);
         else out("Invalid identifier");
