@@ -23,6 +23,7 @@ public class Calculator {
 
     public void run() {
         running = true;
+        out("Welcome in Smart Calculator. Available commands: /help\t/exit\nExample: 2 + 2");
         while (running) {
             try {
                 String input = scanner.nextLine();
@@ -168,6 +169,7 @@ public class Calculator {
                 out("The calculator support the addition +, subtraction -, division /, multiplications *, power ^ operations." +
                         "\nConsider that the even number of minuses gives a plus." +
                         "\nVariables n = 2 and parentheses (...) are also supported." +
+                        "\nOperators and operands must be separated by a space - except parentheses." +
                         "\nThe program should be able to compute something like: 3 + 8 * ((4 + 3) * 2 + 1) --- 6 / (2 ^ 1)");
                 break;
             case "/exit":
