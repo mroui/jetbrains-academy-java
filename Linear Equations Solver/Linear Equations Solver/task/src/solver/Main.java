@@ -1,20 +1,11 @@
 package solver;
 
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        try {
-            double a = Double.parseDouble(scanner.next());
-            double b = Double.parseDouble(scanner.next());
-            System.out.println(linearEquation(a, b));
-        } catch (Exception e) {
-            System.out.println(e.toString());
+        Equation e1 = Equation.read();
+        Equation e2 = Equation.read();
+        if (e1 != null && e2 != null) {
+            e1.calculate(e2);
         }
-    }
-
-    private static double linearEquation(double a, double b) {
-        return b / a;
     }
 }
