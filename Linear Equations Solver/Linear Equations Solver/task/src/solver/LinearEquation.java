@@ -9,12 +9,20 @@ public class LinearEquation {
     private final String INSUFFICIENT_COE = "Insufficient number of coefficients";
     private final double[] coefficients;
 
-    public LinearEquation(double ... c) {
+    public LinearEquation(double... c) {
         coefficients = c.clone();
     }
 
-    private double c(int i) {
+    public double c(int i) {
         return coefficients[i];
+    }
+
+    public void setC(int i, double value) {
+        coefficients[i] = value;
+    }
+
+    public int cSize() {
+        return coefficients.length;
     }
 
     public static LinearEquation read(int coeAmount) {
@@ -45,5 +53,9 @@ public class LinearEquation {
 
     private static void out(Object msg) {
         System.out.println(msg);
+    }
+
+    public LinearEquation copy() {
+        return new LinearEquation(coefficients.clone());
     }
 }
