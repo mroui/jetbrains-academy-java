@@ -7,13 +7,19 @@ public class Main {
     }
 
     private static void run(String[] args) {
+        EquationSystem system = null;
         for (int i = 0; i < args.length; i += 2) {
             switch (args[i]) {
                 case "-in":
-                    //todo
+                    Matrix matrix = Matrix.read(args[i + 1]);
+                    if (matrix != null) {
+                        system = new EquationSystem(matrix);
+                        system.solve();
+                    }
                     break;
                 case "-out":
-                    //todo
+                    if (system != null)
+                        system.saveResultsToFile(args[i + 1]);
                     break;
                 default:
                     System.out.println("Unknown argument: " + args[i]);
@@ -21,5 +27,4 @@ public class Main {
             }
         }
     }
-
 }
