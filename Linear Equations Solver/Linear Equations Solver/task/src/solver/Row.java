@@ -26,6 +26,10 @@ public class Row {
         this.result = result;
     }
 
+    public int size() {
+        return equation.cSize();
+    }
+
     public Row copy() {
         return new Row(equation.copy(), result);
     }
