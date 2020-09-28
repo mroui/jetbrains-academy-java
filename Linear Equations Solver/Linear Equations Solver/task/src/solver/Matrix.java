@@ -8,10 +8,14 @@ import java.util.List;
 
 public class Matrix {
 
-    private Row[] rows;
+    private final Row[] rows;
 
     public Matrix(Row[] rows) {
         this.rows = rows.clone();
+    }
+
+    public Row[] get() {
+        return rows;
     }
 
     public static Matrix read(String filename) {
@@ -32,4 +36,9 @@ public class Matrix {
         return null;
     }
 
+    public void swapRows(int first, int second) {
+        Row temp = rows[first].copy();
+        rows[first] = rows[second].copy();
+        rows[second] = temp.copy();
+    }
 }
