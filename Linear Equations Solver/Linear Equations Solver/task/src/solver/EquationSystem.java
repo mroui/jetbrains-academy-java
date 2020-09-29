@@ -3,6 +3,7 @@ package solver;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 public class EquationSystem {
 
@@ -20,7 +21,7 @@ public class EquationSystem {
         if (results.length > 0) {
             System.out.println("The solution is: ");
             for (double solution : results)
-                System.out.print(solution + " ");
+                System.out.print(new DecimalFormat("#0.000").format(solution) + " ");
             System.out.println();
         } else System.out.println("No solutions");
     }
@@ -60,7 +61,7 @@ public class EquationSystem {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             if (results.length > 0) {
                 for (double result : results)
-                    writer.write(result + "\n");
+                    writer.write(new DecimalFormat("#0.000").format(result) + "\n");
             } else writer.write("No solutions");
             System.out.println("Saved to file " + filename);
         } catch (IOException e) {
