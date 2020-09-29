@@ -21,13 +21,12 @@ public class Matrix {
     public static Matrix read(String filename) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String[] dimens = reader.readLine().split("\\s+");
-            int unknowns = Integer.parseInt(dimens[0]);
-            int equations = Integer.parseInt(dimens[1]);
+            int equations = Integer.parseInt(dimens[0]);
             List<Row> rows = new ArrayList<>(equations);
             while (equations > 0) {
                 String line = reader.readLine();
                 double[] coefficients = Arrays.stream(line.split("\\s+")).mapToDouble(Double::parseDouble).toArray();
-                LinearEquation equation = new LinearEquation(Arrays.copyOf(coefficients, unknowns));
+                LinearEquation equation = new LinearEquation(Arrays.copyOf(coefficients, coefficients.length - 1));
                 rows.add(new Row(equation, coefficients[coefficients.length - 1]));
                 equations--;
             }
