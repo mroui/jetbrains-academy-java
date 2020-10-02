@@ -1,4 +1,4 @@
-package budget;
+package budget.menu;
 
 public class MainMenu extends Menu {
 
