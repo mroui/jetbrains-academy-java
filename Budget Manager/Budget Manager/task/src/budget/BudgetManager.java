@@ -46,18 +46,16 @@ public class BudgetManager {
     }
 
     private void showPurchases() {
-        if (purchases.isEmpty()) {
+        if (purchases.isEmpty())
             System.out.println("Purchase list is empty");
-        } else {
-            for (Item item : purchases) {
+        else
+            for (Item item : purchases)
                 item.print();
-            }
-        }
     }
 
     private void addPurchase() {
         System.out.println("Enter purchase name:");
-        String name = scanner.nextLine().trim();
+        String name = scanner.nextLine().replaceAll("\\s+", " ");
         System.out.println("Enter its price:");
         try {
             double value = parseAmount(scanner.nextLine());
