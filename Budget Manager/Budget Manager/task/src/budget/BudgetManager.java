@@ -55,7 +55,7 @@ public class BudgetManager {
     }
 
     private void showBalance() {
-        System.out.println("Balance: $" + balance);
+        System.out.println("Balance: $" + String.format("%.2f", balance));
     }
 
     private void showMenu() {
