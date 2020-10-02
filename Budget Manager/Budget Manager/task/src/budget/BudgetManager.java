@@ -6,21 +6,24 @@ import java.util.Scanner;
 
 public class BudgetManager {
 
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
+    private final Menu mainMenu;
     private double balance;
     private final List<Item> purchases;
 
     public BudgetManager() {
+        scanner = new Scanner(System.in);
         balance = 0.0d;
         purchases = new ArrayList<>();
+        mainMenu = new MainMenu(this::handleMainMenu);
     }
 
     public void run() {
-        handleOperations();
+        mainMenu.getListener().handleInput();
     }
 
-    private void handleOperations() {
-        showMenu();
+    private void handleMainMenu() {
+        mainMenu.show();
         String option = scanner.nextLine().trim();
         System.out.println();
         switch (option) {
@@ -42,7 +45,7 @@ public class BudgetManager {
             default:
                 System.out.println("Unknown operation.");
         }
-        handleOperations();
+        mainMenu.getListener().handleInput();
     }
 
     private void showPurchases() {
@@ -87,15 +90,6 @@ public class BudgetManager {
 
     private void showBalance() {
         System.out.println("Balance: $" + String.format("%.2f", balance));
-    }
-
-    private void showMenu() {
-        System.out.println("\nChoose your action:\n" +
-                "1) Add income\n" +
-                "2) Add purchase\n" +
-                "3) Show list of purchases\n" +
-                "4) Balance\n" +
-                "0) Exit");
     }
 
 }
