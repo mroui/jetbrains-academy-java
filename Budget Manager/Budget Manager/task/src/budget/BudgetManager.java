@@ -1,24 +1,36 @@
 package budget;
 
+import budget.menu.AddPurchaseMenu;
 import budget.menu.MainMenu;
 import budget.menu.Menu;
+import budget.menu.ShowPurchasesMenu;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class BudgetManager {
 
+    //todo refactor new lines & code
+
     private final Scanner scanner;
     private final Menu mainMenu;
+    private final Menu addPurchaseMenu;
+    private final Menu showPurchasesMenu;
+    private ItemList[] purchases;
     private double balance;
-    private final List<Item> purchases;
 
     public BudgetManager() {
         scanner = new Scanner(System.in);
         balance = 0.0d;
-        purchases = new ArrayList<>();
         mainMenu = new MainMenu(this::handleMainMenu);
+        addPurchaseMenu = new AddPurchaseMenu(this::handleAddPurchaseMenu);
+        showPurchasesMenu = new ShowPurchasesMenu(this::handleShowPurchaseMenu);
+        initPurchaseLists();
+    }
+
+    private void initPurchaseLists() {
+        purchases = new ItemList[ItemCategory.values().length];
+        for (int i = 0; i < purchases.length; i++)
+            purchases[i] = new ItemList(ItemCategory.values()[i]);
     }
 
     public void run() {
@@ -34,10 +46,10 @@ public class BudgetManager {
                 addIncome();
                 break;
             case "2":
-                addPurchase();
+                addPurchaseMenu.getListener().handleInput();
                 break;
             case "3":
-                showPurchases();
+                showPurchasesMenu.getListener().handleInput();
                 break;
             case "4":
                 showBalance();
@@ -48,25 +60,70 @@ public class BudgetManager {
             default:
                 System.out.println("Unknown operation.");
         }
+        System.out.println();
         mainMenu.getListener().handleInput();
     }
 
-    private void showPurchases() {
-        if (purchases.isEmpty())
-            System.out.println("Purchase list is empty");
-        else
-            for (Item item : purchases)
-                item.print();
+    private void handleAddPurchaseMenu() {
+        System.out.println();
+        addPurchaseMenu.show();
+        String option = scanner.nextLine().trim();
+        System.out.println();
+        ItemCategory category = ItemCategory.get(option);
+        if (category != null) {
+            addPurchase(category);
+            addPurchaseMenu.getListener().handleInput();
+        } else if (!option.equals("5")) {
+            System.out.println("Unknown operation.");
+            addPurchaseMenu.getListener().handleInput();
+        }
     }
 
-    private void addPurchase() {
+    private void handleShowPurchaseMenu() {
+        if (!isPurchaseEmpty()) {
+            System.out.println();
+            showPurchasesMenu.show();
+            String option = scanner.nextLine().trim();
+            System.out.println();
+            ItemCategory category = ItemCategory.get(option);
+            if (category != null) {
+                purchases[category.ordinal()].print();
+                purchases[category.ordinal()].printSum();
+                showPurchasesMenu.getListener().handleInput();
+            } else if (option.equals("5")) {
+                printAllPurchases();
+                showPurchasesMenu.getListener().handleInput();
+            } else if (!option.equals("6")) {
+                System.out.println("Unknown operation.");
+                showPurchasesMenu.getListener().handleInput();
+            }
+        } else System.out.println("Purchase list is empty!");
+    }
+
+    private boolean isPurchaseEmpty() {
+        for (ItemList list : purchases)
+            if (list.getList().size() != 0)
+                return false;
+        return true;
+    }
+
+    private void printAllPurchases() {
+        double sum = 0;
+        for (ItemList list : purchases) {
+            list.print();
+            sum += list.getSum();
+        }
+        System.out.println("Total sum: $" + sum);
+    }
+
+    private void addPurchase(ItemCategory category) {
         System.out.println("Enter purchase name:");
         String name = scanner.nextLine().replaceAll("\\s+", " ");
         System.out.println("Enter its price:");
         try {
             double value = parseAmount(scanner.nextLine());
             balance -= value;
-            purchases.add(new Item(name, value));
+            purchases[category.ordinal()].add(new Item(name, value));
             System.out.println("Purchase was added!");
         } catch (Exception e) {
             System.out.println(e.toString());

@@ -10,6 +10,10 @@ public class Item {
         this.value = value;
     }
 
+    public Double getValue() {
+        return value;
+    }
+
     public void print() {
         System.out.println(name + " $" + value);
     }
