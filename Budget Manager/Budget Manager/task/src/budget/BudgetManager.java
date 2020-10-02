@@ -1,14 +1,18 @@
 package budget;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class BudgetManager {
 
     private final Scanner scanner = new Scanner(System.in);
     private Double balance;
+    private final List<Item> purchases;
 
     public BudgetManager() {
         balance = 0.0d;
+        purchases = new ArrayList<>();
     }
 
     public void run() {
@@ -24,10 +28,10 @@ public class BudgetManager {
                 addIncome();
                 break;
             case "2":
-                //todo
+                addPurchase();
                 break;
             case "3":
-                //todo
+                showPurchases();
                 break;
             case "4":
                 showBalance();
@@ -39,6 +43,30 @@ public class BudgetManager {
                 System.out.println("Unknown operation.");
         }
         handleOperations();
+    }
+
+    private void showPurchases() {
+        if (purchases.isEmpty()) {
+            System.out.println("Purchase list is empty");
+        } else {
+            for (Item item : purchases) {
+                item.print();
+            }
+        }
+    }
+
+    private void addPurchase() {
+        System.out.println("Enter purchase name:");
+        String name = scanner.nextLine().trim();
+        System.out.println("Enter its price:");
+        try {
+            double value = Double.parseDouble(scanner.nextLine().trim().replace(',', '.').replaceAll("[-+]", ""));
+            balance -= value;
+            purchases.add(new Item(name, value));
+            System.out.println("Purchase was added!");
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
 
     private void addIncome() {
