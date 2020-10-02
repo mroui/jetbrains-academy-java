@@ -44,7 +44,7 @@ public class BudgetManager {
     private void addIncome() {
         System.out.println("Enter income:");
         try {
-            double value = Double.parseDouble(scanner.nextLine());
+            double value = Double.parseDouble(scanner.nextLine().replace(',', '.'));
             if (value > 0) {
                 balance += value;
                 System.out.println("Income was added!");
