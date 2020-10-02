@@ -21,7 +21,7 @@ public class BudgetManager {
         System.out.println();
         switch (option) {
             case "1":
-                //todo
+                addIncome();
                 break;
             case "2":
                 //todo
@@ -30,7 +30,7 @@ public class BudgetManager {
                 //todo
                 break;
             case "4":
-                //todo
+                showBalance();
                 break;
             case "0":
                 System.out.println("Bye!");
@@ -39,6 +39,23 @@ public class BudgetManager {
                 System.out.println("Unknown operation.");
         }
         handleOperations();
+    }
+
+    private void addIncome() {
+        System.out.println("Enter income:");
+        try {
+            double value = Double.parseDouble(scanner.nextLine());
+            if (value > 0) {
+                balance += value;
+                System.out.println("Income was added!");
+            } else throw new Exception("Income wrong format!");
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    private void showBalance() {
+        System.out.println("Balance: $" + balance);
     }
 
     private void showMenu() {
