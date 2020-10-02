@@ -9,8 +9,6 @@ import java.util.Scanner;
 
 public class BudgetManager {
 
-    //todo refactor new lines & code
-
     private final Scanner scanner;
     private final Menu mainMenu;
     private final Menu addPurchaseMenu;
@@ -60,28 +58,24 @@ public class BudgetManager {
             default:
                 System.out.println("Unknown operation.");
         }
-        System.out.println();
         mainMenu.getListener().handleInput();
     }
 
     private void handleAddPurchaseMenu() {
-        System.out.println();
         addPurchaseMenu.show();
         String option = scanner.nextLine().trim();
         System.out.println();
         ItemCategory category = ItemCategory.get(option);
-        if (category != null) {
+        if (category != null)
             addPurchase(category);
-            addPurchaseMenu.getListener().handleInput();
-        } else if (!option.equals("5")) {
-            System.out.println("Unknown operation.");
-            addPurchaseMenu.getListener().handleInput();
-        }
+        else if (option.equals("5"))
+            return;
+        else System.out.println("Unknown operation.");
+        addPurchaseMenu.getListener().handleInput();
     }
 
     private void handleShowPurchaseMenu() {
         if (!isPurchaseEmpty()) {
-            System.out.println();
             showPurchasesMenu.show();
             String option = scanner.nextLine().trim();
             System.out.println();
@@ -89,14 +83,12 @@ public class BudgetManager {
             if (category != null) {
                 purchases[category.ordinal()].print();
                 purchases[category.ordinal()].printSum();
-                showPurchasesMenu.getListener().handleInput();
-            } else if (option.equals("5")) {
+            } else if (option.equals("5"))
                 printAllPurchases();
-                showPurchasesMenu.getListener().handleInput();
-            } else if (!option.equals("6")) {
-                System.out.println("Unknown operation.");
-                showPurchasesMenu.getListener().handleInput();
-            }
+            else if (option.equals("6"))
+                return;
+            else System.out.println("Unknown operation.");
+            showPurchasesMenu.getListener().handleInput();
         } else System.out.println("Purchase list is empty!");
     }
 
@@ -151,5 +143,4 @@ public class BudgetManager {
     private void showBalance() {
         System.out.println("Balance: $" + String.format("%.2f", balance));
     }
-
 }

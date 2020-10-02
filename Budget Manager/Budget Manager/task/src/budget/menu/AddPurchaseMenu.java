@@ -8,7 +8,7 @@ public class AddPurchaseMenu extends Menu {
 
     @Override
     public void show() {
-        System.out.println("Choose the type of purchase\n" +
+        System.out.println("\nChoose the type of purchase\n" +
                 "1) Food\n" +
                 "2) Clothes\n" +
                 "3) Entertainment\n" +

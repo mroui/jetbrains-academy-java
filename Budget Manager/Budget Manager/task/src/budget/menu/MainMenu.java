@@ -8,7 +8,7 @@ public class MainMenu extends Menu {
 
     @Override
     public void show() {
-        System.out.println("Choose your action:\n" +
+        System.out.println("\nChoose your action:\n" +
                 "1) Add income\n" +
                 "2) Add purchase\n" +
                 "3) Show list of purchases\n" +
