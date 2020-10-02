@@ -70,17 +70,18 @@ public class BudgetManager {
     private void addIncome() {
         System.out.println("Enter income:");
         try {
-            double value = parseAmount(scanner.nextLine());
-            if (value > 0) {
+            String valueString = scanner.nextLine();
+            if (!valueString.contains("-")) {
+                double value = parseAmount(valueString);
                 balance += value;
                 System.out.println("Income was added!");
-            } else throw new Exception("Income wrong format!");
+            } else System.out.println("Income cannot be negative!");
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
 
-    private double parseAmount(String value) {
+    private double parseAmount(String value) throws NullPointerException, NumberFormatException {
         return Double.parseDouble(value.trim().replace(',', '.').replaceAll("[-+]", ""));
     }
 
