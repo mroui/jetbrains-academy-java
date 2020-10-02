@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class BudgetManager {
 
     private final Scanner scanner = new Scanner(System.in);
-    private Double balance;
+    private double balance;
     private final List<Item> purchases;
 
     public BudgetManager() {
@@ -60,7 +60,7 @@ public class BudgetManager {
         String name = scanner.nextLine().trim();
         System.out.println("Enter its price:");
         try {
-            double value = Double.parseDouble(scanner.nextLine().trim().replace(',', '.').replaceAll("[-+]", ""));
+            double value = parseAmount(scanner.nextLine());
             balance -= value;
             purchases.add(new Item(name, value));
             System.out.println("Purchase was added!");
@@ -72,7 +72,7 @@ public class BudgetManager {
     private void addIncome() {
         System.out.println("Enter income:");
         try {
-            double value = Double.parseDouble(scanner.nextLine().replace(',', '.'));
+            double value = parseAmount(scanner.nextLine());
             if (value > 0) {
                 balance += value;
                 System.out.println("Income was added!");
@@ -80,6 +80,10 @@ public class BudgetManager {
         } catch (Exception e) {
             System.out.println(e.toString());
         }
+    }
+
+    private double parseAmount(String value) {
+        return Double.parseDouble(value.trim().replace(',', '.').replaceAll("[-+]", ""));
     }
 
     private void showBalance() {
