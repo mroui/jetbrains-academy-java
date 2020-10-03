@@ -17,6 +17,7 @@ public class BudgetManager implements PurchaseFileManager {
     private final Menu mainMenu;
     private final Menu addPurchaseMenu;
     private final Menu showPurchasesMenu;
+    private final Menu sortMenu;
     @Expose
     private ItemList[] purchases;
     @Expose
@@ -28,6 +29,7 @@ public class BudgetManager implements PurchaseFileManager {
         mainMenu = new MainMenu(this::handleMainMenu);
         addPurchaseMenu = new AddPurchaseMenu(this::handleAddPurchaseMenu);
         showPurchasesMenu = new ShowPurchasesMenu(this::handleShowPurchaseMenu);
+        sortMenu = new SortMenu(this::handleSortMenu);
         initPurchaseLists();
     }
 
@@ -64,6 +66,9 @@ public class BudgetManager implements PurchaseFileManager {
             case "6":
                 handleLoadedData();
                 break;
+            case "7":
+                sortMenu.getListener().handleInput();
+                break;
             case "0":
                 System.out.println("Bye!");
                 return;
@@ -81,6 +86,28 @@ public class BudgetManager implements PurchaseFileManager {
             for (ItemList list : purchases)
                 list.recalculateSum();
         }
+    }
+
+    private void handleSortMenu() {
+        sortMenu.show();
+        String option = scanner.nextLine().trim();
+        System.out.println();
+        switch (option) {
+            case "1":
+                //todo sort all purchases
+                break;
+            case "2":
+                //todo sort by type
+                break;
+            case "3":
+                //todo sort certain type
+                break;
+            case "4":
+                return;
+            default:
+                System.out.println("Unknown operation.");
+        }
+        sortMenu.getListener().handleInput();
     }
 
     private void handleAddPurchaseMenu() {
