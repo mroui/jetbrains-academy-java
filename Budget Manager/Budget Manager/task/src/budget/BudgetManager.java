@@ -3,10 +3,7 @@ package budget;
 import budget.item.Item;
 import budget.item.ItemCategory;
 import budget.item.ItemList;
-import budget.menu.AddPurchaseMenu;
-import budget.menu.MainMenu;
-import budget.menu.Menu;
-import budget.menu.ShowPurchasesMenu;
+import budget.menu.*;
 import com.google.gson.annotations.Expose;
 
 import java.util.Scanner;
@@ -18,6 +15,7 @@ public class BudgetManager implements PurchaseFileManager {
     private final Menu addPurchaseMenu;
     private final Menu showPurchasesMenu;
     private final Menu sortMenu;
+    private final Menu sortTypeMenu;
     @Expose
     private ItemList[] purchases;
     @Expose
@@ -27,9 +25,10 @@ public class BudgetManager implements PurchaseFileManager {
         scanner = new Scanner(System.in);
         balance = 0.0d;
         mainMenu = new MainMenu(this::handleMainMenu);
-        addPurchaseMenu = new AddPurchaseMenu(this::handleAddPurchaseMenu);
+        addPurchaseMenu = new PurchaseTypeMenu(this::handleAddPurchaseMenu);
         showPurchasesMenu = new ShowPurchasesMenu(this::handleShowPurchaseMenu);
         sortMenu = new SortMenu(this::handleSortMenu);
+        sortTypeMenu = new PurchaseTypeMenu(this::handleSortTypeMenu);
         initPurchaseLists();
     }
 

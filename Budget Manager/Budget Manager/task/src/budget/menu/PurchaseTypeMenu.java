@@ -1,8 +1,8 @@
 package budget.menu;
 
-public class AddPurchaseMenu extends Menu {
+public class PurchaseTypeMenu extends Menu {
 
-    public AddPurchaseMenu(MenuListener listener) {
+    public PurchaseTypeMenu(MenuListener listener) {
         super(listener);
     }
 
