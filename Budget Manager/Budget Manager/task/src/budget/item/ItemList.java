@@ -33,7 +33,7 @@ public class ItemList {
 
     public void recalculateSum() {
         sum = 0;
-        for(Item i : list) {
+        for (Item i : list) {
             sum += i.getValue();
         }
     }
@@ -48,5 +48,18 @@ public class ItemList {
 
     public void printSum() {
         System.out.println("Total sum: $" + String.format("%.2f", sum));
+    }
+
+    public void sort(boolean ascending) {
+        for (int i = 0; i < list.size() - 1; i++) {
+            for (int j = 0; j < list.size() - i - 1; j++) {
+                if (ascending && list.get(j).getValue() > list.get(j + 1).getValue()
+                        || !ascending && list.get(j).getValue() < list.get(j + 1).getValue()) {
+                    Item temp = list.get(j);
+                    list.set(j, list.get(j + 1));
+                    list.set(j + 1, temp);
+                }
+            }
+        }
     }
 }

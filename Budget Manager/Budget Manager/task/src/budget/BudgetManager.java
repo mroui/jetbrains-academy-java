@@ -99,7 +99,7 @@ public class BudgetManager implements PurchaseFileManager {
                 //todo sort by type
                 break;
             case "3":
-                //todo sort certain type
+                sortTypeMenu.getListener().handleInput();
                 break;
             case "4":
                 return;
@@ -107,6 +107,30 @@ public class BudgetManager implements PurchaseFileManager {
                 System.out.println("Unknown operation.");
         }
         sortMenu.getListener().handleInput();
+    }
+
+    private void handleSortTypeMenu() {
+        if (!isPurchaseEmpty()) {
+            sortTypeMenu.show();
+            String option = scanner.nextLine().trim();
+            System.out.println();
+            ItemCategory category = ItemCategory.get(option);
+            if (category != null) {
+                sortPurchase(category);
+            } else if (option.equals("5"))
+                return;
+            else System.out.println("Unknown operation.");
+            sortTypeMenu.getListener().handleInput();
+        }
+    }
+
+    private void sortPurchase(ItemCategory category) {
+        ItemList list = purchases[category.ordinal()];
+        if (list.getList().size() > 0) {
+            list.sort(false);
+            list.print();
+            list.printSum();
+        } else System.out.println("Purchase list is empty!");
     }
 
     private void handleAddPurchaseMenu() {
@@ -137,13 +161,14 @@ public class BudgetManager implements PurchaseFileManager {
                 return;
             else System.out.println("Unknown operation.");
             showPurchasesMenu.getListener().handleInput();
-        } else System.out.println("Purchase list is empty!");
+        }
     }
 
     private boolean isPurchaseEmpty() {
         for (ItemList list : purchases)
             if (list.getList().size() != 0)
                 return false;
+        System.out.println("Purchase list is empty!");
         return true;
     }
 
