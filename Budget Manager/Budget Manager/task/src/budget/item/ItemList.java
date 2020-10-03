@@ -5,7 +5,7 @@ import com.google.gson.annotations.Expose;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemList {
+public class ItemList implements Comparable<ItemList> {
 
     @Expose
     private final ItemCategory category;
@@ -20,6 +20,10 @@ public class ItemList {
 
     public List<Item> getList() {
         return list;
+    }
+
+    public ItemCategory getCategory() {
+        return category;
     }
 
     public double getSum() {
@@ -61,5 +65,10 @@ public class ItemList {
                 }
             }
         }
+    }
+
+    @Override
+    public int compareTo(ItemList itemList) {
+        return sum <= itemList.sum ? 1 : -1;
     }
 }

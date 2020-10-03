@@ -6,6 +6,7 @@ import budget.item.ItemList;
 import budget.menu.*;
 import com.google.gson.annotations.Expose;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class BudgetManager implements PurchaseFileManager {
@@ -96,7 +97,7 @@ public class BudgetManager implements PurchaseFileManager {
                 //todo sort all purchases
                 break;
             case "2":
-                //todo sort by type
+                sortByType();
                 break;
             case "3":
                 sortTypeMenu.getListener().handleInput();
@@ -107,6 +108,20 @@ public class BudgetManager implements PurchaseFileManager {
                 System.out.println("Unknown operation.");
         }
         sortMenu.getListener().handleInput();
+    }
+
+    private void sortByType() {
+        if (!isPurchaseEmpty()) {
+            ItemList[] list = purchases.clone();
+            Arrays.sort(list);
+            System.out.println("Types:");
+            double sum = 0;
+            for (ItemList l : list) {
+                System.out.println(l.getCategory() + " - $" + String.format("%.2f", l.getSum()));
+                sum += l.getSum();
+            }
+            System.out.println("Total sum: $" + String.format("%.2f", sum));
+        }
     }
 
     private void handleSortTypeMenu() {
