@@ -1,4 +1,4 @@
-package budget;
+package budget.item;
 
 public enum ItemCategory {
 

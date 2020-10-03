@@ -1,4 +1,4 @@
-package budget;
+package budget.item;
 
 public class Item {
 

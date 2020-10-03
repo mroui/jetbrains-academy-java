@@ -1,5 +1,8 @@
 package budget;
 
+import budget.item.Item;
+import budget.item.ItemCategory;
+import budget.item.ItemList;
 import budget.menu.AddPurchaseMenu;
 import budget.menu.MainMenu;
 import budget.menu.Menu;
