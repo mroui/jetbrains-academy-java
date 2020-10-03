@@ -58,6 +58,12 @@ public class BudgetManager {
             case "4":
                 showBalance();
                 break;
+            case "5":
+                PurchaseFileManager.write(this);
+                break;
+            case "6":
+                //todo load
+                break;
             case "0":
                 System.out.println("Bye!");
                 return;

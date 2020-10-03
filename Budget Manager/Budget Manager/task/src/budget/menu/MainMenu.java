@@ -13,6 +13,8 @@ public class MainMenu extends Menu {
                 "2) Add purchase\n" +
                 "3) Show list of purchases\n" +
                 "4) Balance\n" +
+                "5) Save\n" +
+                "6) Load\n" +
                 "0) Exit");
     }
 }
