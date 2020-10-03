@@ -62,7 +62,7 @@ public class BudgetManager implements PurchaseFileManager {
                 write(this);
                 break;
             case "6":
-                //todo load
+                handleLoadedData();
                 break;
             case "0":
                 System.out.println("Bye!");
@@ -71,6 +71,16 @@ public class BudgetManager implements PurchaseFileManager {
                 System.out.println("Unknown operation.");
         }
         mainMenu.getListener().handleInput();
+    }
+
+    private void handleLoadedData() {
+        BudgetManager loaded = read();
+        if (loaded != null) {
+            balance = loaded.balance;
+            purchases = loaded.purchases;
+            for (ItemList list : purchases)
+                list.recalculateSum();
+        }
     }
 
     private void handleAddPurchaseMenu() {

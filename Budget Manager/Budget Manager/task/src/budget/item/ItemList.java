@@ -31,6 +31,13 @@ public class ItemList {
         sum += item.getValue();
     }
 
+    public void recalculateSum() {
+        sum = 0;
+        for(Item i : list) {
+            sum += i.getValue();
+        }
+    }
+
     public void print() {
         System.out.println(category + ":");
         if (list.size() > 0)
