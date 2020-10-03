@@ -82,8 +82,7 @@ public class BudgetManager implements PurchaseFileManager {
         if (loaded != null) {
             balance = loaded.balance;
             purchases = loaded.purchases;
-            for (ItemList list : purchases)
-                list.recalculateSum();
+            Arrays.stream(purchases).forEach(ItemList::recalculateSum);
         }
     }
 
@@ -110,7 +109,7 @@ public class BudgetManager implements PurchaseFileManager {
     }
 
     private void sortAllPurchases() {
-        if (!isPurchaseEmpty()) {
+        if (isPurchaseNotEmpty()) {
             List<Item> allItems = new ArrayList<>();
             double sum = 0;
             for (ItemList list : purchases) {
@@ -121,8 +120,7 @@ public class BudgetManager implements PurchaseFileManager {
             }
             System.out.println("All:");
             Collections.sort(allItems);
-            for (Item i : allItems)
-                i.print();
+            allItems.forEach(Item::print);
             System.out.println("Total sum: $" + sum);
         }
     }
@@ -175,7 +173,7 @@ public class BudgetManager implements PurchaseFileManager {
     }
 
     private void handleShowPurchaseMenu() {
-        if (!isPurchaseEmpty()) {
+        if (isPurchaseNotEmpty()) {
             showPurchasesMenu.show();
             String option = scanner.nextLine().trim();
             System.out.println();
@@ -192,12 +190,12 @@ public class BudgetManager implements PurchaseFileManager {
         }
     }
 
-    private boolean isPurchaseEmpty() {
+    private boolean isPurchaseNotEmpty() {
         for (ItemList list : purchases)
             if (list.getList().size() != 0)
-                return false;
+                return true;
         System.out.println("Purchase list is empty!");
-        return true;
+        return false;
     }
 
     private void printAllPurchases() {
