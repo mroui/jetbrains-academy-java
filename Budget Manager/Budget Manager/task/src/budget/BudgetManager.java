@@ -7,7 +7,6 @@ import budget.menu.*;
 import com.google.gson.annotations.Expose;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class BudgetManager implements PurchaseFileManager {
 
@@ -122,38 +121,33 @@ public class BudgetManager implements PurchaseFileManager {
             }
             System.out.println("All:");
             Collections.sort(allItems);
-            for (Item i : allItems) {
+            for (Item i : allItems)
                 i.print();
-            }
             System.out.println("Total sum: $" + sum);
         }
     }
 
     private void sortByType() {
-        if (!isPurchaseEmpty()) {
-            ItemList[] list = purchases.clone();
-            Arrays.sort(list);
-            System.out.println("Types:");
-            double sum = 0;
-            for (ItemList l : list) {
-                System.out.println(l.getCategory() + " - $" + String.format("%.2f", l.getSum()));
-                sum += l.getSum();
-            }
-            System.out.println("Total sum: $" + String.format("%.2f", sum));
+        ItemList[] list = purchases.clone();
+        Arrays.sort(list);
+        System.out.println("Types:");
+        double sum = 0;
+        for (ItemList l : list) {
+            System.out.println(l.getCategory() + " - $" + String.format("%.2f", l.getSum()));
+            sum += l.getSum();
         }
+        System.out.println("Total sum: $" + String.format("%.2f", sum));
     }
 
     private void handleSortTypeMenu() {
-        if (!isPurchaseEmpty()) {
-            sortTypeMenu.show();
-            String option = scanner.nextLine().trim();
-            System.out.println();
-            ItemCategory category = ItemCategory.get(option);
-            if (category != null) {
-                sortPurchase(category);
-            } else if (option.equals("5"))
-                return;
-            else System.out.println("Unknown operation.");
+        sortTypeMenu.show();
+        String option = scanner.nextLine().trim();
+        System.out.println();
+        ItemCategory category = ItemCategory.get(option);
+        if (category != null)
+            sortPurchase(category);
+        else if (!option.equals("5")) {
+            System.out.println("Unknown operation.");
             sortTypeMenu.getListener().handleInput();
         }
     }
