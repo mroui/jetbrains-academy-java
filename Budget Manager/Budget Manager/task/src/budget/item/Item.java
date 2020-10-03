@@ -19,6 +19,6 @@ public class Item {
     }
 
     public void print() {
-        System.out.println(name + " $" + value);
+        System.out.println(name + " $" + String.format("%.2f", value));
     }
 }

@@ -40,6 +40,6 @@ public class ItemList {
     }
 
     public void printSum() {
-        System.out.println("Total sum: $" + sum);
+        System.out.println("Total sum: $" + String.format("%.2f", sum));
     }
 }
