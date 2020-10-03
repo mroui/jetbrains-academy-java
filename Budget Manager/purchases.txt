@@ -1,0 +1,93 @@
+{
+  "purchases": [
+    {
+      "category": "FOOD",
+      "list": [
+        {
+          "name": "Almond 250g",
+          "value": 35.43
+        },
+        {
+          "name": "Milk",
+          "value": 3.5
+        },
+        {
+          "name": "Red Fuji Apple",
+          "value": 5.99
+        },
+        {
+          "name": "Eggs",
+          "value": 3.99
+        },
+        {
+          "name": "FIJI Natural Artesian Water",
+          "value": 25.98
+        },
+        {
+          "name": "Hershey\u0027s milk chocolate bars",
+          "value": 8.54
+        },
+        {
+          "name": "Great Value Broccoli Florets",
+          "value": 1.0
+        },
+        {
+          "name": "Keystone Ground Bee",
+          "value": 6.28
+        }
+      ]
+    },
+    {
+      "category": "CLOTHES",
+      "list": [
+        {
+          "name": "Gildan LT",
+          "value": 8.61
+        },
+        {
+          "name": "Men\u0027s Dual Defense Crew Socks 12 Pairs",
+          "value": 13.0
+        },
+        {
+          "name": "Wrangler Men\u0027s Stretch Cargo Pant",
+          "value": 19.97
+        }
+      ]
+    },
+    {
+      "category": "ENTERTAINMENT",
+      "list": [
+        {
+          "name": "LEGO DUPLO Town Farm Animals",
+          "value": 10.1
+        },
+        {
+          "name": "Cinema",
+          "value": 8.73
+        },
+        {
+          "name": "Skate rental",
+          "value": 30.0
+        }
+      ]
+    },
+    {
+      "category": "OTHER",
+      "list": [
+        {
+          "name": "Sensodyne Pronamel Toothpaste",
+          "value": 19.74
+        },
+        {
+          "name": "Chick-fil-A $10 Gift Card",
+          "value": 10.0
+        },
+        {
+          "name": "Debt",
+          "value": 3.5
+        }
+      ]
+    }
+  ],
+  "balance": 785.64
+}
