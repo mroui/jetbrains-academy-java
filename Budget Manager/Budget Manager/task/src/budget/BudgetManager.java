@@ -114,8 +114,10 @@ public class BudgetManager implements PurchaseFileManager {
     private void printAllPurchases() {
         double sum = 0;
         for (ItemList list : purchases) {
-            list.print();
-            sum += list.getSum();
+            if (list.getList().size() > 0) {
+                list.print();
+                sum += list.getSum();
+            }
         }
         System.out.println("Total sum: $" + sum);
     }
