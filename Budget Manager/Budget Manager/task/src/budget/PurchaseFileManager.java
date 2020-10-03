@@ -6,13 +6,13 @@ import com.google.gson.GsonBuilder;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
-public abstract class PurchaseFileManager {
+public interface PurchaseFileManager {
 
-    private static final String FILENAME = "purchases.txt";
+    Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+    String FILENAME = "purchases.txt";
 
-    public static void write(Object object) {
+    default void write(Object object) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME))) {
-            Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
             writer.write(gson.toJson(object));
             System.out.println("Purchases were saved!");
         } catch (Exception e) {

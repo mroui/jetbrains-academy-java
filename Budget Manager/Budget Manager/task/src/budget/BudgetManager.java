@@ -11,7 +11,7 @@ import com.google.gson.annotations.Expose;
 
 import java.util.Scanner;
 
-public class BudgetManager {
+public class BudgetManager implements PurchaseFileManager {
 
     private final Scanner scanner;
     private final Menu mainMenu;
@@ -59,7 +59,7 @@ public class BudgetManager {
                 showBalance();
                 break;
             case "5":
-                PurchaseFileManager.write(this);
+                write(this);
                 break;
             case "6":
                 //todo load
