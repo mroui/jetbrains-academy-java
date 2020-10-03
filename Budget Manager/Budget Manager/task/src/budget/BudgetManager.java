@@ -7,6 +7,7 @@ import budget.menu.AddPurchaseMenu;
 import budget.menu.MainMenu;
 import budget.menu.Menu;
 import budget.menu.ShowPurchasesMenu;
+import com.google.gson.annotations.Expose;
 
 import java.util.Scanner;
 
@@ -16,7 +17,9 @@ public class BudgetManager {
     private final Menu mainMenu;
     private final Menu addPurchaseMenu;
     private final Menu showPurchasesMenu;
+    @Expose
     private ItemList[] purchases;
+    @Expose
     private double balance;
 
     public BudgetManager() {

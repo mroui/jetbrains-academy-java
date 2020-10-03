@@ -1,8 +1,12 @@
 package budget.item;
 
+import com.google.gson.annotations.Expose;
+
 public class Item {
 
+    @Expose
     private final String name;
+    @Expose
     private final Double value;
 
     public Item(String name, Double value) {
