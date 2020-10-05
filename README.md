@@ -23,11 +23,11 @@ Can be said, "trivial" problems can also be found here, but it is always worth r
 * :white_check_mark: :muscle: Hard [Digit Recognition](Digit%20Recognition)
 * :white_check_mark: :muscle: Hard [Smart Calculator](Smart%20Calculator)
 * :white_check_mark: :muscle: Hard [Linear Equations Solver](Linear%20Equations%20Solver)
+* :white_check_mark: :muscle: Hard [Budget Manager](Budget%20Manager)
 * :white_check_mark: :muscle: Challenging [Web Crawler](Web%20Crawler)
-* :construction: Budget Manager
+* :construction: Flashcards
 * :black_square_button: Phone Book
 * :black_square_button: Simple Banking System
-* :black_square_button: Flashcards
 * :black_square_button: Music Advisor
 * :black_square_button: Simple Search Engine
 * :black_square_button: Sorting Tool
