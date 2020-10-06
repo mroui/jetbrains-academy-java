@@ -17,4 +17,8 @@ public class Flashcard {
                 "Definition:\n" +
                 definition;
     }
+
+    public boolean isCorrect(String answer) {
+        return definition.equals(answer);
+    }
 }
