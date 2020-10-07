@@ -47,12 +47,19 @@ public class FlashcardsSet {
         return flashcards.stream().noneMatch(o -> o.term().equals(term));
     }
 
+    private String getTermOfDefinition(String definition) {
+        return flashcards.stream().filter(o -> o.definition().equals(definition)).findFirst()                                        // Get Optional<Country>
+                .map(Flashcard::term).orElse(null);
+    }
+
     public void check() {
         for (Flashcard card : flashcards) {
             System.out.println("Print the definition of \"" + card.term() + "\":");
             String definition = IN.nextLine();
             System.out.println(card.isCorrect(definition) ? "Correct!" :
-                    "Wrong. The right answer s \"" + card.definition() + "\".");
+                    isDefinitionUnique(definition) ? "Wrong. The right answer is \"" + card.definition() + "\"."
+                            : "Wrong. The right answer is \"" + card.definition() + "\", but your definition is correct " +
+                            "for \"" + getTermOfDefinition(definition) + "\".");
         }
     }
 }
