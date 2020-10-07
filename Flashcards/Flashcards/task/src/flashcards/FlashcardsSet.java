@@ -21,13 +21,31 @@ public class FlashcardsSet {
             for (int i = 0; i < amount; i++) {
                 System.out.println("Card #" + i + ':');
                 String term = IN.nextLine();
-                System.out.println("The definiton for card #" + i + ':');
-                String definition = IN.nextLine();
-                flashcards.add(new Flashcard(term, definition));
+                if (isTermUnique(term)) {
+                    System.out.println("The definiton for card #" + i + ':');
+                    String definition = IN.nextLine();
+                    if (isDefinitionUnique(definition))
+                        flashcards.add(new Flashcard(term, definition));
+                    else {
+                        System.out.println("The definition \"" + definition + "\"");
+                        i--;
+                    }
+                } else {
+                    System.out.println("The term \"" + term + "\" already exists. Try again:");
+                    i--;
+                }
             }
         } catch (Exception e) {
             System.out.println(e.toString());
         }
+    }
+
+    private boolean isDefinitionUnique(String definition) {
+        return flashcards.stream().anyMatch(o -> o.definition().equals(definition));
+    }
+
+    private boolean isTermUnique(String term) {
+        return flashcards.stream().anyMatch(o -> o.term().equals(term));
     }
 
     public void check() {
