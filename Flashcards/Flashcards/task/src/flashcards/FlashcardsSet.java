@@ -41,11 +41,11 @@ public class FlashcardsSet {
     }
 
     private boolean isDefinitionUnique(String definition) {
-        return flashcards.stream().anyMatch(o -> o.definition().equals(definition));
+        return flashcards.stream().noneMatch(o -> o.definition().equals(definition));
     }
 
     private boolean isTermUnique(String term) {
-        return flashcards.stream().anyMatch(o -> o.term().equals(term));
+        return flashcards.stream().noneMatch(o -> o.term().equals(term));
     }
 
     public void check() {
