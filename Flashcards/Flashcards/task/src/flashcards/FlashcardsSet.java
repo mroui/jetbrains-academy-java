@@ -15,25 +15,24 @@ public class FlashcardsSet {
     }
 
     private void read() {
+        String definition, term;
         try {
             System.out.println("Input the number of cards:");
             int amount = Integer.parseInt(IN.nextLine());
-            for (int i = 0; i < amount; i++) {
+            for (int i = 1; i <= amount; i++) {
                 System.out.println("Card #" + i + ':');
-                String term = IN.nextLine();
-                if (isTermUnique(term)) {
-                    System.out.println("The definiton for card #" + i + ':');
-                    String definition = IN.nextLine();
-                    if (isDefinitionUnique(definition))
-                        flashcards.add(new Flashcard(term, definition));
-                    else {
-                        System.out.println("The definition \"" + definition + "\"");
-                        i--;
-                    }
-                } else {
-                    System.out.println("The term \"" + term + "\" already exists. Try again:");
-                    i--;
+                term = IN.nextLine();
+                while (!isTermUnique(term)) {
+                    System.out.println("The card \"" + term + "\" already exists. Try again:");
+                    term = IN.nextLine();
                 }
+                System.out.println("The definition for card #" + i + ':');
+                definition = IN.nextLine();
+                while (!isDefinitionUnique(definition)) {
+                    System.out.println("The definition \"" + definition + "\" already exists. Try again:");
+                    definition = IN.nextLine();
+                }
+                flashcards.add(new Flashcard(term, definition));
             }
         } catch (Exception e) {
             System.out.println(e.toString());
