@@ -174,6 +174,18 @@ public class FlashcardsSet {
                         .forEach(f -> System.out.print(" \"" + f.term() + '"'));
                 System.out.println(". You have " + maxCard.mistakes() + " errors answering them.");
             }
-        } else System.out.println("There are no cards wth errors.");
+        } else System.out.println("There are no cards with errors.");
+    }
+
+    public void log() {
+        System.out.println("File name:");
+        String filename = IN.nextLine();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            //todo
+            writer.write("log");
+            System.out.println("The log has been saved.");
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
 }

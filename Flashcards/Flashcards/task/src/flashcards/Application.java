@@ -34,7 +34,7 @@ public class Application {
                 System.out.println("Bye bye!");
                 return;
             case "log":
-                //todo
+                set.log();
                 break;
             case "hardest card":
                 set.hardestCard();
