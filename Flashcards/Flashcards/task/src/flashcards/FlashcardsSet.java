@@ -9,7 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static flashcards.Application.IN;
+import static flashcards.Application.*;
 
 public class FlashcardsSet {
 
@@ -23,26 +23,31 @@ public class FlashcardsSet {
     public void read() {
         String definition, term;
         try {
-            System.out.println("Input the number of cards:");
+            println("Input the number of cards:");
             int amount = Integer.parseInt(IN.nextLine());
+            out(amount + NL);
             for (int i = 1; i <= amount; i++) {
-                System.out.println("Card #" + i + ':');
+                println("Card #" + i + ':');
                 term = IN.nextLine();
+                out(term + NL);
                 while (!isTermUnique(term)) {
-                    System.out.println("The card \"" + term + "\" already exists. Try again:");
+                    println("The card \"" + term + "\" already exists. Try again:");
                     term = IN.nextLine();
+                    out(term + NL);
                 }
-                System.out.println("The definition for card #" + i + ':');
+                println("The definition for card #" + i + ':');
                 definition = IN.nextLine();
+                out(definition + NL);
                 while (!isDefinitionUnique(definition)) {
-                    System.out.println("The definition \"" + definition + "\" already exists. Try again:");
+                    println("The definition \"" + definition + "\" already exists. Try again:");
                     definition = IN.nextLine();
+                    out(definition + NL);
                 }
                 flashcards.add(new Flashcard(term, definition));
-                System.out.println("The pair (\"" + term + "\":\"" + definition + "\") has been added.");
+                println("The pair (\"" + term + "\":\"" + definition + "\") has been added.");
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
+            println(e.toString());
         }
     }
 
@@ -60,46 +65,49 @@ public class FlashcardsSet {
     }
 
     public void ask() {
-        System.out.println("How many times to ask?");
+        println("How many times to ask?");
         try {
             int repetitions = Integer.parseInt(IN.nextLine());
+            out(repetitions + NL);
             if (flashcards.isEmpty()) {
-                System.out.println("Flashcards set is empty.");
+                println("Flashcards set is empty.");
                 return;
             }
             for (int i = 0; i < repetitions; i++) {
                 int random = ThreadLocalRandom.current().nextInt(0, flashcards.size());
                 Flashcard card = flashcards.get(random);
-                System.out.println("Print the definition of \"" + card.term() + "\":");
+                println("Print the definition of \"" + card.term() + "\":");
                 String definition = IN.nextLine();
+                out(definition + NL);
                 if (card.isCorrect(definition))
-                    System.out.println("Correct!");
+                    println("Correct!");
                 else if (isDefinitionUnique(definition)) {
                     card.addMistake();
-                    System.out.println("Wrong. The right answer is \"" + card.definition() + "\".");
+                    println("Wrong. The right answer is \"" + card.definition() + "\".");
                 } else {
                     card.addMistake();
-                    System.out.println("Wrong. The right answer is \"" + card.definition() +
-                            "\", but your definition is correct " +
+                    println("Wrong. The right answer is \"" + card.definition() + "\", but your definition is correct " +
                             "for \"" + getTermOfDefinition(definition) + "\".");
                 }
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
+            println(e.toString());
         }
     }
 
     public void add() {
-        System.out.println("The card:");
+        println("The card:");
         String term = IN.nextLine();
+        out(term + NL);
         if (isTermUnique(term)) {
-            System.out.println("The definition of the card:");
+            println("The definition of the card:");
             String definition = IN.nextLine();
+            out(definition + NL);
             if (isDefinitionUnique(definition)) {
                 flashcards.add(new Flashcard(term, definition));
-                System.out.println("The pair (\"" + term + "\":\"" + definition + "\") has been added.");
-            } else System.out.println("The definition \"" + definition + "\" already exists.");
-        } else System.out.println("The card \"" + term + "\" already exists.");
+                println("The pair (\"" + term + "\":\"" + definition + "\") has been added.");
+            } else println("The definition \"" + definition + "\" already exists.");
+        } else println("The card \"" + term + "\" already exists.");
     }
 
     private void add(List<Flashcard> list) {
@@ -115,42 +123,45 @@ public class FlashcardsSet {
     }
 
     public void remove() {
-        System.out.println("The card:");
+        println("The card:");
         String term = IN.nextLine();
+        out(term + NL);
         if (!isTermUnique(term)) {
             flashcards.removeIf(f -> f.term().equals(term));
-            System.out.println("The card has been removed.");
-        } else System.out.println("Can't remove \"" + term + "\": there is no such card.");
+            println("The card has been removed.");
+        } else println("Can't remove \"" + term + "\": there is no such card.");
     }
 
     public void exportToFile() {
-        System.out.println("File name:");
+        println("File name:");
         String filename = IN.nextLine();
+        out(filename + NL);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             writer.write(gson.toJson(this));
-            System.out.println(flashcards.size() + " cards have been saved.");
+            println(flashcards.size() + " cards have been saved.");
         } catch (Exception e) {
-            System.out.println(e.toString());
+            println(e.toString());
         }
     }
 
     public void importFromFile() {
-        System.out.println("File name:");
+        println("File name:");
         String filename = IN.nextLine();
+        out(filename + NL);
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             FlashcardsSet loaded = gson.fromJson(reader, FlashcardsSet.class);
-            System.out.println(loaded.flashcards.size() + " cards have been loaded.");
+            println(loaded.flashcards.size() + " cards have been loaded.");
             add(loaded.flashcards);
         } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
+            println("File not found.");
         } catch (Exception e) {
-            System.out.println(e.toString());
+            println(e.toString());
         }
     }
 
     public void resetStats() {
         flashcards.forEach(Flashcard::resetMistakes);
-        System.out.println("Card statistics have been reset.");
+        println("Card statistics have been reset.");
     }
 
     private boolean anyErrors() {
@@ -166,26 +177,25 @@ public class FlashcardsSet {
             sorted.sort(Comparator.comparingInt(Flashcard::mistakes));
             Flashcard maxCard = sorted.get(sorted.size() - 1);
             if (sorted.stream().filter(f -> f.mistakes() == maxCard.mistakes()).count() == 1) {
-                System.out.println("The hardest card is \"" + maxCard.term() + "\". You have " + maxCard.mistakes() +
-                        " errors answering it.");
+                println("The hardest card is \"" + maxCard.term() + "\". You have " +
+                        maxCard.mistakes() + " errors answering it.");
             } else {
-                System.out.print("The hardest cards are:");
-                sorted.stream().filter(f -> f.mistakes() == maxCard.mistakes())
-                        .forEach(f -> System.out.print(" \"" + f.term() + '"'));
-                System.out.println(". You have " + maxCard.mistakes() + " errors answering them.");
+                print("The hardest cards are:");
+                sorted.stream().filter(f -> f.mistakes() == maxCard.mistakes()).forEach(f -> print(" \"" + f.term() + '"'));
+                println(". You have " + maxCard.mistakes() + " errors answering them.");
             }
-        } else System.out.println("There are no cards with errors.");
+        } else println("There are no cards with errors.");
     }
 
     public void log() {
-        System.out.println("File name:");
+        println("File name:");
         String filename = IN.nextLine();
+        out(filename + NL);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-            //todo
-            writer.write("log");
-            System.out.println("The log has been saved.");
+            writer.write(log.toString());
+            println("The log has been saved.");
         } catch (Exception e) {
-            System.out.println(e.toString());
+            println(e.toString());
         }
     }
 }
