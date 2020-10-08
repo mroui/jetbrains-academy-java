@@ -13,7 +13,7 @@ public class FlashcardsSet {
         flashcards = new ArrayList<>();
     }
 
-    private void read() {
+    public void read() {
         String definition, term;
         try {
             System.out.println("Input the number of cards:");
@@ -32,6 +32,7 @@ public class FlashcardsSet {
                     definition = IN.nextLine();
                 }
                 flashcards.add(new Flashcard(term, definition));
+                System.out.println("The pair (\"" + term + "\":\"" + definition +"\") has been added.");
             }
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -60,5 +61,19 @@ public class FlashcardsSet {
                             : "Wrong. The right answer is \"" + card.definition() + "\", but your definition is correct " +
                             "for \"" + getTermOfDefinition(definition) + "\".");
         }
+    }
+
+    public void add() {
+        System.out.println("The card:");
+        String term = IN.nextLine();
+        if (isTermUnique(term)) {
+            System.out.println("The definition of the card:");
+            String definition = IN.nextLine();
+            if (isDefinitionUnique(definition)) {
+                flashcards.add(new Flashcard(term, definition));
+                System.out.println("The pair (\"" + term + "\":\"" + definition +"\") has been added.");
+            } else System.out.println("The definition \"" + definition + "\" already exists.");
+        } else System.out.println("The card \"" + term + "\" already exists.");
+
     }
 }

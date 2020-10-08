@@ -16,7 +16,7 @@ public class Application {
         System.out.println("\nInput the action (add, remove, import, export, ask, exit):");
         switch (IN.nextLine().trim()) {
             case "add":
-                //todo
+                set.add();
                 break;
             case "remove":
                 //todo
