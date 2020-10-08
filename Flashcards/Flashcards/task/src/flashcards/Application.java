@@ -37,7 +37,7 @@ public class Application {
                 //todo
                 break;
             case "hardest card":
-                //todo
+                set.hardestCard();
                 break;
             case "reset stats":
                 set.resetStats();
