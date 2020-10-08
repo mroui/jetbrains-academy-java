@@ -33,6 +33,8 @@ public class Application {
             case "exit":
                 System.out.println("Bye bye!");
                 return;
+            default:
+                System.out.println("Unknown command.");
         }
         run();
     }
