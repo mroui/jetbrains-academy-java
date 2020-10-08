@@ -2,6 +2,7 @@ package flashcards;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static flashcards.Application.IN;
 
@@ -32,7 +33,7 @@ public class FlashcardsSet {
                     definition = IN.nextLine();
                 }
                 flashcards.add(new Flashcard(term, definition));
-                System.out.println("The pair (\"" + term + "\":\"" + definition +"\") has been added.");
+                System.out.println("The pair (\"" + term + "\":\"" + definition + "\") has been added.");
             }
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -52,14 +53,26 @@ public class FlashcardsSet {
                 .map(Flashcard::term).orElse(null);
     }
 
-    public void check() {
-        for (Flashcard card : flashcards) {
-            System.out.println("Print the definition of \"" + card.term() + "\":");
-            String definition = IN.nextLine();
-            System.out.println(card.isCorrect(definition) ? "Correct!" :
-                    isDefinitionUnique(definition) ? "Wrong. The right answer is \"" + card.definition() + "\"."
-                            : "Wrong. The right answer is \"" + card.definition() + "\", but your definition is correct " +
-                            "for \"" + getTermOfDefinition(definition) + "\".");
+    public void ask() {
+        System.out.println("How many times to ask?");
+        try {
+            int repetitions = Integer.parseInt(IN.nextLine());
+            if (flashcards.isEmpty()) {
+                System.out.println("Flashcards set is empty.");
+                return;
+            }
+            for (int i = 0; i < repetitions; i++) {
+                int random = ThreadLocalRandom.current().nextInt(0, flashcards.size());
+                Flashcard card = flashcards.get(random);
+                System.out.println("Print the definition of \"" + card.term() + "\":");
+                String definition = IN.nextLine();
+                System.out.println(card.isCorrect(definition) ? "Correct!" :
+                        isDefinitionUnique(definition) ? "Wrong. The right answer is \"" + card.definition() + "\"."
+                                : "Wrong. The right answer is \"" + card.definition() + "\", but your definition is correct " +
+                                "for \"" + getTermOfDefinition(definition) + "\".");
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
         }
     }
 
@@ -71,7 +84,7 @@ public class FlashcardsSet {
             String definition = IN.nextLine();
             if (isDefinitionUnique(definition)) {
                 flashcards.add(new Flashcard(term, definition));
-                System.out.println("The pair (\"" + term + "\":\"" + definition +"\") has been added.");
+                System.out.println("The pair (\"" + term + "\":\"" + definition + "\") has been added.");
             } else System.out.println("The definition \"" + definition + "\" already exists.");
         } else System.out.println("The card \"" + term + "\" already exists.");
     }

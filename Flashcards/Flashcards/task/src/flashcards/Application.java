@@ -28,7 +28,7 @@ public class Application {
                 //todo
                 break;
             case "ask":
-                //todo
+                set.ask();
                 break;
             case "exit":
                 System.out.println("Bye bye!");
