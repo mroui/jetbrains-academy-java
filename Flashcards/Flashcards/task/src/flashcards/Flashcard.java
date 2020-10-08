@@ -3,7 +3,7 @@ package flashcards;
 public class Flashcard {
 
     private final String term;
-    private final String definition;
+    private String definition;
 
     public Flashcard(String term, String definition) {
         this.term = term;
@@ -16,6 +16,10 @@ public class Flashcard {
 
     public String definition() {
         return definition;
+    }
+
+    public void setDefinition(String definition) {
+        this.definition = definition;
     }
 
     @Override

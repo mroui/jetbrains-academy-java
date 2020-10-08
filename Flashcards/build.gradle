@@ -23,6 +23,7 @@ subprojects {
     dependencies {
         testCompile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
         testImplementation 'com.github.hyperskill:hs-test:release-SNAPSHOT'
+        implementation 'com.google.code.gson:gson:2.8.6'
     }
 
     configurations.all {

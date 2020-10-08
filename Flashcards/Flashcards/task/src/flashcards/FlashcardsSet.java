@@ -1,20 +1,25 @@
 package flashcards;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
+
+import static flashcards.Application.IN;
 
 public class FlashcardsSet {
 
-    public static Scanner IN = new Scanner(System.in);
+    private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private final List<Flashcard> flashcards;
 
     public FlashcardsSet() {
         flashcards = new ArrayList<>();
-        read();
     }
 
-    private void read() {
+    public void read() {
         String definition, term;
         try {
             System.out.println("Input the number of cards:");
@@ -33,6 +38,7 @@ public class FlashcardsSet {
                     definition = IN.nextLine();
                 }
                 flashcards.add(new Flashcard(term, definition));
+                System.out.println("The pair (\"" + term + "\":\"" + definition + "\") has been added.");
             }
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -52,14 +58,84 @@ public class FlashcardsSet {
                 .map(Flashcard::term).orElse(null);
     }
 
-    public void check() {
-        for (Flashcard card : flashcards) {
-            System.out.println("Print the definition of \"" + card.term() + "\":");
+    public void ask() {
+        System.out.println("How many times to ask?");
+        try {
+            int repetitions = Integer.parseInt(IN.nextLine());
+            if (flashcards.isEmpty()) {
+                System.out.println("Flashcards set is empty.");
+                return;
+            }
+            for (int i = 0; i < repetitions; i++) {
+                int random = ThreadLocalRandom.current().nextInt(0, flashcards.size());
+                Flashcard card = flashcards.get(random);
+                System.out.println("Print the definition of \"" + card.term() + "\":");
+                String definition = IN.nextLine();
+                System.out.println(card.isCorrect(definition) ? "Correct!" :
+                        isDefinitionUnique(definition) ? "Wrong. The right answer is \"" + card.definition() + "\"."
+                                : "Wrong. The right answer is \"" + card.definition() + "\", but your definition is correct " +
+                                "for \"" + getTermOfDefinition(definition) + "\".");
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    public void add() {
+        System.out.println("The card:");
+        String term = IN.nextLine();
+        if (isTermUnique(term)) {
+            System.out.println("The definition of the card:");
             String definition = IN.nextLine();
-            System.out.println(card.isCorrect(definition) ? "Correct!" :
-                    isDefinitionUnique(definition) ? "Wrong. The right answer is \"" + card.definition() + "\"."
-                            : "Wrong. The right answer is \"" + card.definition() + "\", but your definition is correct " +
-                            "for \"" + getTermOfDefinition(definition) + "\".");
+            if (isDefinitionUnique(definition)) {
+                flashcards.add(new Flashcard(term, definition));
+                System.out.println("The pair (\"" + term + "\":\"" + definition + "\") has been added.");
+            } else System.out.println("The definition \"" + definition + "\" already exists.");
+        } else System.out.println("The card \"" + term + "\" already exists.");
+    }
+
+    private void add(List<Flashcard> list) {
+        for (Flashcard card : list) {
+            if (isTermUnique(card.term()))
+                flashcards.add(card);
+            else flashcards.stream().filter(f -> f.term().equals(card.term()))
+                    .forEach(f -> f.setDefinition(card.definition()));
+        }
+    }
+
+    public void remove() {
+        System.out.println("The card:");
+        String term = IN.nextLine();
+        if (!isTermUnique(term)) {
+            flashcards.removeIf(f -> f.term().equals(term));
+            System.out.println("The card has been removed.");
+        } else System.out.println("Can't remove \"" + term + "\": there is no such card.");
+    }
+
+    public void exportToFile() {
+        System.out.println("File name:");
+        String filename = IN.nextLine();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            writer.write(gson.toJson(this));
+            System.out.println(flashcards.size() + " cards have been saved.");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    public void importFromFile() {
+        System.out.println("File name:");
+        String filename = IN.nextLine();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            FlashcardsSet loaded = gson.fromJson(reader, FlashcardsSet.class);
+            System.out.println(loaded.flashcards.size() + " cards have been loaded.");
+            add(loaded.flashcards);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+        } catch (Exception e) {
+            System.out.println(e.toString());
         }
     }
 }
