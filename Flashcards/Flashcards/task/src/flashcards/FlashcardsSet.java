@@ -129,8 +129,6 @@ public class FlashcardsSet {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             writer.write(gson.toJson(this));
             System.out.println(flashcards.size() + " cards have been saved.");
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -152,6 +150,7 @@ public class FlashcardsSet {
 
     public void resetStats() {
         flashcards.forEach(Flashcard::resetMistakes);
+        System.out.println("Card statistics have been reset.");
     }
 
     private boolean anyErrors() {
