@@ -22,10 +22,10 @@ public class Application {
                 set.remove();
                 break;
             case "import":
-                //todo
+                set.importFromFile();
                 break;
             case "export":
-                //todo
+                set.exportToFile();
                 break;
             case "ask":
                 set.ask();

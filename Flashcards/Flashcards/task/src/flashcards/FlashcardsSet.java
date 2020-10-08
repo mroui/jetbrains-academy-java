@@ -1,5 +1,9 @@
 package flashcards;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -8,6 +12,7 @@ import static flashcards.Application.IN;
 
 public class FlashcardsSet {
 
+    private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private final List<Flashcard> flashcards;
 
     public FlashcardsSet() {
@@ -89,6 +94,15 @@ public class FlashcardsSet {
         } else System.out.println("The card \"" + term + "\" already exists.");
     }
 
+    private void add(List<Flashcard> list) {
+        for (Flashcard card : list) {
+            if (isTermUnique(card.term()))
+                flashcards.add(card);
+            else flashcards.stream().filter(f -> f.term().equals(card.term()))
+                    .forEach(f -> f.setDefinition(card.definition()));
+        }
+    }
+
     public void remove() {
         System.out.println("The card:");
         String term = IN.nextLine();
@@ -96,5 +110,32 @@ public class FlashcardsSet {
             flashcards.removeIf(f -> f.term().equals(term));
             System.out.println("The card has been removed.");
         } else System.out.println("Can't remove \"" + term + "\": there is no such card.");
+    }
+
+    public void exportToFile() {
+        System.out.println("File name:");
+        String filename = IN.nextLine();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            writer.write(gson.toJson(this));
+            System.out.println(flashcards.size() + " cards have been saved.");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    public void importFromFile() {
+        System.out.println("File name:");
+        String filename = IN.nextLine();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            FlashcardsSet loaded = gson.fromJson(reader, FlashcardsSet.class);
+            System.out.println(loaded.flashcards.size() + " cards have been loaded.");
+            add(loaded.flashcards);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
 }
