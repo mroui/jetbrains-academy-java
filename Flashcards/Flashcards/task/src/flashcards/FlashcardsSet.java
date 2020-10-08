@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Stream;
 
 import static flashcards.Application.IN;
 
@@ -164,13 +163,13 @@ public class FlashcardsSet {
             List<Flashcard> sorted = new ArrayList<>(flashcards);
             sorted.sort(Comparator.comparingInt(Flashcard::mistakes));
             Flashcard maxCard = sorted.get(sorted.size() - 1);
-            Stream<Flashcard> maxStream = sorted.stream().filter(f -> f.mistakes() == maxCard.mistakes());
-            if (maxStream.count() == 1) {
+            if (sorted.stream().filter(f -> f.mistakes() == maxCard.mistakes()).count() == 1) {
                 System.out.println("The hardest card is \"" + maxCard.term() + "\". You have " + maxCard.mistakes() +
                         " errors answering it.");
             } else {
                 System.out.print("The hardest cards are:");
-                maxStream.forEach(f -> System.out.print(" \"" + f.term() + '"'));
+                sorted.stream().filter(f -> f.mistakes() == maxCard.mistakes())
+                        .forEach(f -> System.out.print(" \"" + f.term() + '"'));
                 System.out.println(". You have " + maxCard.mistakes() + " errors answering them.");
             }
         } else System.out.println("There are no cards wth errors.");
