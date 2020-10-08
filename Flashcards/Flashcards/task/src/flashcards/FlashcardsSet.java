@@ -107,7 +107,10 @@ public class FlashcardsSet {
             if (isTermUnique(card.term()))
                 flashcards.add(card);
             else flashcards.stream().filter(f -> f.term().equals(card.term()))
-                    .forEach(f -> f.setDefinition(card.definition()));
+                    .forEach(f -> {
+                        f.setDefinition(card.definition());
+                        f.setMistakes(card.mistakes());
+                    });
         }
     }
 

@@ -31,6 +31,10 @@ public class Flashcard {
         this.mistakes++;
     }
 
+    public void setMistakes(int mistakes) {
+        this.mistakes = mistakes;
+    }
+
     public void resetMistakes() {
         this.mistakes = 0;
     }
