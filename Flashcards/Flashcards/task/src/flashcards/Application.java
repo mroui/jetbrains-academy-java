@@ -5,7 +5,10 @@ import java.util.Scanner;
 
 public class Application {
 
-    public static Scanner IN = new Scanner(System.in);
+    public static final Scanner IN = new Scanner(System.in);
+    public static final StringBuilder log = new StringBuilder();
+    public static final String NL = System.getProperty("line.separator");
+
     private final FlashcardsSet set;
 
     public Application() {
@@ -13,8 +16,10 @@ public class Application {
     }
 
     public void run() {
-        System.out.println("\nInput the action (add, remove, import, export, ask, exit):");
-        switch (IN.nextLine().trim()) {
+        println("\nInput the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):");
+        String option = IN.nextLine().trim();
+        out(option + NL);
+        switch (option) {
             case "add":
                 set.add();
                 break;
@@ -31,12 +36,35 @@ public class Application {
                 set.ask();
                 break;
             case "exit":
-                System.out.println("Bye bye!");
+                println("Bye bye!");
                 return;
+            case "log":
+                set.log();
+                break;
+            case "hardest card":
+                set.hardestCard();
+                break;
+            case "reset stats":
+                set.resetStats();
+                break;
             default:
-                System.out.println("Unknown command.");
+                println("Unknown command.");
         }
         run();
     }
 
+    public static void println(Object obj) {
+        System.out.println(obj);
+        out(obj);
+        out(NL);
+    }
+
+    public static void print(Object obj) {
+        System.out.print(obj);
+        out(obj);
+    }
+
+    public static void out(Object obj) {
+        log.append(obj);
+    }
 }

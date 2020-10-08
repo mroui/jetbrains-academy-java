@@ -4,6 +4,7 @@ public class Flashcard {
 
     private final String term;
     private String definition;
+    private int mistakes;
 
     public Flashcard(String term, String definition) {
         this.term = term;
@@ -18,8 +19,24 @@ public class Flashcard {
         return definition;
     }
 
+    public int mistakes() {
+        return mistakes;
+    }
+
     public void setDefinition(String definition) {
         this.definition = definition;
+    }
+
+    public void addMistake() {
+        this.mistakes++;
+    }
+
+    public void setMistakes(int mistakes) {
+        this.mistakes = mistakes;
+    }
+
+    public void resetMistakes() {
+        this.mistakes = 0;
     }
 
     @Override
