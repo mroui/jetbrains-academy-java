@@ -138,4 +138,8 @@ public class FlashcardsSet {
             System.out.println(e.toString());
         }
     }
+
+    public void resetStats() {
+        flashcards.forEach(Flashcard::resetMistakes);
+    }
 }

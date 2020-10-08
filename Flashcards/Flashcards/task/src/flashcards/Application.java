@@ -13,7 +13,7 @@ public class Application {
     }
 
     public void run() {
-        System.out.println("\nInput the action (add, remove, import, export, ask, exit):");
+        System.out.println("\nInput the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):");
         switch (IN.nextLine().trim()) {
             case "add":
                 set.add();
@@ -33,6 +33,15 @@ public class Application {
             case "exit":
                 System.out.println("Bye bye!");
                 return;
+            case "log":
+                //todo
+                break;
+            case "hardest card":
+                //todo
+                break;
+            case "reset stats":
+                set.resetStats();
+                break;
             default:
                 System.out.println("Unknown command.");
         }
