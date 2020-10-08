@@ -2,16 +2,15 @@ package flashcards;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+
+import static flashcards.Application.IN;
 
 public class FlashcardsSet {
 
-    public static Scanner IN = new Scanner(System.in);
     private final List<Flashcard> flashcards;
 
     public FlashcardsSet() {
         flashcards = new ArrayList<>();
-        read();
     }
 
     private void read() {
