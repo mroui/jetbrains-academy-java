@@ -71,10 +71,17 @@ public class FlashcardsSet {
                 Flashcard card = flashcards.get(random);
                 System.out.println("Print the definition of \"" + card.term() + "\":");
                 String definition = IN.nextLine();
-                System.out.println(card.isCorrect(definition) ? "Correct!" :
-                        isDefinitionUnique(definition) ? "Wrong. The right answer is \"" + card.definition() + "\"."
-                                : "Wrong. The right answer is \"" + card.definition() + "\", but your definition is correct " +
-                                "for \"" + getTermOfDefinition(definition) + "\".");
+                if (card.isCorrect(definition))
+                    System.out.println("Correct!");
+                else if (isDefinitionUnique(definition)) {
+                    card.addMistake();
+                    System.out.println("Wrong. The right answer is \"" + card.definition() + "\".");
+                } else {
+                    card.addMistake();
+                    System.out.println("Wrong. The right answer is \"" + card.definition() +
+                            "\", but your definition is correct " +
+                            "for \"" + getTermOfDefinition(definition) + "\".");
+                }
             }
         } catch (Exception e) {
             System.out.println(e.toString());
