@@ -19,7 +19,7 @@ public class Application {
                 set.add();
                 break;
             case "remove":
-                //todo
+                set.remove();
                 break;
             case "import":
                 //todo

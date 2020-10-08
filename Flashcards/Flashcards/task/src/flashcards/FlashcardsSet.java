@@ -74,6 +74,14 @@ public class FlashcardsSet {
                 System.out.println("The pair (\"" + term + "\":\"" + definition +"\") has been added.");
             } else System.out.println("The definition \"" + definition + "\" already exists.");
         } else System.out.println("The card \"" + term + "\" already exists.");
+    }
 
+    public void remove() {
+        System.out.println("The card:");
+        String term = IN.nextLine();
+        if (!isTermUnique(term)) {
+            flashcards.removeIf(f -> f.term().equals(term));
+            System.out.println("The card has been removed.");
+        } else System.out.println("Can't remove \"" + term + "\": there is no such card.");
     }
 }
