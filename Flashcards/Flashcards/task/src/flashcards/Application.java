@@ -8,6 +8,7 @@ public class Application {
     public static final Scanner IN = new Scanner(System.in);
     public static final StringBuilder log = new StringBuilder();
     public static final String NL = System.getProperty("line.separator");
+    private String filenameToExport;
 
     private final FlashcardsSet set;
 
@@ -15,7 +16,24 @@ public class Application {
         this.set = new FlashcardsSet();
     }
 
-    public void run() {
+    private void parseArguments(String... args) {
+        if (args.length > 0) {
+            try {
+                for (int i = 0; i < args.length; i += 2) {
+                    if (args[i].equals("-import"))
+                        set.importFromFile(args[i + 1]);
+                    else if (args[i].equals("-export"))
+                        filenameToExport = args[i + 1];
+                    else println("Unknown argument \"" + args[i] + "\".");
+                }
+            } catch (Exception e) {
+                println("Incorrect arguments given.");
+            }
+        }
+    }
+
+    public void run(String... args) {
+        parseArguments(args);
         println("\nInput the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):");
         String option = IN.nextLine().trim();
         out(option + NL);
@@ -37,6 +55,7 @@ public class Application {
                 break;
             case "exit":
                 println("Bye bye!");
+                if (filenameToExport != null) set.exportToFile(filenameToExport);
                 return;
             case "log":
                 set.log();

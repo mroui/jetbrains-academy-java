@@ -132,10 +132,7 @@ public class FlashcardsSet {
         } else println("Can't remove \"" + term + "\": there is no such card.");
     }
 
-    public void exportToFile() {
-        println("File name:");
-        String filename = IN.nextLine();
-        out(filename + NL);
+    public void exportToFile(String filename) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             writer.write(gson.toJson(this));
             println(flashcards.size() + " cards have been saved.");
@@ -144,10 +141,14 @@ public class FlashcardsSet {
         }
     }
 
-    public void importFromFile() {
+    public void exportToFile() {
         println("File name:");
         String filename = IN.nextLine();
         out(filename + NL);
+        exportToFile(filename);
+    }
+
+    public void importFromFile(String filename) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             FlashcardsSet loaded = gson.fromJson(reader, FlashcardsSet.class);
             println(loaded.flashcards.size() + " cards have been loaded.");
@@ -157,6 +158,13 @@ public class FlashcardsSet {
         } catch (Exception e) {
             println(e.toString());
         }
+    }
+
+    public void importFromFile() {
+        println("File name:");
+        String filename = IN.nextLine();
+        out(filename + NL);
+        importFromFile(filename);
     }
 
     public void resetStats() {
