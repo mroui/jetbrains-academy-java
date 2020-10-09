@@ -1,0 +1,19 @@
+{
+  "flashcards": [
+    {
+      "term": "France",
+      "definition": "Paris",
+      "mistakes": 3
+    },
+    {
+      "term": "Russia",
+      "definition": "Moscow",
+      "mistakes": 2
+    },
+    {
+      "term": "Japan",
+      "definition": "Tokyo",
+      "mistakes": 1
+    }
+  ]
+}
