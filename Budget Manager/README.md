@@ -26,3 +26,6 @@ cd jetbrains-academy-java/Budget\ Manager
 ```
 ./gradlew Budget_Manager-task:run
 ```
+
+## Copyright
+* [Gson](https://github.com/google/gson)
