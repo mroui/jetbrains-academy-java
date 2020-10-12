@@ -2,7 +2,7 @@ package phonebook;
 
 import java.util.Objects;
 
-public class Person {
+public class Person implements Comparable<Person> {
 
     private final String firstName;
     private final String lastName;
@@ -31,5 +31,10 @@ public class Person {
     @Override
     public int hashCode() {
         return Objects.hash(firstName, lastName);
+    }
+
+    @Override
+    public int compareTo(Person person) {
+        return firstName.compareTo(person.firstName);
     }
 }
