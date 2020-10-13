@@ -86,7 +86,7 @@ public class PhoneBookTest extends StageTest {
 
 
         List<String> timestamps = findAll(reply, timeRegex);
-        if (timestamps.size() != 4) {
+        if (timestamps.size() != 7) {
             return CheckResult.wrong("Your output should contain 4 timer outputs, but found "
                     + timestamps.size());
         }
