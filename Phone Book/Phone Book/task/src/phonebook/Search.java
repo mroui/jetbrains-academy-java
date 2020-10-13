@@ -39,4 +39,18 @@ public class Search<T extends Comparable<T>> {
                 return i;
         return -1;
     }
+
+    public long binary(List<T> source, T elem, int left, int right) {
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (source.get(mid).equals(elem)) {
+                return mid;
+            } else if (elem.compareTo(source.get(mid)) < 0) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return -1;
+    }
 }
