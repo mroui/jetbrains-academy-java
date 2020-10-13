@@ -46,6 +46,22 @@ public class PhoneBook {
     public void search(List<Person> list) {
         long time = linearSearch(list);
         jumpSearch(list, time * 200);
+        binarySearch(list);
+    }
+
+    private void binarySearch(List<Person> list) {
+        System.out.println("Start searching (quick sort + binary search)...");
+        long allTime = System.currentTimeMillis();
+        List<Person> sorted = new ArrayList<>(records);
+        sort.quick(sorted, 0, sorted.size() - 1);
+        String sortingTimeString = getTimeTakenString(allTime);
+        long searchingTime = System.currentTimeMillis();
+        long founded = search.binary(sorted, list);
+        String searchingTimeString = getTimeTakenString(searchingTime);
+        System.out.println("Found " + founded + " / " + list.size() + " entries. " +
+                "Time taken: " + getTimeTakenString(allTime));
+        System.out.println("Sorting time: " + sortingTimeString);
+        System.out.println("Searching time: " + searchingTimeString + '\n');
     }
 
     private long linearSearch(List<Person> list) {
@@ -60,9 +76,10 @@ public class PhoneBook {
     private void jumpSearch(List<Person> list, long maxTime) {
         System.out.println("Start searching (bubble sort + jump search)...");
         long allTime = System.currentTimeMillis();
+        List<Person> sorted = new ArrayList<>(records);
         boolean done;
         Future<Boolean> future = Executors.newCachedThreadPool().submit(() -> {
-            sort.bubble(records);
+            sort.bubble(sorted);
             return true;
         });
         try {
@@ -72,7 +89,7 @@ public class PhoneBook {
         }
         String sortingTimeString = getTimeTakenString(allTime);
         long searchingTime = System.currentTimeMillis();
-        long founded = done ? search.jump(records, list) : search.linear(records, list);
+        long founded = done ? search.jump(sorted, list) : search.linear(sorted, list);
         String searchingTimeString = getTimeTakenString(searchingTime);
         System.out.println("Found " + founded + " / " + list.size() + " entries. " +
                 "Time taken: " + getTimeTakenString(allTime));
