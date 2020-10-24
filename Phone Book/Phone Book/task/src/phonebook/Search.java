@@ -57,4 +57,12 @@ public class Search<T extends Comparable<T>> {
         }
         return found;
     }
+
+    public long hashtable(HashTable<T> source, List<T> toFind) {
+        long found = 0;
+        for (T target : toFind)
+            if (source.get(Math.abs(target.hashCode())) != null)
+                found++;
+        return found;
+    }
 }
