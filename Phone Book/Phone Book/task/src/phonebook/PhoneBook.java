@@ -29,12 +29,10 @@ public class PhoneBook {
                 Matcher matcherPhone = Pattern.compile("[\\d]+").matcher(line);
                 StringBuilder name = new StringBuilder();
                 Integer phone = null;
-                while (matcherName.find()) {
+                while (matcherName.find())
                     name.append(matcherName.group()).append(" ");
-                }
-                if (matcherPhone.find()) {
+                if (matcherPhone.find())
                     phone = Integer.parseInt(matcherPhone.group());
-                }
                 people.add(Person.create(name.toString(), phone));
             }
         } catch (Exception e) {
@@ -56,9 +54,9 @@ public class PhoneBook {
         sort.quick(sorted, 0, sorted.size() - 1);
         String sortingTimeString = getTimeTakenString(allTime);
         long searchingTime = System.currentTimeMillis();
-        long founded = search.binary(sorted, list);
+        long found = search.binary(sorted, list);
         String searchingTimeString = getTimeTakenString(searchingTime);
-        System.out.println("Found " + founded + " / " + list.size() + " entries. " +
+        System.out.println("Found " + found + " / " + list.size() + " entries. " +
                 "Time taken: " + getTimeTakenString(allTime));
         System.out.println("Sorting time: " + sortingTimeString);
         System.out.println("Searching time: " + searchingTimeString + '\n');
@@ -67,8 +65,8 @@ public class PhoneBook {
     private long linearSearch(List<Person> list) {
         System.out.println("Start searching (linear search)...");
         long time = System.currentTimeMillis();
-        long founded = search.linear(records, list);
-        System.out.println("Found " + founded + " / " + list.size() +
+        long found = search.linear(records, list);
+        System.out.println("Found " + found + " / " + list.size() +
                 " entries. Time taken: " + getTimeTakenString(time) + '\n');
         return System.currentTimeMillis() - time;
     }
@@ -89,9 +87,9 @@ public class PhoneBook {
         }
         String sortingTimeString = getTimeTakenString(allTime);
         long searchingTime = System.currentTimeMillis();
-        long founded = done ? search.jump(sorted, list) : search.linear(sorted, list);
+        long found = done ? search.jump(sorted, list) : search.linear(sorted, list);
         String searchingTimeString = getTimeTakenString(searchingTime);
-        System.out.println("Found " + founded + " / " + list.size() + " entries. " +
+        System.out.println("Found " + found + " / " + list.size() + " entries. " +
                 "Time taken: " + getTimeTakenString(allTime));
         System.out.println("Sorting time: " + sortingTimeString + (done ? "" : " - STOPPED, moved to linear search"));
         System.out.println("Searching time: " + searchingTimeString + '\n');
