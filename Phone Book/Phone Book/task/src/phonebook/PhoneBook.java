@@ -45,6 +45,23 @@ public class PhoneBook {
         long time = linearSearch(list);
         jumpSearch(list, time * 200);
         binarySearch(list);
+        hashTableSearch(list);
+    }
+
+    private void hashTableSearch(List<Person> list) {
+        System.out.println("Start searching (hash table)...");
+        long allTime = System.currentTimeMillis();
+        HashTable<Person> hashTable = new HashTable<>(records.size());
+        for (Person person : records)
+            hashTable.put(Math.abs(person.hashCode()), person);
+        String creatingTimeString = getTimeTakenString(allTime);
+        long searchingTime = System.currentTimeMillis();
+        long found = search.hashtable(hashTable, list);
+        String searchingTimeString = getTimeTakenString(searchingTime);
+        System.out.println("Found " + found + " / " + list.size() + " entries. " +
+                "Time taken: " + getTimeTakenString(allTime));
+        System.out.println("Creating time: " + creatingTimeString);
+        System.out.println("Searching time: " + searchingTimeString + '\n');
     }
 
     private void binarySearch(List<Person> list) {
