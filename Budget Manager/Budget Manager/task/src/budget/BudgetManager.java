@@ -60,7 +60,7 @@ public class BudgetManager implements FileManager<BudgetManager> {
                 showBalance();
                 break;
             case "5":
-                write(this);
+                if (write(this)) System.out.println("Purchases were saved!");
                 break;
             case "6":
                 handleLoadedData();
@@ -83,6 +83,7 @@ public class BudgetManager implements FileManager<BudgetManager> {
             balance = loaded.balance;
             purchases = loaded.purchases;
             Arrays.stream(purchases).forEach(ItemList::recalculateSum);
+            System.out.println("Purchases were loaded!");
         }
     }
 
