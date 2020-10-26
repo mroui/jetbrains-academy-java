@@ -42,11 +42,15 @@ public class BudgetManager implements FileManager<BudgetManager> {
         mainMenu.getListener().handleInput();
     }
 
-    private void handleMainMenu() {
-        mainMenu.show();
+    private String handleOption() {
         String option = scanner.nextLine().trim();
         System.out.println();
-        switch (option) {
+        return option;
+    }
+
+    private void handleMainMenu() {
+        mainMenu.show();
+        switch (handleOption()) {
             case "1":
                 addIncome();
                 break;
@@ -89,9 +93,7 @@ public class BudgetManager implements FileManager<BudgetManager> {
 
     private void handleSortMenu() {
         sortMenu.show();
-        String option = scanner.nextLine().trim();
-        System.out.println();
-        switch (option) {
+        switch (handleOption()) {
             case "1":
                 sortAllPurchases();
                 break;
@@ -140,8 +142,7 @@ public class BudgetManager implements FileManager<BudgetManager> {
 
     private void handleSortTypeMenu() {
         sortTypeMenu.show();
-        String option = scanner.nextLine().trim();
-        System.out.println();
+        String option = handleOption();
         ItemCategory category = ItemCategory.get(option);
         if (category != null)
             sortPurchase(category);
@@ -162,8 +163,7 @@ public class BudgetManager implements FileManager<BudgetManager> {
 
     private void handleAddPurchaseMenu() {
         addPurchaseMenu.show();
-        String option = scanner.nextLine().trim();
-        System.out.println();
+        String option = handleOption();
         ItemCategory category = ItemCategory.get(option);
         if (category != null)
             addPurchase(category);
@@ -176,8 +176,7 @@ public class BudgetManager implements FileManager<BudgetManager> {
     private void handleShowPurchaseMenu() {
         if (isPurchaseNotEmpty()) {
             showPurchasesMenu.show();
-            String option = scanner.nextLine().trim();
-            System.out.println();
+            String option = handleOption();
             ItemCategory category = ItemCategory.get(option);
             if (category != null) {
                 purchases[category.ordinal()].print();
