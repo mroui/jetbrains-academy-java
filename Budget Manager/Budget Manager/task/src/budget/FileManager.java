@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Scanner;
 
 public interface FileManager<T> {
@@ -25,7 +27,9 @@ public interface FileManager<T> {
 
     default T read() {
         try (BufferedReader reader = new BufferedReader(new FileReader(readFilename()))) {
-            return gson.fromJson(reader, getClass().getGenericSuperclass());
+            for (Type genericInterface : getClass().getGenericInterfaces())
+                if (genericInterface instanceof ParameterizedType)
+                    return gson.fromJson(reader, ((ParameterizedType) genericInterface).getActualTypeArguments()[0]);
         } catch (Exception e) {
             System.out.println(e.toString());
         }
