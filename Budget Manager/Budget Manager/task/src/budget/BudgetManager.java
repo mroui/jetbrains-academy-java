@@ -111,35 +111,6 @@ public class BudgetManager implements FileManager<BudgetManager> {
         sortMenu.getListener().handleInput();
     }
 
-    private void sortAllPurchases() {
-        if (isPurchaseNotEmpty()) {
-            List<Item> allItems = new ArrayList<>();
-            double sum = 0;
-            for (ItemList list : purchases) {
-                if (list.getList().size() > 0) {
-                    sum += list.getSum();
-                    allItems.addAll(list.getList());
-                }
-            }
-            System.out.println("All:");
-            Collections.sort(allItems);
-            allItems.forEach(Item::print);
-            System.out.println("Total sum: $" + sum);
-        }
-    }
-
-    private void sortByType() {
-        ItemList[] list = purchases.clone();
-        Arrays.sort(list);
-        System.out.println("Types:");
-        double sum = 0;
-        for (ItemList l : list) {
-            System.out.println(l.getCategory() + " - $" + String.format("%.2f", l.getSum()));
-            sum += l.getSum();
-        }
-        System.out.println("Total sum: $" + String.format("%.2f", sum));
-    }
-
     private void handleSortTypeMenu() {
         sortTypeMenu.show();
         String option = handleOption();
@@ -150,15 +121,6 @@ public class BudgetManager implements FileManager<BudgetManager> {
             System.out.println("Unknown operation.");
             sortTypeMenu.getListener().handleInput();
         }
-    }
-
-    private void sortPurchase(ItemCategory category) {
-        ItemList list = purchases[category.ordinal()];
-        if (list.getList().size() > 0) {
-            list.sort(false);
-            list.print();
-            list.printSum();
-        } else System.out.println("Purchase list is empty!");
     }
 
     private void handleAddPurchaseMenu() {
@@ -188,6 +150,52 @@ public class BudgetManager implements FileManager<BudgetManager> {
             else System.out.println("Unknown operation.");
             showPurchasesMenu.getListener().handleInput();
         }
+    }
+
+    private void sortAllPurchases() {
+        if (isPurchaseNotEmpty()) {
+            List<Item> allItems = new ArrayList<>();
+            double sum = 0;
+            for (ItemList list : purchases) {
+                if (list.getList().size() > 0) {
+                    sum += list.getSum();
+                    allItems.addAll(list.getList());
+                }
+            }
+            System.out.println("All:");
+            Collections.sort(allItems);
+            allItems.forEach(Item::print);
+            System.out.println("Total sum: $" + sum);
+        }
+    }
+
+    private void sortByType() {
+        ItemList[] list = purchases.clone();
+        Arrays.sort(list);
+        System.out.println("Types:");
+        double sum = 0;
+        for (ItemList l : list) {
+            System.out.println(l.getCategory() + " - $" + String.format("%.2f", l.getSum()));
+            sum += l.getSum();
+        }
+        System.out.println("Total sum: $" + String.format("%.2f", sum));
+    }
+
+    private void sortPurchase(ItemCategory category) {
+        ItemList itemList = purchases[category.ordinal()];
+        if (isListNotEmpty(itemList.getList())) {
+            itemList.sort(false);
+            itemList.print();
+            itemList.printSum();
+        }
+    }
+
+    private boolean isListNotEmpty(List<Item> list) {
+        if (list.size() == 0) {
+            System.out.println("Purchase list is empty!");
+            return false;
+        }
+        return true;
     }
 
     private boolean isPurchaseNotEmpty() {
