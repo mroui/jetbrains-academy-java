@@ -8,7 +8,7 @@ import com.google.gson.annotations.Expose;
 
 import java.util.*;
 
-public class BudgetManager implements PurchaseFileManager {
+public class BudgetManager implements FileManager<BudgetManager> {
 
     private final Scanner scanner;
     private final Menu mainMenu;
