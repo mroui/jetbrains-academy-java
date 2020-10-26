@@ -5,9 +5,9 @@
 
 ## Learning outcomes
 You will create a very applicable product, and in the meanwhile also get acquainted with the basic concepts of programming in Java. You will deal with the widest variety of tools: work with strings, perform mathematical calculations and sort the data.
-||||||||
-|-|-|-|-|-|-|-|
-|#budget-manager|#command-line|#OOP|#file-operations|#JSON|#Gson|#sorting|
+||||||||||
+|-|-|-|-|-|-|-|-|-|
+|#budget-manager|#command-line|#OOP|#file-operations|#JSON|#Gson|#sorting|#streams|#lambda|
 
 ## Usage
 ![Budget Manager demo gif](demo.gif)
@@ -24,7 +24,7 @@ cd jetbrains-academy-java/Budget\ Manager
 ```
 * Run with Gradle Budget Manager task.
 ```
-./gradlew Budget_Manager-task:run
+./gradlew Budget_Manager-task:run --console=plain
 ```
 
 ## Copyright
