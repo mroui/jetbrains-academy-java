@@ -36,10 +36,7 @@ public class ItemList implements Comparable<ItemList> {
     }
 
     public void recalculateSum() {
-        sum = 0;
-        for (Item i : list) {
-            sum += i.getValue();
-        }
+        sum = list.stream().mapToDouble(Item::getValue).sum();
     }
 
     public void print() {
