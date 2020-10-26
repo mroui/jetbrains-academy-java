@@ -1,5 +1,7 @@
 package budget.item;
 
+import java.util.stream.Stream;
+
 public enum ItemCategory {
 
     FOOD(1), CLOTHES(2), ENTERTAINMENT(3), OTHER(4);
@@ -11,10 +13,7 @@ public enum ItemCategory {
     }
 
     public static ItemCategory get(int value) {
-        for (ItemCategory i : values())
-            if (i.value == value)
-                return i;
-        return null;
+        return Stream.of(values()).filter(i -> i.value == value).findAny().orElse(null);
     }
 
     public static ItemCategory get(String value) {
