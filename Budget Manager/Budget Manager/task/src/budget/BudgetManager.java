@@ -165,7 +165,7 @@ public class BudgetManager implements FileManager<BudgetManager> {
             System.out.println("All:");
             Collections.sort(allItems);
             allItems.forEach(Item::print);
-            System.out.println("Total sum: $" + sum);
+            System.out.println("Total sum: $" + String.format("%.2f", sum));
         }
     }
 
@@ -214,7 +214,7 @@ public class BudgetManager implements FileManager<BudgetManager> {
                 sum += list.getSum();
             }
         }
-        System.out.println("Total sum: $" + sum);
+        System.out.println("Total sum: $" + String.format("%.2f", sum));
     }
 
     private void addPurchase(ItemCategory category) {
