@@ -25,11 +25,11 @@ Can be said, "trivial" problems can also be found here, but it is always worth r
 * :white_check_mark: :muscle: Hard [Linear Equations Solver](Linear%20Equations%20Solver)
 * :white_check_mark: :muscle: Hard [Budget Manager](Budget%20Manager)
 * :white_check_mark: :muscle: Hard [Flashcards](Flashcards)
+* :white_check_mark: :muscle: Hard [Phone Book](Phone%20Book)
 * :white_check_mark: :muscle: Challenging [Web Crawler](Web%20Crawler)
-* :construction: Phone Book
+* :construction: Simple Search Engine
 * :black_square_button: Simple Banking System
 * :black_square_button: Music Advisor
-* :black_square_button: Simple Search Engine
 * :black_square_button: Sorting Tool
 * :black_square_button: Maze Runner
 * :black_square_button: Contacts
@@ -38,3 +38,4 @@ Can be said, "trivial" problems can also be found here, but it is always worth r
 * :black_square_button: Blockchain
 * :black_square_button: Web Quiz Engine
 * :black_square_button: JSON - XML converter
+* :black_square_button: JSON Database
