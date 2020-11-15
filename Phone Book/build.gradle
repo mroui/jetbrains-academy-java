@@ -8,6 +8,8 @@ subprojects {
     apply plugin: 'application'
     apply plugin: 'java'
 
+    mainClassName = project.hasProperty("mainClass") ? getProperty("mainClass") : "phonebook.Main"
+	
     sourceCompatibility = 11
 
     repositories {
