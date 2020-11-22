@@ -7,9 +7,9 @@ public class Person {
     private final String email;
 
     public Person(String firstname, String lastname, String email) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
+        this.firstname = firstname == null ? "" : firstname;
+        this.lastname = lastname == null ? "" : lastname;
+        this.email = email == null ? "" : email;
     }
 
     public String getFirstname() {
@@ -36,12 +36,6 @@ public class Person {
         if (obj == null || getClass() != obj.getClass())
             return false;
         Person p = (Person) obj;
-        if (firstname == null)
-            return p.firstname == null;
-        if (lastname == null)
-            return p.lastname == null;
-        if (email == null)
-            return p.email == null;
         return firstname.toLowerCase().equals(p.firstname.toLowerCase())
                 && lastname.toLowerCase().equals(p.lastname.toLowerCase())
                 && email.toLowerCase().equals(p.email.toLowerCase());

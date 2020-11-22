@@ -45,8 +45,8 @@ public class PhoneBook {
         for (int i = 0; i < amount; i++) {
             String[] personalData = readLine().split("\\s");
             list.add(new Person(personalData[0],
-                    personalData.length > 1 ? personalData[1] : "",
-                    personalData.length == 3 ? personalData[2] : ""));
+                    personalData.length > 1 ? personalData[1] : null,
+                    personalData.length == 3 ? personalData[2] : null));
         }
     }
 
