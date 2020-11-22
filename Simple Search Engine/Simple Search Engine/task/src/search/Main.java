@@ -7,9 +7,8 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            PhoneBook phoneBook = new PhoneBook();
-            phoneBook.fill();
-            phoneBook.search();
+            PhoneBook phoneBook = PhoneBook.create();
+            phoneBook.startService();
         } catch (Exception e) {
             System.out.println("ERROR: " + e.toString());
         }

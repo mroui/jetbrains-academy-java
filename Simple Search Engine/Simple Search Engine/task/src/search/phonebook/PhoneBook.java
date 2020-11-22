@@ -18,12 +18,15 @@ public class PhoneBook {
         return list;
     }
 
+    public static PhoneBook create() {
+        PhoneBook phoneBook = new PhoneBook();
+        phoneBook.fill();
+        return phoneBook;
+    }
+
     public void search() {
-        System.out.println("\nEnter the number of search queries:");
-        for (int i = 0; i < readInt(); i++) {
-            System.out.println("\nEnter data to search people:");
-            search(readLine());
-        }
+        System.out.println("\nEnter a name or email to search all suitable people.");
+        search(readLine());
     }
 
     private void search(String data) {
@@ -32,10 +35,9 @@ public class PhoneBook {
             if (person.hasInCommon(data))
                 foundPeople.add(person);
         });
-        if (foundPeople.size() > 0) {
-            System.out.println("\nFound people:");
+        if (foundPeople.size() > 0)
             foundPeople.forEach(System.out::println);
-        } else System.out.println("No matching people found.");
+        else System.out.println("No matching people found.");
     }
 
     public void fill() {
@@ -50,4 +52,29 @@ public class PhoneBook {
         }
     }
 
+    public void startService() {
+        System.out.println("\n=== Menu ===\n" +
+                "1. Find a person\n" +
+                "2. Print all people\n" +
+                "0. Exit");
+        switch (readLine().trim()) {
+            case "1":
+                search();
+                break;
+            case "2":
+                print();
+                break;
+            case "0":
+                System.out.println("\nBye!");
+                return;
+            default:
+                System.out.println("\nIncorrect option! Try again.");
+        }
+        startService();
+    }
+
+    private void print() {
+        System.out.println("\n=== List of people ===");
+        list.forEach(System.out::println);
+    }
 }
