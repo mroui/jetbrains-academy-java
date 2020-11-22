@@ -26,7 +26,12 @@ public class Person {
 
     @Override
     public String toString() {
-        return firstname + ' ' + lastname + ' ' + email;
+        String name = firstname;
+        if (!lastname.isEmpty())
+            name += " " + lastname;
+        if (!email.isEmpty())
+            name += " " + email;
+        return name;
     }
 
     @Override
