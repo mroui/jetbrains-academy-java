@@ -1,4 +1,4 @@
-package search;
+package search.phonebook;
 
 public class Person {
 

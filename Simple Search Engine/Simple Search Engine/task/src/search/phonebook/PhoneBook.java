@@ -1,10 +1,10 @@
-package search;
+package search.phonebook;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static search.InputReader.readInt;
-import static search.InputReader.readLine;
+import static search.utils.InputReader.readInt;
+import static search.utils.InputReader.readLine;
 
 public class PhoneBook {
 
