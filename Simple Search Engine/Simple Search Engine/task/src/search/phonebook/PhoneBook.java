@@ -1,5 +1,9 @@
 package search.phonebook;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +28,12 @@ public class PhoneBook {
         return phoneBook;
     }
 
+    public static PhoneBook create(String filename) throws IOException {
+        PhoneBook phoneBook = new PhoneBook();
+        phoneBook.fill(filename);
+        return phoneBook;
+    }
+
     public void search() {
         System.out.println("\nEnter a name or email to search all suitable people.");
         search(readLine());
@@ -44,12 +54,22 @@ public class PhoneBook {
         System.out.println("Enter the number of people:");
         int amount = readInt();
         System.out.println("Enter all people:");
-        for (int i = 0; i < amount; i++) {
-            String[] personalData = readLine().split("\\s");
-            list.add(new Person(personalData[0],
-                    personalData.length > 1 ? personalData[1] : null,
-                    personalData.length == 3 ? personalData[2] : null));
-        }
+        for (int i = 0; i < amount; i++)
+            addPerson(readLine().split("\\s"));
+    }
+
+    private void fill(String filename) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(filename));
+        String line;
+        while ((line = reader.readLine()) != null)
+            addPerson(line.split("\\s"));
+        reader.close();
+    }
+
+    private void addPerson(String[] personalData) {
+        list.add(new Person(personalData[0],
+                personalData.length > 1 ? personalData[1] : null,
+                personalData.length == 3 ? personalData[2] : null));
     }
 
     public void startService() {

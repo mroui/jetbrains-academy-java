@@ -9,76 +9,78 @@ import java.util.LinkedList;
 import java.util.List;
 
 class TestClue {
-    int referencesCount;
     String input;
 
-    TestClue(int referencesCount, String input) {
-        this.referencesCount = referencesCount;
+    TestClue(String input) {
         this.input = input;
     }
 }
 
 public class SimpleSearchEngineTest extends StageTest<TestClue> {
-
-    public static final String names =
-        "Dwight Joseph djo@gmail.com\n" +
-        "Rene Webb webb@gmail.com\n" +
-        "Katie Jacobs\n" +
-        "Erick Harrington harrington@gmail.com\n" +
-        "Myrtle Medina\n" +
-        "Erick Burgess\n";
-
-    public static final String test1 =
-        "6\n" +
-        names +
-        "2\n" +
-        "0";
-
-    public static final String test2 =
-        "6\n" +
-        names +
-        "1\n" +
-        "burgess\n" +
-        "0";
-
-    public static final String test3 =
-        "6\n" +
-        names +
-        "1\n" +
-        "erick\n" +
-        "0";
-
-    public static final String test4 =
-        "6\n" +
-        names +
-        "3\n" +
-        "1\n" +
-        "burgess\n" +
-        "2\n" +
-        "2\n" +
-        "1\n" +
-        "erick\n" +
-        "0";
-
-    public static final String test5 =
-        "6\n" +
-        names +
-        "2\n" +
-        "1\n" +
-        "@\n" +
-        "1\n" +
-        "this text never find some match\n" +
-        "2\n" +
-        "0";
-
-    public static final String test6 =
-        "6\n" +
-        names +
-        "0";
-
     public SimpleSearchEngineTest() {
         super(Main.class);
     }
+
+    public static final String test1 =
+            "2\n" +
+            "0";
+
+    public static final String test2 =
+            "1\n" +
+            "burgess\n" +
+            "0";
+
+    public static final String test3 =
+            "1\n" +
+            "erick\n" +
+            "0";
+
+    public static final String test4 =
+            "3\n" +
+            "1\n" +
+            "burgess\n" +
+            "2\n" +
+            "2\n" +
+            "1\n" +
+            "erick\n" +
+            "0";
+
+    public static final String test5 =
+            "2\n" +
+            "1\n" +
+            "@\n" +
+            "1\n" +
+            "this text never find some match\n" +
+            "2\n" +
+            "0";
+
+    public static final String test6 =
+            "0";
+
+    public static final String test7 =
+            "1\n" +
+            "this text never find some match\n" +
+            "0";
+
+    public static final String test8 =
+        "1\n" +
+        "h\n" +
+        "2\n" +
+        "1\n" +
+        "@gmail.com\n" +
+        "0";
+
+    public static final String test9 =
+        "4\n" +
+        "2\n" +
+        "2\n" +
+        "1\n" +
+        "this text never gonna be matched\n" +
+        "1\n" +
+        "h\n" +
+        "1\n" +
+        "@GMAIL\n" +
+        "0";
 
     @Override
     public List<TestCase<TestClue>> generate() {
@@ -86,11 +88,13 @@ public class SimpleSearchEngineTest extends StageTest<TestClue> {
         List<TestCase<TestClue>> tests = new ArrayList<>();
 
         for (String input : new String[]{
-            test1, test2, test3, test4, test5, test6}) {
+            test1, test2, test3, test4, test5, test6, test7, test8, test9}) {
 
             tests.add(new TestCase<TestClue>()
-                .setAttach(new TestClue(6, input))
-                .setInput(input));
+                .setAttach(new TestClue(input))
+                .setInput(input)
+                .addArguments("--data", "names.txt")
+                .addFile("names.txt", SearchEngineTests.NAMES));
         }
 
         return tests;
@@ -104,45 +108,30 @@ public class SimpleSearchEngineTest extends StageTest<TestClue> {
         String[] reference;
         String[] idealSearchResult;
 
-        int referenceCount;
-
-        //check count of iteration to fill search reference
-        try {
-            referenceCount = Integer.parseInt(inputLines[0]);
-        } catch (NumberFormatException e) {
-            return new CheckResult(false,
-                "The number of lines to search must be a number!");
-        }
-
-        if (referenceCount != clue.referencesCount) {
-            return new CheckResult(false,
-                "Count of search source lines not match expected!");
-        }
-
-        reference = new String[referenceCount];
-
-        if (referenceCount >= 0) System.arraycopy(inputLines, 1, reference, 0, referenceCount);
+        reference = SearchEngineTests.NAMES.split("\n");
 
         //clear the list of unnecessary lines, if any
         List<String> cleanedOutput = new ArrayList<>();
         for (String outputLine : outputLines) {
-            if (ContainsItemFromList(outputLine, reference)) {
+            if (containsItemFromList(outputLine, reference)) {
                 cleanedOutput.add(outputLine);
             }
         }
 
-        int currentInputLine = referenceCount + 1;
+        int currentInputLine = 0;
         int currentOutputLine = 0;
 
         int actionType = -1;
+
+        int searchIteration = 1;
+        int fullOutputIteration = 1;
 
         while (actionType != 0) {
             try {
                 actionType = Integer.parseInt(inputLines[currentInputLine]);
             } catch (NumberFormatException e) {
                 return new CheckResult(false,
-                    "The number of menu item must be number" +
-                        " or count of search source is wrong!");
+                    "The number of menu item must be number!");
             }
 
             switch (actionType) {
@@ -155,7 +144,7 @@ public class SimpleSearchEngineTest extends StageTest<TestClue> {
 
                     idealSearchResult = Arrays.stream(reference)
                         .filter(line -> line.toLowerCase()
-                        .contains(toSearch.toLowerCase().trim()))
+                            .contains(toSearch.toLowerCase().trim()))
                         .toArray(String[]::new);
 
                     String[] currentSearchResult = new String[idealSearchResult.length];
@@ -181,8 +170,8 @@ public class SimpleSearchEngineTest extends StageTest<TestClue> {
                                 "to the expected search");
                     }
 
+                    searchIteration++;
                     break;
-
                 case 2:
                     currentInputLine++;
 
@@ -208,6 +197,8 @@ public class SimpleSearchEngineTest extends StageTest<TestClue> {
                             "Looks like you're printing " +
                                 "unknown people when you enter option 2.");
                     }
+
+                    fullOutputIteration++;
                     break;
                 case 0:
                     return CheckResult.correct();
@@ -220,7 +211,7 @@ public class SimpleSearchEngineTest extends StageTest<TestClue> {
         return CheckResult.correct();
     }
 
-    public static boolean ContainsItemFromList(String inputStr, String[] items) {
+    private static boolean containsItemFromList(String inputStr, String[] items) {
         return Arrays.stream(items).parallel().anyMatch(inputStr::contains);
     }
 }
