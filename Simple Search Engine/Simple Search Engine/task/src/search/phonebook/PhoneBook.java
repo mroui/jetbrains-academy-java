@@ -45,9 +45,10 @@ public class PhoneBook {
             if (person.hasInCommon(data))
                 foundPeople.add(person);
         });
-        if (foundPeople.size() > 0)
+        if (foundPeople.size() > 0) {
+            System.out.println(foundPeople.size() + " persons found:");
             foundPeople.forEach(System.out::println);
-        else System.out.println("No matching people found.");
+        } else System.out.println("No matching people found.");
     }
 
     public void fill() {
