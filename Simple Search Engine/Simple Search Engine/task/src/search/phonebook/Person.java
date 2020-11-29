@@ -35,8 +35,11 @@ public class Person {
     }
 
     public boolean hasInCommon(String data) {
-        return firstname.toLowerCase().equals(data.toLowerCase())
-                || lastname.toLowerCase().equals(data.toLowerCase())
-                || email.toLowerCase().equals(data.toLowerCase());
+        for (String datum : data.split("\\s"))
+            if (firstname.toLowerCase().equals(datum.toLowerCase())
+                    || lastname.toLowerCase().equals(datum.toLowerCase())
+                    || email.toLowerCase().equals(datum.toLowerCase()))
+                return true;
+        return false;
     }
 }
