@@ -42,4 +42,11 @@ public class Person {
                 return true;
         return false;
     }
+
+    public boolean is(String data) {
+        for (String datum : data.split("\\s"))
+            if (!hasInCommon(datum))
+                return false;
+        return true;
+    }
 }
