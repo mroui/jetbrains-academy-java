@@ -12,18 +12,6 @@ public class Person {
         this.email = email == null ? "" : email;
     }
 
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
     @Override
     public String toString() {
         String name = firstname;
