@@ -1,10 +1,12 @@
 package search.phonebook;
 
+import search.utils.SearchOption;
+
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static search.utils.InputReader.readInt;
@@ -12,7 +14,7 @@ import static search.utils.InputReader.readLine;
 
 public class PhoneBook {
 
-    private List<Person> list;
+    private final List<Person> list;
 
     public PhoneBook() {
         list = new ArrayList<>();
@@ -34,15 +36,23 @@ public class PhoneBook {
         return phoneBook;
     }
 
-    public void search() {
-        System.out.println("\nEnter a name or email to search all suitable people.");
-        search(readLine());
+    public void searchService() {
+        System.out.println("\nSelect a matching strategy: ALL, ANY, NONE");
+        String option = readLine().toUpperCase();
+        if (Arrays.stream(SearchOption.values()).anyMatch(o -> o.name().equals(option))) {
+            System.out.println("\nEnter a name or email to search all suitable people.");
+            search(readLine(), SearchOption.valueOf(option));
+        } else System.out.println("\nUnknown operation.");
     }
 
-    private void search(String data) {
+    private void search(String data, SearchOption option) {
         List<Person> foundPeople = new ArrayList<>();
         list.forEach(person -> {
-            if (person.hasInCommon(data))
+            if (option == SearchOption.ANY && person.hasInCommon(data))
+                foundPeople.add(person);
+            else if (option == SearchOption.ALL && person.is(data))
+                foundPeople.add(person);
+            else if (option == SearchOption.NONE && !person.hasInCommon(data))
                 foundPeople.add(person);
         });
         if (foundPeople.size() > 0) {
@@ -80,7 +90,7 @@ public class PhoneBook {
                 "0. Exit");
         switch (readLine().trim()) {
             case "1":
-                search();
+                searchService();
                 break;
             case "2":
                 print();
