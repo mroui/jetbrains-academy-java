@@ -7,6 +7,8 @@ buildscript {
 subprojects {
     apply plugin: 'application'
     apply plugin: 'java'
+	
+    mainClassName = project.hasProperty("mainClass") ? getProperty("mainClass") : "search.Main"
 
     sourceCompatibility = 11
 
@@ -47,6 +49,10 @@ subprojects {
     tasks.withType(JavaCompile) {
         options.encoding = 'utf-8'
     }
+	
+	run{
+		standardInput = System.in
+	}
 }
 
 wrapper {
