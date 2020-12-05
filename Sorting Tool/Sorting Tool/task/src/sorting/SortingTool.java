@@ -34,32 +34,28 @@ public class SortingTool {
     }
 
     public void calculate() {
-        if (dataType == DataType.LONG || dataType == DataType.WORD) {
-            calculateLongsOrWords();
-        } else {    //DataType.LINE
-            calculateLines();
-        }
-    }
-
-    private void calculateLines() {
-        String longestLine = data.stream().max(Comparator.comparingInt(String::length)).orElse("");
-        long times = data.stream().filter(s -> s.equals(longestLine)).count();
+        String greatest = dataType == DataType.LINE ? calculateMaxLine() : calculateMaxLongOrWord();
+        long times = data.stream().filter(s -> s.equals(greatest)).count();
         long percentage = times * 100 / data.size();
+
         System.out.println("Total numbers: " + data.size() + '.');
-        System.out.println("The longest line:\n" + longestLine + "\n(" + times + " time(s), " +  percentage + "%).");
+        System.out.print(dataType == DataType.LINE
+                ? "The longest line:\n" + greatest + "\n("
+                : "The greatest number: " + greatest + " (");
+        System.out.println(times + " time(s), " +  percentage + "%).");
     }
 
-    private void calculateLongsOrWords() {
-        String greatest = data.stream().max((s, t) -> {
+    private String calculateMaxLine() {
+        return data.stream().max(Comparator.comparingInt(String::length)).orElse("");
+    }
+
+    private String calculateMaxLongOrWord() {
+        return data.stream().max((s, t) -> {
             try {
                 return Long.valueOf(s).compareTo(Long.valueOf(t));
             } catch (NumberFormatException e) {
                 return Integer.compare(s.length(), t.length());
             }
         }).orElse("");
-        long times = data.stream().filter(s-> s.equals(greatest)).count();
-        long percentage = times * 100 / data.size();
-        System.out.println("Total numbers: " + data.size() + '.');
-        System.out.println("The greatest number: " + greatest + " (" + times + " time(s), " +  percentage + "%).");
     }
 }
