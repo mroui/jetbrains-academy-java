@@ -32,6 +32,18 @@ public class SortingTool {
     }
 
     public void start() {
+        System.out.println("Total numbers: " + data.size() + '.');
+        if (argumentsType == ArgumentsType.SORT_INTEGERS)
+            calculateSorting();
+        else calculateGreatest();
+    }
+
+    private void calculateSorting() {
+        System.out.print("Sorted data: ");
+        data.stream().mapToInt(Integer::parseInt).sorted().forEach(i -> System.out.print(i + " "));
+    }
+
+    private void calculateGreatest() {
         String greatest = argumentsType == ArgumentsType.LINE ? calculateMaxLine() : calculateMaxLongOrWord();
         long times = data.stream().filter(s -> s.equals(greatest)).count();
         long percentage = times * 100 / data.size();
