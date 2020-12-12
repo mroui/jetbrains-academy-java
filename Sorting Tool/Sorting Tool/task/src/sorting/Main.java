@@ -1,9 +1,16 @@
 package sorting;
 
+import java.util.Arrays;
+
 public class Main {
     public static void main(final String[] args) {
-        DataType dataType = args.length == 2 && args[0].equals("-dataType") ?
-                DataType.valueOf(args[1].toUpperCase()) : DataType.WORD;
-        new SortingTool(dataType).calculate();
+        ArgumentsType argumentsType = ArgumentsType.WORD;
+        if (args.length > 0) {
+            if (Arrays.asList(args).contains("-sortIntegers"))
+                argumentsType = ArgumentsType.SORT_INTEGERS;
+            else if (args[0].equals("-dataType") && args.length > 1)
+                argumentsType = ArgumentsType.valueOf(args[1].toUpperCase());
+        }
+        new SortingTool(argumentsType).start();
     }
 }

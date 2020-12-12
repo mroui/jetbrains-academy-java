@@ -7,42 +7,38 @@ import java.util.Scanner;
 
 public class SortingTool {
 
-    private DataType dataType;
+    private ArgumentsType argumentsType;
     private final List<String> data;
 
     public SortingTool() {
         data = new ArrayList<>();
     }
 
-    public SortingTool(DataType type) {
+    public SortingTool(ArgumentsType type) {
         this();
-        dataType = type;
+        argumentsType = type;
         readData(type);
     }
 
-    private void readData(DataType type) {
+    private void readData(ArgumentsType type) {
         Scanner scanner = new Scanner(System.in);
-        if (type == DataType.LONG || type == DataType.WORD) {
-            while (scanner.hasNext()) {
-                data.add(scanner.next());
-            }
-        } else {    //DataType.LINE
-            while (scanner.hasNextLine()) {
+        if (type == ArgumentsType.LINE) {
+            while (scanner.hasNextLine())
                 data.add(scanner.nextLine());
-            }
+        } else {
+            while (scanner.hasNext())
+                data.add(scanner.next());
         }
     }
 
-    public void calculate() {
-        String greatest = dataType == DataType.LINE ? calculateMaxLine() : calculateMaxLongOrWord();
+    public void start() {
+        String greatest = argumentsType == ArgumentsType.LINE ? calculateMaxLine() : calculateMaxLongOrWord();
         long times = data.stream().filter(s -> s.equals(greatest)).count();
         long percentage = times * 100 / data.size();
-
-        System.out.println("Total numbers: " + data.size() + '.');
-        System.out.print(dataType == DataType.LINE
+        System.out.print(argumentsType == ArgumentsType.LINE
                 ? "The longest line:\n" + greatest + "\n("
                 : "The greatest number: " + greatest + " (");
-        System.out.println(times + " time(s), " +  percentage + "%).");
+        System.out.println(times + " time(s), " + percentage + "%).");
     }
 
     private String calculateMaxLine() {
