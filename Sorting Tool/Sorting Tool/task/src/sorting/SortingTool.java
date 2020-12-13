@@ -1,69 +1,89 @@
 package sorting;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class SortingTool {
 
-    private ArgumentsType argumentsType;
-    private final List<String> data;
+    private SortingType sortingType;
+    private DataType dataType;
+    private Map<Object, Integer> occurrencesData;
 
-    public SortingTool() {
-        data = new ArrayList<>();
+    private SortingTool() {
+        occurrencesData = new TreeMap<>();
     }
 
-    public SortingTool(ArgumentsType type) {
+    public SortingTool(DataType dataType, SortingType sortingType) {
         this();
-        argumentsType = type;
-        readData(type);
+        this.dataType = dataType;
+        this.sortingType = sortingType;
+        readData();
     }
 
-    private void readData(ArgumentsType type) {
+    private void readData() {
         Scanner scanner = new Scanner(System.in);
-        if (type == ArgumentsType.LINE) {
-            while (scanner.hasNextLine())
-                data.add(scanner.nextLine());
-        } else {
-            while (scanner.hasNext())
-                data.add(scanner.next());
+        switch (dataType) {
+            case WORD:
+                while (scanner.hasNext()) addData(scanner.next());
+                break;
+            case LINE:
+                while (scanner.hasNextLine()) addData(scanner.nextLine());
+                break;
+            case LONG:
+                while (scanner.hasNextInt()) addData(scanner.nextInt());
         }
     }
 
-    public void start() {
-        System.out.println("Total numbers: " + data.size() + '.');
-        if (argumentsType == ArgumentsType.SORT_INTEGERS)
-            calculateSorting();
-        else calculateGreatest();
+    private void addData(Object value) {
+        if (occurrencesData.containsKey(value))
+            occurrencesData.put(value, occurrencesData.get(value) + 1);
+        else occurrencesData.put(value, 1);
     }
 
-    private void calculateSorting() {
+    public void sort() {
+        int sum = occurrencesData.values().stream().mapToInt(Integer::valueOf).sum();
+        System.out.println("Total " + dataType.valuesName() + ": " + sum + '.');
+        if (sortingType == SortingType.NATURAL)
+            sortNaturally();
+        else sortByCount();
+    }
+
+    private void sortNaturally() {
         System.out.print("Sorted data: ");
-        data.stream().mapToInt(Integer::parseInt).sorted().forEach(i -> System.out.print(i + " "));
+        if (dataType == DataType.LONG)
+            sortNumbersNaturally();
+        else sortWordsOrLinesNaturally();
+        occurrencesData.forEach((k, v) -> {
+            while (v-- > 0)
+                System.out.print(k + " ");
+        });
     }
 
-    private void calculateGreatest() {
-        String greatest = argumentsType == ArgumentsType.LINE ? calculateMaxLine() : calculateMaxLongOrWord();
-        long times = data.stream().filter(s -> s.equals(greatest)).count();
-        long percentage = times * 100 / data.size();
-        System.out.print(argumentsType == ArgumentsType.LINE
-                ? "The longest line:\n" + greatest + "\n("
-                : "The greatest number: " + greatest + " (");
-        System.out.println(times + " time(s), " + percentage + "%).");
+    private void sortWordsOrLinesNaturally() {
+        occurrencesData = occurrencesData.entrySet()
+                                         .stream()
+                                         .sorted(Comparator.comparing(e -> ((String) e.getKey())))
+                                         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                                                 (oldValue, newValue) -> oldValue, HashMap::new));
     }
 
-    private String calculateMaxLine() {
-        return data.stream().max(Comparator.comparingInt(String::length)).orElse("");
+    private void sortNumbersNaturally() {
+        occurrencesData = new TreeMap<>(occurrencesData);
     }
 
-    private String calculateMaxLongOrWord() {
-        return data.stream().max((s, t) -> {
-            try {
-                return Long.valueOf(s).compareTo(Long.valueOf(t));
-            } catch (NumberFormatException e) {
-                return Integer.compare(s.length(), t.length());
-            }
-        }).orElse("");
+    private void sortByCount() {
+        sortByOccurrences();
+        int sum = occurrencesData.values().stream().mapToInt(Integer::valueOf).sum();
+        occurrencesData.forEach((k, v) -> {
+            int percentage = v * 100 / sum;
+            System.out.println(k + ": " + v + " time(s), " + percentage + '%');
+        });
+    }
+
+    private void sortByOccurrences() {
+        occurrencesData = occurrencesData.entrySet().stream()
+                                         .sorted(Map.Entry.comparingByValue(Comparator.naturalOrder()))
+                                         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                                                 (oldValue, newValue) -> oldValue, LinkedHashMap::new));
     }
 }
