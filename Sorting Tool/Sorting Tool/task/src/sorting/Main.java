@@ -1,29 +1,33 @@
 package sorting;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.util.Scanner;
+
 public class Main {
 
-    private static final String SORTING_TYPE = "-SORTINGTYPE";
-    private static final String DATA_TYPE = "-DATATYPE";
-
     public static void main(final String[] args) {
-        DataType dataType = DataType.WORD;
-        SortingType sortingType = SortingType.NATURAL;
-        for (int i = 0; i < args.length; i += 2) {
-            if (args[i].toUpperCase().equals(DATA_TYPE))
-                if (i == args.length - 1 || args[i + 1].contains("-")) {
-                    System.out.println("No data type defined!");
-                    return;
-                } else dataType = DataType.valueOf(args[i + 1].toUpperCase());
-            else if (args[i].toUpperCase().equals(SORTING_TYPE))
-                if (i == args.length - 1 || args[i + 1].contains("-")) {
-                    System.out.println("No sorting type defined!");
-                    return;
-                } else sortingType = SortingType.valueOf(args[i + 1].toUpperCase());
-            else {
-                System.out.println("\"" + args[i] + "\"" + " isn't a valid parameter. It's skipped.");
-                --i;
+        Arguments arguments = Arguments.parse(args);
+        if (arguments != null) {
+            SortingTool sortingTool = new SortingTool(arguments.dataType(), arguments.sortingType());
+            try {
+                if (arguments.inputFile() != null)
+                    sortingTool.readData(new Scanner(Path.of(arguments.inputFile()), StandardCharsets.UTF_8.name()));
+                else sortingTool.readData(new Scanner(System.in));
+            } catch (IOException e) {
+                System.out.println("Error while reading: " + e.toString());
+            }
+            sortingTool.sort();
+            if (arguments.outputFile() != null) {
+                try {
+                    sortingTool.saveData(arguments.outputFile());
+                } catch (IOException e) {
+                    System.out.println("Error while saving: " + e.toString());
+                }
             }
         }
-        new SortingTool(dataType, sortingType).sort();
     }
+
+
 }

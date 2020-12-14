@@ -1,5 +1,8 @@
 package sorting;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -17,11 +20,9 @@ public class SortingTool {
         this();
         this.dataType = dataType;
         this.sortingType = sortingType;
-        readData();
     }
 
-    private void readData() {
-        Scanner scanner = new Scanner(System.in);
+    public void readData(Scanner scanner) {
         switch (dataType) {
             case WORD:
                 while (scanner.hasNext()) addData(scanner.next());
@@ -32,6 +33,16 @@ public class SortingTool {
             case LONG:
                 while (scanner.hasNextInt()) addData(scanner.nextInt());
         }
+    }
+
+    public void saveData(String filename) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+        StringBuilder fullData = new StringBuilder();
+        occurrencesData.forEach((k, v) -> {
+            while (v-- > 0) fullData.append(k).append("\n");
+        });
+        writer.write(fullData.toString());
+        writer.close();
     }
 
     private void addData(Object value) {
