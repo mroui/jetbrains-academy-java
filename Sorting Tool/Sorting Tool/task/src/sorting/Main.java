@@ -10,12 +10,12 @@ public class Main {
         SortingType sortingType = SortingType.NATURAL;
         for (int i = 0; i < args.length; i += 2) {
             if (args[i].toUpperCase().equals(DATA_TYPE))
-                if (args.length == 1 || i == args.length - 1 || args[i + 1].contains("-")) {
+                if (i == args.length - 1 || args[i + 1].contains("-")) {
                     System.out.println("No data type defined!");
                     return;
                 } else dataType = DataType.valueOf(args[i + 1].toUpperCase());
             else if (args[i].toUpperCase().equals(SORTING_TYPE))
-                if (args.length == 1 || i == args.length - 1 || args[i + 1].contains("-")) {
+                if (i == args.length - 1 || args[i + 1].contains("-")) {
                     System.out.println("No sorting type defined!");
                     return;
                 } else sortingType = SortingType.valueOf(args[i + 1].toUpperCase());
