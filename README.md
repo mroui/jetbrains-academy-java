@@ -27,15 +27,5 @@ Can be said, "trivial" problems can also be found here, but it is always worth r
 * :white_check_mark: :muscle: Hard [Flashcards](Flashcards)
 * :white_check_mark: :muscle: Hard [Phone Book](Phone%20Book)
 * :white_check_mark: :muscle: Hard [Simple Search Engine](Simple%20Search%20Engine)
+* :white_check_mark: :muscle: Hard  [Sorting Tool](Sorting%20Tool)
 * :white_check_mark: :muscle: Challenging [Web Crawler](Web%20Crawler)
-* :construction: Sorting Tool
-* :black_square_button: Simple Banking System
-* :black_square_button: Music Advisor
-* :black_square_button: Maze Runner
-* :black_square_button: Contacts
-* :black_square_button: File Type Analyzer
-* :black_square_button: Text Editor
-* :black_square_button: Blockchain
-* :black_square_button: Web Quiz Engine
-* :black_square_button: JSON - XML converter
-* :black_square_button: JSON Database
